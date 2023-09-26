@@ -1,4 +1,4 @@
-﻿using KotorsGate.Domain.Enums;
+﻿using KotorsGate.Domain.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
