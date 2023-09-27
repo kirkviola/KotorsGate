@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KotorsGate.Domain.Constants
+﻿namespace KotorsGate.Domain.Constants
 {
     public sealed class ItemType
     {
