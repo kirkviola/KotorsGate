@@ -2,8 +2,8 @@
 using KotorsGate.Domain.Entities.Ability.Feat;
 using KotorsGate.Domain.Entities.Ability.Power;
 using KotorsGate.Domain.Entities.Ability.Skill;
-using KotorsGate.Domain.Entities.Campaign;
-using KotorsGate.Domain.Entities.Character;
+using KotorsGate.Domain.Entities.Campaigns;
+using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Item;
 using KotorsGate.Domain.Entities.Location;

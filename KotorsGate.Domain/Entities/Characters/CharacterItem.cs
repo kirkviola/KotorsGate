@@ -1,4 +1,4 @@
-﻿namespace KotorsGate.Domain.Entities.Character
+﻿namespace KotorsGate.Domain.Entities.Characters
 {
     public class CharacterItem
     {

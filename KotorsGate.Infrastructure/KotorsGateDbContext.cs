@@ -1,10 +1,11 @@
 ﻿using KotorsGate.Application.Interfaces;
+using KotorsGate.Domain.Constants;
 using KotorsGate.Domain.Entities.Ability;
 using KotorsGate.Domain.Entities.Ability.Feat;
 using KotorsGate.Domain.Entities.Ability.Power;
 using KotorsGate.Domain.Entities.Ability.Skill;
-using KotorsGate.Domain.Entities.Campaign;
-using KotorsGate.Domain.Entities.Character;
+using KotorsGate.Domain.Entities.Campaigns;
+using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Item;
 using KotorsGate.Domain.Entities.Location;
@@ -83,6 +84,20 @@ namespace KotorsGate.Infrastructure
                 character.Property(character => character.Alignment).IsRequired(true).HasDefaultValue(0);
             });
 
+            builder.Entity<UserCharacter>(userCharacter => 
+            {
+                userCharacter.ToTable("UserCharacters");
+                userCharacter.HasKey(userCharacter => userCharacter.Id);
+                userCharacter.HasOne(userCharacter => userCharacter.User)
+                    .WithMany(user => user.UserCharacters)
+                    .HasForeignKey(userCharacter => userCharacter.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                userCharacter.HasOne(userCharacter => userCharacter.Character)
+                    .WithMany(character => character.UserCharacters)
+                    .HasForeignKey(userCharacter => userCharacter.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Campaign>(campaign =>
             {
                 campaign.ToTable("Campaigns");
@@ -90,6 +105,20 @@ namespace KotorsGate.Infrastructure
                 campaign.Property(campaign => campaign.Name).HasMaxLength(64).IsRequired();
                 campaign.HasIndex(campaign => campaign.Name).IsUnique();
                 campaign.Property(campaign => campaign.Description).HasMaxLength(2048).IsRequired();
+            });
+
+            builder.Entity<UserCampaign>(userCampaign =>
+            {
+                userCampaign.ToTable("UserCampaigns");
+                userCampaign.HasKey(campaign => campaign.Id);
+                userCampaign.HasOne(userCampaign => userCampaign.User)
+                    .WithMany(user => user.UserCampaigns)
+                    .HasForeignKey(userCampaign => userCampaign.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                userCampaign.HasOne(userCampaign => userCampaign.Campaign)
+                    .WithMany(campaign => campaign.UserCampaigns)
+                    .HasForeignKey(userCampaign => userCampaign.CampaignId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Class>(c =>
@@ -109,6 +138,46 @@ namespace KotorsGate.Infrastructure
                 feat.HasIndex(feat => feat.Name).IsUnique();
                 feat.Property(feat => feat.ToolTip).HasMaxLength(2048).IsRequired();
                 feat.Property(feat => feat.RequiredLevel).IsRequired(false).HasDefaultValue(null);
+            });
+
+            builder.Entity<ClassFeat>(classFeat =>
+            {
+                classFeat.ToTable("ClassFeats");
+                classFeat.HasKey(classFeat => classFeat.Id);
+                classFeat.HasOne(classFeat => classFeat.Class)
+                    .WithMany(c => c.ClassFeats)
+                    .HasForeignKey(classFeat => classFeat.ClassId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                classFeat.HasOne(classFeat => classFeat.Feat)
+                    .WithMany(feat => feat.ClassFeats)
+                    .HasForeignKey(classFeat => classFeat.FeatId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CharacterFeat>(characterFeat =>
+            {
+                characterFeat.ToTable("CharacterFeats");
+                characterFeat.HasKey(characterFeat => characterFeat.Id);
+                characterFeat.HasOne(characterFeat => characterFeat.Character)
+                    .WithMany(character => character.CharacterFeats)
+                    .HasForeignKey(characterFeat => characterFeat.CharacterId) 
+                    .OnDelete(DeleteBehavior.Cascade);
+                characterFeat.HasOne(characterFeat => characterFeat.Feat)
+                    .WithMany(feat => feat.CharacterFeats)
+                    .HasForeignKey(characterFeat => characterFeat.FeatId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Power>(power =>
+            {
+                power.ToTable("Powers");
+                power.HasKey(power => power.Id);
+                power.Property(power => power.Name).HasMaxLength(64).IsRequired();
+                power.HasIndex(power => power.Name).IsUnique();
+                power.Property(power => power.ToolTip).HasMaxLength(2048).IsRequired();
+                power.Property(power => power.RequiredLevel).IsRequired(false).HasDefaultValue(null);
+                power.Property(power => power.Alignment).HasMaxLength(12).IsRequired().HasDefaultValue(Alignment.Universal.Value);
+                power.Property(power => power.BaseCost).IsRequired();
             });
 
             builder.Entity<Quest>(quest =>
@@ -140,7 +209,30 @@ namespace KotorsGate.Infrastructure
                     .HasForeignKey(item => item.ItemTypeId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
-        }
 
+            builder.Entity<Party>(party =>
+            {
+                party.ToTable("Parties");
+                party.HasKey(party => party.Id);
+                party.HasOne(party => party.UserCampaign)
+                    .WithMany(campaign => campaign.Parties)
+                    .HasForeignKey(party => party.UserCampaignId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CharacterParty>(characterParty =>
+            {
+                characterParty.ToTable("CharacterParties");
+                characterParty.HasKey(characterParty => characterParty.Id);
+                characterParty.HasOne(characterParty => characterParty.Character)
+                    .WithMany(character => character.CharacterParties)
+                    .HasForeignKey(characterParty => characterParty.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                characterParty.HasOne(characterParty => characterParty.Party)
+                    .WithMany(party => party.CharacterParties)
+                    .HasForeignKey(characterParty => characterParty.PartyId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+        }
     }
 }

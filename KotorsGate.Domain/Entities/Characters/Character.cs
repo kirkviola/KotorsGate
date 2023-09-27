@@ -1,4 +1,6 @@
-﻿namespace KotorsGate.Domain.Entities.Character
+﻿using KotorsGate.Domain.Entities.User;
+
+namespace KotorsGate.Domain.Entities.Characters
 {
     public class Character
     {
@@ -10,6 +12,10 @@
         public int? TotalForcePoints { get; set; }
         public int? CurrentForcePoints { get; set; }
         public int Alignment { get; set; }
+
+        public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
+        public virtual IEnumerable<CharacterParty> CharacterParties { get; set; }
+        public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
 
         public Character() { }
 

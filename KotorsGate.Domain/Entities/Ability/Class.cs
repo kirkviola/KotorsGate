@@ -1,4 +1,6 @@
-﻿namespace KotorsGate.Domain.Entities.Ability
+﻿using KotorsGate.Domain.Entities.Ability.Feat;
+
+namespace KotorsGate.Domain.Entities.Ability
 {
     public class Class
     {
@@ -6,6 +8,7 @@
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
+        public virtual IEnumerable<ClassFeat> ClassFeats { get; set; }
         public Class() { }
     }
 }

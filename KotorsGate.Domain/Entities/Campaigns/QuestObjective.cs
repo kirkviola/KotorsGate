@@ -1,4 +1,4 @@
-﻿namespace KotorsGate.Domain.Entities.Campaign
+﻿namespace KotorsGate.Domain.Entities.Campaigns
 {
     public class QuestObjective
     {

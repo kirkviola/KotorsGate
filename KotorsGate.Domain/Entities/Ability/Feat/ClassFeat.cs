@@ -6,6 +6,12 @@
         public int FeatId { get; set; }
         public int ClassId { get; set; }
 
-        public ClassFeat() { }
+        public Class Class { get; set; }
+        public Feat Feat { get; set; }
+        public ClassFeat() 
+        { 
+            Class = new Class();
+            Feat = new Feat();
+        }
     }
 }
