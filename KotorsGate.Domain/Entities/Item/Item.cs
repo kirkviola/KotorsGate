@@ -8,6 +8,8 @@
         public bool IsConsumable { get; set; }
         public int ItemTypeId { get; set; }
 
+        public ItemClassification ItemClassification { get; set; }
+
         public Item() { }
     }
 }
