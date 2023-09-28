@@ -33,6 +33,7 @@ namespace KotorsGate.Application.Interfaces
         DbSet<CharacterFeat> CharacterFeats { get; }
         DbSet<CharacterItem> CharacterItems { get; }
         DbSet<CharacterParty> CharacterParties { get; }
+        DbSet<CharacterPower> CharacterPowers { get; }
         DbSet<CharacterSkill> CharacterSkills { get; }
         DbSet<Party> Parties { get; }
         DbSet<CharacterDialogue> CharacterDialogues { get; }

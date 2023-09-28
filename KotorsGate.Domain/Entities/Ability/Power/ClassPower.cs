@@ -6,6 +6,13 @@
         public int ClassId { get; set; }
         public int PowerId { get; set; }
 
-        public ClassPower() { }
+        public Class Class { get; set; }
+        public Power Power { get; set; }
+
+        public ClassPower() 
+        {
+            Class = new Class();
+            Power = new Power();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Domain.Entities.Ability.Feat;
+using KotorsGate.Domain.Entities.Ability.Power;
 
 namespace KotorsGate.Domain.Entities.Ability
 {
@@ -9,6 +10,7 @@ namespace KotorsGate.Domain.Entities.Ability
         public string Description { get; set; } = string.Empty;
 
         public virtual IEnumerable<ClassFeat> ClassFeats { get; set; }
+        public virtual IEnumerable<ClassPower> ClassPowers { get; set; }
         public Class() { }
     }
 }

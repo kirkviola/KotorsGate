@@ -5,6 +5,10 @@
         public int Id { get; set; }
         public int RequiredPowerId { get; set; }
         
-        public PowerProgression() { }
+        public Power Power { get; set; }
+        public PowerProgression() 
+        { 
+            Power = new Power();
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<CharacterFeat> CharacterFeats { get; set; }
         public virtual DbSet<CharacterItem> CharacterItems { get; set; }
         public virtual DbSet<CharacterParty> CharacterParties { get; set; }
+        public virtual DbSet<CharacterPower> CharacterPowers { get; set; }
         public virtual DbSet<CharacterSkill> CharacterSkills { get; set; }
         public virtual DbSet<Party> Parties { get; set; }
         public virtual DbSet<CharacterDialogue> CharacterDialogues { get; set; }
@@ -168,6 +169,16 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            builder.Entity<FeatProgression>(progression =>
+            {
+                progression.ToTable("FeatProgressions");
+                progression.HasKey(progression => progression.Id);
+                progression.HasOne(progression => progression.Feat)
+                    .WithMany(feat => feat.FeatProgressions)
+                    .HasForeignKey(progression => progression.RequiredFeatId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Power>(power =>
             {
                 power.ToTable("Powers");
@@ -180,6 +191,44 @@ namespace KotorsGate.Infrastructure
                 power.Property(power => power.BaseCost).IsRequired();
             });
 
+            builder.Entity<ClassPower>(classPower =>
+            {
+                classPower.ToTable("ClassPowers");
+                classPower.HasKey(classPower => classPower.Id);
+                classPower.HasOne(classPower => classPower.Class)
+                    .WithMany(c => c.ClassPowers)
+                    .HasForeignKey(classPower => classPower.ClassId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                classPower.HasOne(classPower => classPower.Power)
+                    .WithMany(power => power.ClassPowers)
+                    .HasForeignKey(classPower => classPower.PowerId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CharacterPower>(characterPower =>
+            {
+                characterPower.ToTable("CharacterPowers");
+                characterPower.HasKey(characterPower => characterPower.Id);
+                characterPower.HasOne(characterPower => characterPower.Character)
+                    .WithMany(character => character.CharacterPowers)
+                    .HasForeignKey(characterPower => characterPower.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                characterPower.HasOne(characterPower => characterPower.Power)
+                    .WithMany(power => power.CharacterPowers)
+                    .HasForeignKey(characterPower => characterPower.PowerId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<PowerProgression>(progression =>
+            {
+                progression.ToTable("PowerProgressions");
+                progression.HasKey(progression => progression.Id);
+                progression.HasOne(prog => prog.Power)
+                    .WithMany(power => power.PowerProgressions)
+                    .HasForeignKey(prog => prog.RequiredPowerId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Quest>(quest =>
             {
                 quest.ToTable("Quests");
@@ -187,6 +236,14 @@ namespace KotorsGate.Infrastructure
                 quest.Property(quest => quest.Name).HasMaxLength(64).IsRequired();
                 quest.Property(quest => quest.Description).HasMaxLength(2048).IsRequired();
                 quest.Property(quest => quest.IsMainQuest).IsRequired().HasDefaultValue(false);
+            });
+
+            builder.Entity<QuestObjective>(objective =>
+            {
+                objective.ToTable("QuestObjectives");
+                objective.HasKey(objective => objective.Id);
+                objective.Property(objective => objective.Name).HasMaxLength(64).IsRequired();
+                objective.Property(objective => objective.Description).HasMaxLength(2048).IsRequired();
             });
 
             builder.Entity<ItemClassification>(classification =>

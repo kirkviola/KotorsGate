@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Domain.Constants;
+using KotorsGate.Domain.Entities.Characters;
 
 namespace KotorsGate.Domain.Entities.Ability.Power
 {
@@ -10,6 +11,10 @@ namespace KotorsGate.Domain.Entities.Ability.Power
         public int RequiredLevel { get; set; }
         public Alignment Alignment { get; set; } = Alignment.Universal;
         public int BaseCost { get; set; }
+
+        public virtual IEnumerable<ClassPower> ClassPowers { get; set; }
+        public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
+        public virtual IEnumerable<PowerProgression> PowerProgressions { get; set; }
 
         public Power() { }
     }

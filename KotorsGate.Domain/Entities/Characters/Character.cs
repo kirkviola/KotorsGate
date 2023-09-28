@@ -16,6 +16,7 @@ namespace KotorsGate.Domain.Entities.Characters
         public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
         public virtual IEnumerable<CharacterParty> CharacterParties { get; set; }
         public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
+        public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
 
         public Character() { }
 

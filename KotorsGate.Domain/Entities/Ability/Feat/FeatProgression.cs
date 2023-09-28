@@ -5,6 +5,11 @@
         public int Id { get; set; }
         public int RequiredFeatId { get; set; }
 
-        public FeatProgression() { }
+        public Feat Feat { get; set; }
+
+        public FeatProgression() 
+        { 
+            Feat = new Feat();
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace KotorsGate.Domain.Entities.Ability.Feat
 
         public virtual IEnumerable<ClassFeat> ClassFeats { get; set; }
         public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
+        public virtual IEnumerable<FeatProgression> FeatProgressions { get; set; }
 
         public Feat() { }
     }
