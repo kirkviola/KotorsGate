@@ -7,6 +7,9 @@
         public string Description { get; set; } = string.Empty;
         public bool IsMainQuest { get; set; } = false;
 
+        public virtual IEnumerable<QuestObjective> QuestObjectives { get; set; }
+        public virtual IEnumerable<CampaignQuest> CampaignQuests { get; set; }
+
         public Quest() { }
     }
 }

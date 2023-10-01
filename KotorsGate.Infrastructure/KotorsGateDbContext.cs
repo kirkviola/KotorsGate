@@ -122,6 +122,20 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            builder.Entity<UserCampaignCharacter>(uCampChar =>
+            {
+                uCampChar.ToTable("UserCampaignCharacters");
+                uCampChar.HasKey(uCampChar =>  uCampChar.Id);
+                uCampChar.HasOne(uCampChar => uCampChar.UserCampaign)
+                    .WithMany(uCamp => uCamp.UserCampaignCharacters)
+                    .HasForeignKey(uCampChar => uCampChar.UserCampaignId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                uCampChar.HasOne(uCampChar => uCampChar.Character)
+                    .WithMany(character => character.UserCampaignCharacters)
+                    .HasForeignKey(uCampChar => uCampChar.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Class>(c =>
             {
                 c.ToTable("Classes");
@@ -244,6 +258,40 @@ namespace KotorsGate.Infrastructure
                 objective.HasKey(objective => objective.Id);
                 objective.Property(objective => objective.Name).HasMaxLength(64).IsRequired();
                 objective.Property(objective => objective.Description).HasMaxLength(2048).IsRequired();
+                objective.Property(objective => objective.SequencePosition).HasMaxLength(128).IsRequired();
+                objective.HasOne(objective => objective.Quest)
+                    .WithMany(quest => quest.QuestObjectives)
+                    .HasForeignKey(objective => objective.QuestId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CampaignQuest>(cQuest =>
+            {
+                cQuest.ToTable("CampaignQuests");
+                cQuest.HasKey(cQuest => cQuest.Id);
+                cQuest.HasOne(cQuest => cQuest.Campaign)
+                    .WithMany(campaign => campaign.CampaignQuests)
+                    .HasForeignKey(cQuest => cQuest.CampaignId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                cQuest.HasOne(cQuest => cQuest.Quest)
+                    .WithMany(quest => quest.CampaignQuests)
+                    .HasForeignKey(cQuest => cQuest.QuestId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CampaignQuestObjective>(cObjective =>
+            {
+                cObjective.ToTable("CampaignQuestObjectives");
+                cObjective.HasKey(cObjective => cObjective.Id);
+                cObjective.Property(cObjective => cObjective.IsComplete).IsRequired().HasDefaultValue(false);
+                cObjective.HasOne(cObjective => cObjective.CampaignQuest)
+                    .WithMany(cQuest => cQuest.CampaignQuestObjectives)
+                    .HasForeignKey(cObjective => cObjective.CampaignQuestId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                cObjective.HasOne(cObjective => cObjective.QuestObjective)
+                    .WithMany(objective => objective.CampaignQuestObjectives)
+                    .HasForeignKey(cObjective => cObjective.QuestObjectiveId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<ItemClassification>(classification =>
@@ -265,6 +313,20 @@ namespace KotorsGate.Infrastructure
                     .WithMany(classification => classification.Items)
                     .HasForeignKey(item => item.ItemTypeId)
                     .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            builder.Entity<ItemAttribute>(attribute =>
+            {
+                attribute.ToTable("ItemAttributes");
+                attribute.HasKey(attribute => attribute.Id);
+                attribute.Property(attribute => attribute.Name).HasMaxLength(64).IsRequired();
+                attribute.Property(attribute => attribute.MinValue).IsRequired(false).HasDefaultValue(null).HasMaxLength(1028);
+                attribute.Property(attribute => attribute.MaxValue).IsRequired(false).HasDefaultValue(null).HasMaxLength(1028);
+                attribute.Property(attribute => attribute.SingleValue).IsRequired(false).HasDefaultValue(null).HasMaxLength(1028);
+                attribute.HasOne(attribute => attribute.Item)
+                    .WithMany(item => item.ItemAttributes)
+                    .HasForeignKey(attribute => attribute.ItemId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Party>(party =>

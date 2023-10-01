@@ -9,7 +9,12 @@
         public int? SingleValue { get; set; }
         public int ItemId { get; set; }
 
-        public ItemAttribute() { }
+        public Item Item { get; set; }
+
+        public ItemAttribute() 
+        {
+            Item = new Item();
+        }
 
     }
 }

@@ -5,10 +5,16 @@
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int? NextObjectiveId { get; set; }
-        public int? PreviousObjectiveId { get; set; }
+        public int SequencePosition { get; set; }
         public int QuestId { get; set; }
 
-        public QuestObjective() { }
+        public Quest Quest { get; set; }
+
+        public virtual IEnumerable<CampaignQuestObjective> CampaignQuestObjectives { get; set; }
+
+        public QuestObjective()
+        {
+            Quest = new Quest();   
+        }
     }
 }

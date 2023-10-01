@@ -9,6 +9,7 @@ namespace KotorsGate.Domain.Entities.Campaigns
         public string Description { get; set; } = string.Empty;
 
         public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
+        public virtual IEnumerable<CampaignQuest> CampaignQuests { get; set; }
 
         public Campaign() { }
     }
