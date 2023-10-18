@@ -1,4 +1,5 @@
-﻿using KotorsGate.Domain.Entities.User;
+﻿using KotorsGate.Domain.Entities.Location;
+using KotorsGate.Domain.Entities.User;
 
 namespace KotorsGate.Domain.Entities.Campaigns
 {
@@ -10,6 +11,7 @@ namespace KotorsGate.Domain.Entities.Campaigns
 
         public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
         public virtual IEnumerable<CampaignQuest> CampaignQuests { get; set; }
+        public virtual IEnumerable<CampaignPlanet> CampaignPlanets { get; set; }
 
         public Campaign() { }
     }

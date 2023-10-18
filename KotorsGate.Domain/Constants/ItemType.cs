@@ -19,7 +19,8 @@
         public static readonly ItemType WristArmor = new ItemType("Wrist Armor");
         public static readonly ItemType Implant = new ItemType("Implant");
         public static readonly ItemType QuestItem = new ItemType("Quest Item");
-        private ItemType(string value)        {
+        private ItemType(string value)
+        {
             Value = value;
         }
 

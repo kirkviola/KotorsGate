@@ -1,4 +1,6 @@
-﻿namespace KotorsGate.Domain.Entities.Location
+﻿using KotorsGate.Domain.Entities.Campaigns;
+
+namespace KotorsGate.Domain.Entities.Location
 {
     public class CampaignPlanet
     {
@@ -6,6 +8,14 @@
         public int PlanetId { get; set; }
         public int CampaignId { get; set; }
 
-        public CampaignPlanet() { }
+        public Campaign Campaign { get; set; }
+        public Planet Planet { get; set; }
+
+        public virtual IEnumerable<Location> Locations { get; set; }
+
+        public CampaignPlanet() { 
+            this.Campaign = new Campaign();
+            this.Planet = new Planet();
+        }
     }
 }

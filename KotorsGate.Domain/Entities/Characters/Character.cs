@@ -1,4 +1,5 @@
-﻿using KotorsGate.Domain.Entities.User;
+﻿using KotorsGate.Domain.Entities.Dialogue;
+using KotorsGate.Domain.Entities.User;
 
 namespace KotorsGate.Domain.Entities.Characters
 {
@@ -18,6 +19,7 @@ namespace KotorsGate.Domain.Entities.Characters
         public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
         public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
         public virtual IEnumerable<UserCampaignCharacter> UserCampaignCharacters { get; set; }
+        public virtual IEnumerable<CharacterDialogue> CharacterDialogues { get; set; }
 
         public Character() { }
 

@@ -4,8 +4,12 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int CampaignPlanet { get; set; }
+        public int CampaignPlanetId { get; set; }
 
-        public Location() { }
+        public CampaignPlanet CampaignPlanet { get; set; }
+
+        public Location() {
+            this.CampaignPlanet = new CampaignPlanet();
+        }
     }
 }

@@ -63,8 +63,7 @@ namespace KotorsGate.Infrastructure
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<User>(user =>
-            {
+            builder.Entity<User>(user => {
                 user.ToTable("Users");
                 user.HasKey(user => user.Id);
                 user.Property(user => user.Name).HasMaxLength(64).IsRequired();
@@ -72,8 +71,7 @@ namespace KotorsGate.Infrastructure
                 user.Property(user => user.Password).HasMaxLength(64).IsRequired();
             });
 
-            builder.Entity<Character>(character => 
-            {
+            builder.Entity<Character>(character => {
                 character.ToTable("Characters");
                 character.HasKey(character => character.Id);
                 character.Property(character => character.Name).HasMaxLength(64).IsRequired();
@@ -85,8 +83,7 @@ namespace KotorsGate.Infrastructure
                 character.Property(character => character.Alignment).IsRequired(true).HasDefaultValue(0);
             });
 
-            builder.Entity<UserCharacter>(userCharacter => 
-            {
+            builder.Entity<UserCharacter>(userCharacter => {
                 userCharacter.ToTable("UserCharacters");
                 userCharacter.HasKey(userCharacter => userCharacter.Id);
                 userCharacter.HasOne(userCharacter => userCharacter.User)
@@ -99,8 +96,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<Campaign>(campaign =>
-            {
+            builder.Entity<Campaign>(campaign => {
                 campaign.ToTable("Campaigns");
                 campaign.HasKey(campaign => campaign.Id);
                 campaign.Property(campaign => campaign.Name).HasMaxLength(64).IsRequired();
@@ -108,8 +104,7 @@ namespace KotorsGate.Infrastructure
                 campaign.Property(campaign => campaign.Description).HasMaxLength(2048).IsRequired();
             });
 
-            builder.Entity<UserCampaign>(userCampaign =>
-            {
+            builder.Entity<UserCampaign>(userCampaign => {
                 userCampaign.ToTable("UserCampaigns");
                 userCampaign.HasKey(campaign => campaign.Id);
                 userCampaign.HasOne(userCampaign => userCampaign.User)
@@ -122,8 +117,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<UserCampaignCharacter>(uCampChar =>
-            {
+            builder.Entity<UserCampaignCharacter>(uCampChar => {
                 uCampChar.ToTable("UserCampaignCharacters");
                 uCampChar.HasKey(uCampChar =>  uCampChar.Id);
                 uCampChar.HasOne(uCampChar => uCampChar.UserCampaign)
@@ -136,8 +130,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<Class>(c =>
-            {
+            builder.Entity<Class>(c => {
                 c.ToTable("Classes");
                 c.HasKey(c => c.Id);
                 c.Property(c => c.Name).HasMaxLength(64).IsRequired();
@@ -145,8 +138,7 @@ namespace KotorsGate.Infrastructure
                 c.Property(c => c.Description).HasMaxLength(2048).IsRequired();
             });
 
-            builder.Entity<Feat>(feat =>
-            {
+            builder.Entity<Feat>(feat => {
                 feat.ToTable("Feats");
                 feat.HasKey(feat => feat.Id);
                 feat.Property(feat => feat.Name).HasMaxLength(64).IsRequired();
@@ -155,8 +147,7 @@ namespace KotorsGate.Infrastructure
                 feat.Property(feat => feat.RequiredLevel).IsRequired(false).HasDefaultValue(null);
             });
 
-            builder.Entity<ClassFeat>(classFeat =>
-            {
+            builder.Entity<ClassFeat>(classFeat => {
                 classFeat.ToTable("ClassFeats");
                 classFeat.HasKey(classFeat => classFeat.Id);
                 classFeat.HasOne(classFeat => classFeat.Class)
@@ -169,8 +160,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<CharacterFeat>(characterFeat =>
-            {
+            builder.Entity<CharacterFeat>(characterFeat => {
                 characterFeat.ToTable("CharacterFeats");
                 characterFeat.HasKey(characterFeat => characterFeat.Id);
                 characterFeat.HasOne(characterFeat => characterFeat.Character)
@@ -183,8 +173,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<FeatProgression>(progression =>
-            {
+            builder.Entity<FeatProgression>(progression => {
                 progression.ToTable("FeatProgressions");
                 progression.HasKey(progression => progression.Id);
                 progression.HasOne(progression => progression.Feat)
@@ -193,8 +182,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<Power>(power =>
-            {
+            builder.Entity<Power>(power => {
                 power.ToTable("Powers");
                 power.HasKey(power => power.Id);
                 power.Property(power => power.Name).HasMaxLength(64).IsRequired();
@@ -205,8 +193,7 @@ namespace KotorsGate.Infrastructure
                 power.Property(power => power.BaseCost).IsRequired();
             });
 
-            builder.Entity<ClassPower>(classPower =>
-            {
+            builder.Entity<ClassPower>(classPower => {
                 classPower.ToTable("ClassPowers");
                 classPower.HasKey(classPower => classPower.Id);
                 classPower.HasOne(classPower => classPower.Class)
@@ -219,8 +206,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<CharacterPower>(characterPower =>
-            {
+            builder.Entity<CharacterPower>(characterPower => {
                 characterPower.ToTable("CharacterPowers");
                 characterPower.HasKey(characterPower => characterPower.Id);
                 characterPower.HasOne(characterPower => characterPower.Character)
@@ -233,8 +219,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<PowerProgression>(progression =>
-            {
+            builder.Entity<PowerProgression>(progression => {
                 progression.ToTable("PowerProgressions");
                 progression.HasKey(progression => progression.Id);
                 progression.HasOne(prog => prog.Power)
@@ -243,8 +228,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<Quest>(quest =>
-            {
+            builder.Entity<Quest>(quest => {
                 quest.ToTable("Quests");
                 quest.HasKey(quest => quest.Id);
                 quest.Property(quest => quest.Name).HasMaxLength(64).IsRequired();
@@ -252,8 +236,7 @@ namespace KotorsGate.Infrastructure
                 quest.Property(quest => quest.IsMainQuest).IsRequired().HasDefaultValue(false);
             });
 
-            builder.Entity<QuestObjective>(objective =>
-            {
+            builder.Entity<QuestObjective>(objective => {
                 objective.ToTable("QuestObjectives");
                 objective.HasKey(objective => objective.Id);
                 objective.Property(objective => objective.Name).HasMaxLength(64).IsRequired();
@@ -265,8 +248,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<CampaignQuest>(cQuest =>
-            {
+            builder.Entity<CampaignQuest>(cQuest => {
                 cQuest.ToTable("CampaignQuests");
                 cQuest.HasKey(cQuest => cQuest.Id);
                 cQuest.HasOne(cQuest => cQuest.Campaign)
@@ -279,8 +261,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<CampaignQuestObjective>(cObjective =>
-            {
+            builder.Entity<CampaignQuestObjective>(cObjective => {
                 cObjective.ToTable("CampaignQuestObjectives");
                 cObjective.HasKey(cObjective => cObjective.Id);
                 cObjective.Property(cObjective => cObjective.IsComplete).IsRequired().HasDefaultValue(false);
@@ -294,15 +275,13 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<ItemClassification>(classification =>
-            {
+            builder.Entity<ItemClassification>(classification => {
                 classification.ToTable("ItemClassifications");
                 classification.HasKey(classification => classification.Id);
                 classification.Property(classification => classification.Name).HasMaxLength(64).IsRequired();
             });
 
-            builder.Entity<Item>(item => 
-            {
+            builder.Entity<Item>(item => {
                 item.ToTable("Items");
                 item.HasKey(item => item.Id);
                 item.Property(item => item.Name).HasMaxLength(64).IsRequired();
@@ -315,8 +294,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.NoAction);
             });
 
-            builder.Entity<ItemAttribute>(attribute =>
-            {
+            builder.Entity<ItemAttribute>(attribute => {
                 attribute.ToTable("ItemAttributes");
                 attribute.HasKey(attribute => attribute.Id);
                 attribute.Property(attribute => attribute.Name).HasMaxLength(64).IsRequired();
@@ -329,8 +307,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<Party>(party =>
-            {
+            builder.Entity<Party>(party => {
                 party.ToTable("Parties");
                 party.HasKey(party => party.Id);
                 party.HasOne(party => party.UserCampaign)
@@ -339,8 +316,7 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<CharacterParty>(characterParty =>
-            {
+            builder.Entity<CharacterParty>(characterParty => {
                 characterParty.ToTable("CharacterParties");
                 characterParty.HasKey(characterParty => characterParty.Id);
                 characterParty.HasOne(characterParty => characterParty.Character)
@@ -351,6 +327,83 @@ namespace KotorsGate.Infrastructure
                     .WithMany(party => party.CharacterParties)
                     .HasForeignKey(characterParty => characterParty.PartyId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Skill>(skill => {
+                skill.ToTable("Skills");
+                skill.HasKey(skill => skill.Id);
+                skill.Property(skill => skill.Name).HasMaxLength(64).IsRequired();
+                skill.HasIndex(skill => skill.Name).IsUnique();
+                skill.Property(skill => skill.Description).HasMaxLength(1028).IsRequired();
+            });
+
+            builder.Entity<QuestDialogue>(dialogue => {
+                dialogue.ToTable("QuestDialogues");
+                dialogue.HasKey(dialogue => dialogue.Id);
+                dialogue.HasOne(d => d.Quest)
+                    .WithMany(q => q.QuestDialogues)
+                    .HasForeignKey(d => d.QuestId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CharacterDialogue>(cd => {
+                cd.ToTable("CharacterDialogues");
+                cd.HasKey(cd => cd.Id);
+                cd.HasOne(cd => cd.Character)
+                    .WithMany(c => c.CharacterDialogues)
+                    .HasForeignKey(cd => cd.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<DialogueLine>(dl => {
+                dl.ToTable("DialogueLines");
+                dl.HasKey(dl => dl.Id);
+                dl.Property(dl => dl.Text).IsRequired().HasMaxLength(1028);
+                dl.HasOne(dl => dl.QuestDialogue)
+                    .WithMany(qd => qd.DialogueLines)
+                    .HasForeignKey(dl => dl.DialogueId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Response>(r => {
+                r.ToTable("Responses");
+                r.HasKey(r => r.Id);
+                r.Property(r => r.Text).HasMaxLength(1028).IsRequired();
+                r.HasOne(r => r.DialogueLine)
+                    .WithMany(dl => dl.Responses)
+                    .HasForeignKey(r => r.DialogueLineId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Planet>(p => {
+                p.ToTable("Planets");
+                p.HasKey(p => p.Id);
+                p.Property(p => p.Name).HasMaxLength(64).IsRequired();
+                p.HasIndex(p => p.Name).IsUnique();
+                p.Property(p => p.Description).HasMaxLength(2048).IsRequired();
+            });
+
+            builder.Entity<CampaignPlanet>(campP => {
+                campP.ToTable("CampaignPlanets");
+                campP.HasKey(campP => campP.Id);
+                campP.HasOne(campP => campP.Campaign)
+                    .WithMany(c => c.CampaignPlanets)
+                    .HasForeignKey(campP => campP.CampaignId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                campP.HasOne(campP => campP.Planet)
+                    .WithMany(p => p.CampaignPlanets)
+                    .HasForeignKey(campP => campP.PlanetId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<Location>(l => {
+                l.ToTable("Locations");
+                l.HasKey(l => l.Id);
+                l.Property(l => l.Name).HasMaxLength(64).IsRequired();
+                l.HasOne(l => l.CampaignPlanet)
+                    .WithMany(campP => campP.Locations)
+                    .HasForeignKey(l => l.CampaignPlanetId)
+                    .OnDelete(DeleteBehavior.Cascade);              
             });
         }
     }
