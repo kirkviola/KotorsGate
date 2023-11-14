@@ -47,7 +47,6 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<ItemClassification> ItemClassifications { get; set; }
         public virtual DbSet<Battlefield> Battlefields { get; set; }
         public virtual DbSet<BattlefieldSquare> BattlefieldSquares { get; set; }
-        public virtual DbSet<BattlefieldSquareMap> BattlefieldSquareMaps { get; set; }
         public virtual DbSet<CampaignPlanet> CampaignPlanets { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
@@ -404,6 +403,26 @@ namespace KotorsGate.Infrastructure
                     .WithMany(campP => campP.Locations)
                     .HasForeignKey(l => l.CampaignPlanetId)
                     .OnDelete(DeleteBehavior.Cascade);              
+            });
+
+            builder.Entity<Battlefield>(b => {
+                b.ToTable("Battlefields");
+                b.HasKey(l => l.Id);
+                b.HasOne(b => b.Location)
+                    .WithMany(l => l.Battlefields)
+                    .HasForeignKey(b => b.LocationId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<BattlefieldSquare>(bs => {
+                bs.ToTable("BattlefieldSquares");
+                bs.HasKey(bs => bs.Id);
+                bs.Property(bs => bs.XCoordinate).HasMaxLength(64).IsRequired();
+                bs.Property(bs => bs.YCoordinate).HasMaxLength(64).IsRequired();
+                bs.HasOne(bs => bs.Battlefield)
+                    .WithMany(b => b.BattlefieldSquares)
+                    .HasForeignKey(bs => bs.BattlefieldId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

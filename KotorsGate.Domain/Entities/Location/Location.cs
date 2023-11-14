@@ -7,9 +7,11 @@
         public int CampaignPlanetId { get; set; }
 
         public CampaignPlanet CampaignPlanet { get; set; }
+        public virtual IEnumerable<Battlefield> Battlefields { get; set; }
 
         public Location() {
             this.CampaignPlanet = new CampaignPlanet();
+            this.Battlefields = new List<Battlefield>();
         }
     }
 }
