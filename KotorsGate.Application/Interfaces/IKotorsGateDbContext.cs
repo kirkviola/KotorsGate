@@ -1,11 +1,12 @@
-﻿using KotorsGate.Domain.Entities.Ability;
-using KotorsGate.Domain.Entities.Ability.Feat;
-using KotorsGate.Domain.Entities.Ability.Power;
-using KotorsGate.Domain.Entities.Ability.Skill;
-using KotorsGate.Domain.Entities.Campaign;
-using KotorsGate.Domain.Entities.Character;
+﻿using KotorsGate.Domain.Entities.Abilities;
+using KotorsGate.Domain.Entities.Abilities.Ability;
+using KotorsGate.Domain.Entities.Abilities.Feat;
+using KotorsGate.Domain.Entities.Abilities.Power;
+using KotorsGate.Domain.Entities.Abilities.Skill;
+using KotorsGate.Domain.Entities.Campaigns;
+using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
-using KotorsGate.Domain.Entities.Item;
+using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
 using KotorsGate.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace KotorsGate.Application.Interfaces
 {
     public interface IKotorsGateDbContext
     {
-        DbSet<Attribute> Attributes { get; }
+        DbSet<Ability> Abilities { get; }
         DbSet<Feat> Feats { get; }
         DbSet<FeatProgression> FeaturesProgressions { get; }
         DbSet<ClassFeat> ClassFeats { get; }
@@ -29,10 +30,11 @@ namespace KotorsGate.Application.Interfaces
         DbSet<Quest> Quests { get; }
         DbSet<QuestObjective> QuestsObjectives { get; }
         DbSet<Character> Characters { get; }
-        DbSet<CharacterAttribute> CharacterAttributes { get; }
+        DbSet<CharacterAbility> CharacterAbilities { get; }
         DbSet<CharacterFeat> CharacterFeats { get; }
         DbSet<CharacterItem> CharacterItems { get; }
         DbSet<CharacterParty> CharacterParties { get; }
+        DbSet<CharacterPower> CharacterPowers { get; }
         DbSet<CharacterSkill> CharacterSkills { get; }
         DbSet<Party> Parties { get; }
         DbSet<CharacterDialogue> CharacterDialogues { get; }
@@ -44,7 +46,6 @@ namespace KotorsGate.Application.Interfaces
         DbSet<ItemClassification> ItemClassifications { get; }
         DbSet<Battlefield> Battlefields { get; }
         DbSet<BattlefieldSquare> BattlefieldSquares { get; }
-        DbSet<BattlefieldSquareMap> BattlefieldSquareMaps { get; }
         DbSet<CampaignPlanet> CampaignPlanets { get; }
         DbSet<Location> Locations { get; }
         DbSet<LocationMap> LocationsMaps { get; }

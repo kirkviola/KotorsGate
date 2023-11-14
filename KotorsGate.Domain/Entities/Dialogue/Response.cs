@@ -6,6 +6,10 @@
         public string Text { get; set; } = string.Empty;
         public int DialogueLineId { get; set; }
 
-        public Response() { }
+        public DialogueLine DialogueLine { get; set; }
+
+        public Response() {
+            this.DialogueLine = new DialogueLine();
+        }
     }
 }

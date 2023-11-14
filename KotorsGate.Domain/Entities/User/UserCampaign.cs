@@ -1,4 +1,7 @@
-﻿namespace KotorsGate.Domain.Entities.User
+﻿using KotorsGate.Domain.Entities.Campaigns;
+using KotorsGate.Domain.Entities.Characters;
+
+namespace KotorsGate.Domain.Entities.User
 {
     public class UserCampaign
     {
@@ -6,6 +9,11 @@
         public int CampaignId { get; set; }
         public int UserId { get; set; }
 
-        public UserCampaign() { }
+        public User User { get; set; }
+        public Campaign Campaign { get; set; }
+        public virtual IEnumerable<Party> Parties { get; set; }
+        public virtual IEnumerable<UserCampaignCharacter> UserCampaignCharacters { get; set; }
+
+        public UserCampaign() {}
     }
 }

@@ -6,6 +6,10 @@
         public int LocationId { get; set; }
         public int AdjacentLocationId { get; set; }
 
-        public LocationMap() { }
+        public Location Location { get; set; }
+
+        public LocationMap() {
+            this.Location = new Location();
+        }
     }
 }
