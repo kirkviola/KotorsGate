@@ -3,7 +3,7 @@
     public class CampaignQuestObjective
     {
         public int Id { get; set; }
-        public int QuestObjectiveId { get; set; }
+        public int QuestObjectiveId { get; set; } // Used for querying objectives for a given quest
         public int CampaignQuestId { get; set; }
         public bool IsComplete { get; set; } = false;
 

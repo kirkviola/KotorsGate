@@ -166,7 +166,7 @@ namespace KotorsGate.Infrastructure
                 feat.Property(feat => feat.Name).HasMaxLength(64).IsRequired();
                 feat.HasIndex(feat => feat.Name).IsUnique();
                 feat.Property(feat => feat.ToolTip).HasMaxLength(2048).IsRequired();
-                feat.Property(feat => feat.RequiredLevel).IsRequired(false).HasDefaultValue(null);
+                feat.Property(feat => feat.RequiredLevel).IsRequired().HasDefaultValue(0);
             });
 
             builder.Entity<ClassFeat>(classFeat => {
@@ -210,8 +210,8 @@ namespace KotorsGate.Infrastructure
                 power.Property(power => power.Name).HasMaxLength(64).IsRequired();
                 power.HasIndex(power => power.Name).IsUnique();
                 power.Property(power => power.ToolTip).HasMaxLength(2048).IsRequired();
-                power.Property(power => power.RequiredLevel).IsRequired(false).HasDefaultValue(null);
-                power.Property(power => power.Alignment).HasMaxLength(12).IsRequired().HasDefaultValue(Alignment.Universal.Value);
+                power.Property(power => power.RequiredLevel).IsRequired().HasDefaultValue(0);
+                power.Property(power => power.Alignment).HasMaxLength(12).IsRequired();
                 power.Property(power => power.BaseCost).IsRequired();
             });
 
@@ -267,7 +267,7 @@ namespace KotorsGate.Infrastructure
                 objective.HasOne(objective => objective.Quest)
                     .WithMany(quest => quest.QuestObjectives)
                     .HasForeignKey(objective => objective.QuestId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             builder.Entity<CampaignQuest>(cQuest => {
@@ -276,11 +276,11 @@ namespace KotorsGate.Infrastructure
                 cQuest.HasOne(cQuest => cQuest.Campaign)
                     .WithMany(campaign => campaign.CampaignQuests)
                     .HasForeignKey(cQuest => cQuest.CampaignId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
                 cQuest.HasOne(cQuest => cQuest.Quest)
                     .WithMany(quest => quest.CampaignQuests)
                     .HasForeignKey(cQuest => cQuest.QuestId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             builder.Entity<CampaignQuestObjective>(cObjective => {
@@ -290,11 +290,7 @@ namespace KotorsGate.Infrastructure
                 cObjective.HasOne(cObjective => cObjective.CampaignQuest)
                     .WithMany(cQuest => cQuest.CampaignQuestObjectives)
                     .HasForeignKey(cObjective => cObjective.CampaignQuestId)
-                    .OnDelete(DeleteBehavior.Cascade);
-                cObjective.HasOne(cObjective => cObjective.QuestObjective)
-                    .WithMany(objective => objective.CampaignQuestObjectives)
-                    .HasForeignKey(cObjective => cObjective.QuestObjectiveId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             builder.Entity<ItemClassification>(classification => {
