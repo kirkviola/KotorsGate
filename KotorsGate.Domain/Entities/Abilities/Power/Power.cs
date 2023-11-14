@@ -1,7 +1,7 @@
 ﻿using KotorsGate.Domain.Constants;
 using KotorsGate.Domain.Entities.Characters;
 
-namespace KotorsGate.Domain.Entities.Ability.Power
+namespace KotorsGate.Domain.Entities.Abilities.Power
 {
     public class Power
     {

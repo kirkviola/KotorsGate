@@ -1,13 +1,14 @@
 ﻿using KotorsGate.Application.Interfaces;
 using KotorsGate.Domain.Constants;
-using KotorsGate.Domain.Entities.Ability;
-using KotorsGate.Domain.Entities.Ability.Feat;
-using KotorsGate.Domain.Entities.Ability.Power;
-using KotorsGate.Domain.Entities.Ability.Skill;
+using KotorsGate.Domain.Entities.Abilities;
+using KotorsGate.Domain.Entities.Abilities.Feat;
+using KotorsGate.Domain.Entities.Abilities.Ability;
+using KotorsGate.Domain.Entities.Abilities.Power;
+using KotorsGate.Domain.Entities.Abilities.Skill;
 using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
-using KotorsGate.Domain.Entities.Item;
+using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
 using KotorsGate.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace KotorsGate.Infrastructure
 {
     public class KotorsGateDbContext : DbContext, IKotorsGateDbContext
     {
-        public virtual DbSet<Attribute> Attributes { get; set; }
+        public virtual DbSet<Ability> Abilities { get; set; }
         public virtual DbSet<Feat> Feats { get; set; }
         public virtual DbSet<FeatProgression> FeaturesProgressions { get; set; }
         public virtual DbSet<ClassFeat> ClassFeats { get; set; }
@@ -31,7 +32,7 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<Quest> Quests { get; set; }
         public virtual DbSet<QuestObjective> QuestsObjectives { get; set; }
         public virtual DbSet<Character> Characters { get; set; }
-        public virtual DbSet<CharacterAttribute> CharacterAttributes { get; set; }
+        public virtual DbSet<CharacterAbility> CharacterAbilities { get; set; }
         public virtual DbSet<CharacterFeat> CharacterFeats { get; set; }
         public virtual DbSet<CharacterItem> CharacterItems { get; set; }
         public virtual DbSet<CharacterParty> CharacterParties { get; set; }
@@ -92,6 +93,28 @@ namespace KotorsGate.Infrastructure
                 userCharacter.HasOne(userCharacter => userCharacter.Character)
                     .WithMany(character => character.UserCharacters)
                     .HasForeignKey(userCharacter => userCharacter.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Ability>(ability => {
+                ability.ToTable("Abilities");
+                ability.HasKey(ability => ability.Id);
+                ability.Property(ability => ability.Name).IsRequired().HasMaxLength(64);
+                ability.HasIndex(ability => ability.Name).IsUnique();
+                ability.Property(ability => ability.Description).IsRequired().HasMaxLength(2048);
+            });
+
+            builder.Entity<CharacterAbility>(ca => {
+                ca.ToTable("CharacterAbilities");
+                ca.HasKey(ca => ca.Id);
+                ca.Property(ca => ca.Value).IsRequired().HasDefaultValue(8).HasMaxLength(99);
+                ca.HasOne(ca => ca.Character)
+                    .WithMany(c => c.CharacterAbilities)
+                    .HasForeignKey(ca => ca.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                ca.HasOne(ca => ca.Ability)
+                    .WithMany(a => a.CharacterAbilities)
+                    .HasForeignKey(ca => ca.AbilityId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -306,6 +329,19 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            builder.Entity<CharacterItem>(ci => {
+                ci.ToTable("CharacterItems");
+                ci.HasKey(ci => ci.Id);
+                ci.HasOne(ci => ci.Character)
+                    .WithMany(c => c.CharacterItems)
+                    .HasForeignKey(ci => ci.CharacterId) 
+                    .OnDelete(DeleteBehavior.Cascade);
+                ci.HasOne(ci => ci.Item)
+                    .WithMany(i => i.CharacterItems)
+                    .HasForeignKey(ci => ci.ItemId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Party>(party => {
                 party.ToTable("Parties");
                 party.HasKey(party => party.Id);
@@ -334,6 +370,19 @@ namespace KotorsGate.Infrastructure
                 skill.Property(skill => skill.Name).HasMaxLength(64).IsRequired();
                 skill.HasIndex(skill => skill.Name).IsUnique();
                 skill.Property(skill => skill.Description).HasMaxLength(1028).IsRequired();
+            });
+
+            builder.Entity<CharacterSkill>(cs => {
+                cs.ToTable("CharacterSkills");
+                cs.HasKey(cs => cs.Id);
+                cs.HasOne(cs => cs.Character)
+                    .WithMany(c => c.CharacterSkills)
+                    .HasForeignKey(cs => cs.CharacterId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                cs.HasOne(cs => cs.Skill)
+                    .WithMany(s => s.CharacterSkills)
+                    .HasForeignKey(cs => cs.SkillId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<QuestDialogue>(dialogue => {
@@ -403,6 +452,15 @@ namespace KotorsGate.Infrastructure
                     .WithMany(campP => campP.Locations)
                     .HasForeignKey(l => l.CampaignPlanetId)
                     .OnDelete(DeleteBehavior.Cascade);              
+            });
+
+            builder.Entity<LocationMap>(map => {
+                map.ToTable("LocationMaps");
+                map.HasKey(l => l.Id);
+                map.HasOne(map => map.Location)
+                    .WithMany(l => l.LocationMaps)
+                    .HasForeignKey(map => map.LocationId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Battlefield>(b => {

@@ -1,4 +1,4 @@
-﻿using KotorsGate.Domain.Entities.Ability.Power;
+﻿using KotorsGate.Domain.Entities.Abilities.Power;
 
 namespace KotorsGate.Domain.Entities.Characters
 {

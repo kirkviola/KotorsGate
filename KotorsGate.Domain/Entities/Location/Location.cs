@@ -8,10 +8,12 @@
 
         public CampaignPlanet CampaignPlanet { get; set; }
         public virtual IEnumerable<Battlefield> Battlefields { get; set; }
+        public virtual IEnumerable<LocationMap> LocationMaps { get; set; }
 
         public Location() {
             this.CampaignPlanet = new CampaignPlanet();
             this.Battlefields = new List<Battlefield>();
+            this.LocationMaps = new List<LocationMap>();
         }
     }
 }

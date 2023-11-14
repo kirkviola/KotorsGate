@@ -1,4 +1,4 @@
-﻿using KotorsGate.Domain.Entities.Ability.Feat;
+﻿using KotorsGate.Domain.Entities.Abilities.Feat;
 
 namespace KotorsGate.Domain.Entities.Characters
 {

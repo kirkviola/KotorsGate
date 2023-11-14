@@ -1,5 +1,6 @@
 ﻿using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.User;
+using System.Security.Cryptography.X509Certificates;
 
 namespace KotorsGate.Domain.Entities.Characters
 {
@@ -20,8 +21,20 @@ namespace KotorsGate.Domain.Entities.Characters
         public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
         public virtual IEnumerable<UserCampaignCharacter> UserCampaignCharacters { get; set; }
         public virtual IEnumerable<CharacterDialogue> CharacterDialogues { get; set; }
+        public virtual IEnumerable<CharacterAbility> CharacterAbilities { get; set; }
+        public virtual IEnumerable<CharacterItem>? CharacterItems { get; set; }
+        public virtual IEnumerable<CharacterSkill> CharacterSkills { get; set; }
 
-        public Character() { }
+        public Character() {
+            this.UserCharacters = new List<UserCharacter>();
+            this.CharacterParties = new List<CharacterParty>();
+            this.CharacterFeats = new List<CharacterFeat>();
+            this.CharacterPowers = new List<CharacterPower>();
+            this.CharacterDialogues = new List<CharacterDialogue>();
+            this.CharacterAbilities = new List<CharacterAbility>();
+            this.UserCampaignCharacters = new List<UserCampaignCharacter>();
+            this.CharacterSkills = new List<CharacterSkill>();
+        }
 
     }
 }

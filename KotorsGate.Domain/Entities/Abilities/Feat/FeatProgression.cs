@@ -1,4 +1,4 @@
-﻿namespace KotorsGate.Domain.Entities.Ability.Feat
+﻿namespace KotorsGate.Domain.Entities.Abilities.Feat
 {
     public class FeatProgression
     {

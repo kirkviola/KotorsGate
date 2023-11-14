@@ -1,6 +1,6 @@
 ﻿using KotorsGate.Domain.Constants;
 
-namespace KotorsGate.Domain.Entities.Item
+namespace KotorsGate.Domain.Entities.Items
 {
     public class ItemClassification
     {

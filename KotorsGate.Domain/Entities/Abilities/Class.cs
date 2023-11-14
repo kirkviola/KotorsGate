@@ -1,7 +1,7 @@
-﻿using KotorsGate.Domain.Entities.Ability.Feat;
-using KotorsGate.Domain.Entities.Ability.Power;
+﻿using KotorsGate.Domain.Entities.Abilities.Feat;
+using KotorsGate.Domain.Entities.Abilities.Power;
 
-namespace KotorsGate.Domain.Entities.Ability
+namespace KotorsGate.Domain.Entities.Abilities
 {
     public class Class
     {

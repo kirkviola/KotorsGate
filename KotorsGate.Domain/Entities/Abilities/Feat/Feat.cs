@@ -1,6 +1,6 @@
 ﻿using KotorsGate.Domain.Entities.Characters;
 
-namespace KotorsGate.Domain.Entities.Ability.Feat
+namespace KotorsGate.Domain.Entities.Abilities.Feat
 {
     public class Feat
     {

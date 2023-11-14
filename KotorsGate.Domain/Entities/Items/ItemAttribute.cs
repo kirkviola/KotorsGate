@@ -1,4 +1,4 @@
-﻿namespace KotorsGate.Domain.Entities.Item
+﻿namespace KotorsGate.Domain.Entities.Items
 {
     public class ItemAttribute
     {

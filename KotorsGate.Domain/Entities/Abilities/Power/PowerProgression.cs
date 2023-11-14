@@ -1,4 +1,4 @@
-﻿namespace KotorsGate.Domain.Entities.Ability.Power
+﻿namespace KotorsGate.Domain.Entities.Abilities.Power
 {
     public class PowerProgression
     {
