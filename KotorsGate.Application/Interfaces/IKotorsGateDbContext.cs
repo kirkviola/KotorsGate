@@ -51,6 +51,7 @@ namespace KotorsGate.Application.Interfaces
         DbSet<LocationMap> LocationsMaps { get; }
         DbSet<Planet> Planets { get; }
         DbSet<User> Users { get; }
+        DbSet<UserAccount> UserAccounts { get; }
         DbSet<UserCampaign> UserCampaigns { get; }
         DbSet<UserCampaignCharacter> UserCampaignCharacters { get; }
         DbSet<UserCharacter> UserCharacters { get; }
