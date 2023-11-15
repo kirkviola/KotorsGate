@@ -53,6 +53,7 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
         public virtual DbSet<Planet> Planets { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<UserCampaign> UserCampaigns { get; set; }
         public virtual DbSet<UserCampaignCharacter> UserCampaignCharacters { get; set; }
         public virtual DbSet<UserCharacter> UserCharacters { get; set; }
@@ -68,7 +69,12 @@ namespace KotorsGate.Infrastructure
                 user.HasKey(user => user.Id);
                 user.Property(user => user.Name).HasMaxLength(64).IsRequired();
                 user.HasIndex(user => user.Name).IsUnique();
-                user.Property(user => user.Password).HasMaxLength(64).IsRequired();
+            });
+
+            builder.Entity<UserAccount>(ua => {
+                ua.ToTable("UserAccounts");
+                ua.HasKey(ua => ua.UserId);
+                ua.Property(ua => ua.Password).HasMaxLength(128).IsRequired();
             });
 
             builder.Entity<Character>(character => {
