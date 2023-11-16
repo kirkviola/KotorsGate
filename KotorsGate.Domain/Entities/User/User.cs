@@ -1,9 +1,9 @@
-﻿namespace KotorsGate.Domain.Entities.User
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace KotorsGate.Domain.Entities.User
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
 
         public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
         public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
