@@ -1,5 +1,4 @@
 ﻿using KotorsGate.Application.Interfaces;
-using KotorsGate.Domain.Constants;
 using KotorsGate.Domain.Entities.Abilities;
 using KotorsGate.Domain.Entities.Abilities.Feat;
 using KotorsGate.Domain.Entities.Abilities.Ability;
@@ -12,10 +11,11 @@ using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
 using KotorsGate.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace KotorsGate.Infrastructure
 {
-    public class KotorsGateDbContext : DbContext, IKotorsGateDbContext
+    public class KotorsGateDbContext : IdentityDbContext<User>, IKotorsGateDbContext
     {
         public virtual DbSet<Ability> Abilities { get; set; }
         public virtual DbSet<Feat> Feats { get; set; }
@@ -52,8 +52,6 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
         public virtual DbSet<Planet> Planets { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<UserCampaign> UserCampaigns { get; set; }
         public virtual DbSet<UserCampaignCharacter> UserCampaignCharacters { get; set; }
         public virtual DbSet<UserCharacter> UserCharacters { get; set; }
@@ -63,19 +61,6 @@ namespace KotorsGate.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<User>(user => {
-                user.ToTable("Users");
-                user.HasKey(user => user.Id);
-                user.Property(user => user.Name).HasMaxLength(64).IsRequired();
-                user.HasIndex(user => user.Name).IsUnique();
-            });
-
-            builder.Entity<UserAccount>(ua => {
-                ua.ToTable("UserAccounts");
-                ua.HasKey(ua => ua.UserId);
-                ua.Property(ua => ua.Password).HasMaxLength(128).IsRequired();
-            });
 
             builder.Entity<Character>(character => {
                 character.ToTable("Characters");
