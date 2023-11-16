@@ -3,13 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KotorsGate.WebApp", "KotorsGate.WebApp\KotorsGate.WebApp.csproj", "{006040B7-6F8F-4A02-A497-6DD3C9037415}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KotorsGate.WebApp", "KotorsGate.WebApp\KotorsGate.WebApp.csproj", "{006040B7-6F8F-4A02-A497-6DD3C9037415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KotorsGate.Domain", "KotorsGate.Domain\KotorsGate.Domain.csproj", "{7F973D1B-80C0-4202-8118-A2DE2008DE85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KotorsGate.Domain", "KotorsGate.Domain\KotorsGate.Domain.csproj", "{7F973D1B-80C0-4202-8118-A2DE2008DE85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KotorsGate.Application", "KotorsGate.Application\KotorsGate.Application.csproj", "{8B2457D8-567E-4912-B5A1-87BD19B353BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KotorsGate.Application", "KotorsGate.Application\KotorsGate.Application.csproj", "{8B2457D8-567E-4912-B5A1-87BD19B353BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KotorsGate.Infrastructure", "KotorsGate.Infrastructure\KotorsGate.Infrastructure.csproj", "{15A0D633-8B88-437C-8C68-F60A3E5723AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KotorsGate.Infrastructure", "KotorsGate.Infrastructure\KotorsGate.Infrastructure.csproj", "{15A0D633-8B88-437C-8C68-F60A3E5723AE}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KotorsGate.WebUi", "KotorsGate.WebUi\", "{12D35216-20AC-4D03-B49D-8F77E7A0DF2F}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_53410"
+		Debug.AspNetCompiler.PhysicalPath = "KotorsGate.WebUi\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53410\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_53410"
+		Release.AspNetCompiler.PhysicalPath = "KotorsGate.WebUi\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53410\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53410"
+		SlnRelativePath = "KotorsGate.WebUi\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +54,10 @@ Global
 		{15A0D633-8B88-437C-8C68-F60A3E5723AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15A0D633-8B88-437C-8C68-F60A3E5723AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15A0D633-8B88-437C-8C68-F60A3E5723AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D35216-20AC-4D03-B49D-8F77E7A0DF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D35216-20AC-4D03-B49D-8F77E7A0DF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D35216-20AC-4D03-B49D-8F77E7A0DF2F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D35216-20AC-4D03-B49D-8F77E7A0DF2F}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
