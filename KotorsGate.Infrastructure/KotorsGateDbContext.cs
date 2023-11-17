@@ -11,7 +11,6 @@ using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
 using KotorsGate.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace KotorsGate.Infrastructure
 {
