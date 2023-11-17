@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace KotorsGate.Infrastructure
 {
-    public class KotorsGateDbContext : IdentityDbContext<User>, IKotorsGateDbContext
+    public class KotorsGateDbContext : DbContext, IKotorsGateDbContext
     {
         public virtual DbSet<Ability> Abilities { get; set; }
         public virtual DbSet<Feat> Feats { get; set; }
@@ -52,6 +52,7 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
         public virtual DbSet<Planet> Planets { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCampaign> UserCampaigns { get; set; }
         public virtual DbSet<UserCampaignCharacter> UserCampaignCharacters { get; set; }
         public virtual DbSet<UserCharacter> UserCharacters { get; set; }
@@ -61,6 +62,14 @@ namespace KotorsGate.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>(user => {
+                user.ToTable("Users");
+                user.HasKey(user => user.Id);
+                user.Property(user => user.Username).IsRequired().HasMaxLength(128);
+                user.HasIndex(user => user.Username).IsUnique();
+                user.Property(user => user.Password).IsRequired().HasMaxLength(256);
+            });
 
             builder.Entity<Character>(character => {
                 character.ToTable("Characters");

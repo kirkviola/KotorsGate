@@ -7,7 +7,7 @@ namespace KotorsGate.Domain.Entities.User
     {
         public int Id { get; set; }
         public int CampaignId { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         public User User { get; set; }
         public Campaign Campaign { get; set; }
