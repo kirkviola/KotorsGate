@@ -1,10 +1,10 @@
-using KotorsGate.Domain.Entities.User;
 using KotorsGate.Infrastructure;
-using Microsoft.AspNetCore.Identity;
+using KotorsGate.WebApp;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddWebAppServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
