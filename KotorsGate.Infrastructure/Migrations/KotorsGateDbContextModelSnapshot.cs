@@ -906,7 +906,56 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("Planets", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.User", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Permissions", (string)null);
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.UserPermission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPermissions", (string)null);
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -932,7 +981,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCampaign", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCampaign", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -955,7 +1004,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("UserCampaigns", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCampaignCharacter", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCampaignCharacter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -978,7 +1027,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("UserCampaignCharacters", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCharacter", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCharacter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1226,7 +1275,7 @@ namespace KotorsGate.Infrastructure.Migrations
 
             modelBuilder.Entity("KotorsGate.Domain.Entities.Characters.Party", b =>
                 {
-                    b.HasOne("KotorsGate.Domain.Entities.User.UserCampaign", "UserCampaign")
+                    b.HasOne("KotorsGate.Domain.Entities.Users.UserCampaign", "UserCampaign")
                         .WithMany("Parties")
                         .HasForeignKey("UserCampaignId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1364,7 +1413,26 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCampaign", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.UserPermission", b =>
+                {
+                    b.HasOne("KotorsGate.Domain.Entities.Permissions.Permission", "Permission")
+                        .WithMany("UserPermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KotorsGate.Domain.Entities.Users.User", "User")
+                        .WithMany("UserPermissions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCampaign", b =>
                 {
                     b.HasOne("KotorsGate.Domain.Entities.Campaigns.Campaign", "Campaign")
                         .WithMany("UserCampaigns")
@@ -1372,7 +1440,7 @@ namespace KotorsGate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KotorsGate.Domain.Entities.User.User", "User")
+                    b.HasOne("KotorsGate.Domain.Entities.Users.User", "User")
                         .WithMany("UserCampaigns")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1383,7 +1451,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCampaignCharacter", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCampaignCharacter", b =>
                 {
                     b.HasOne("KotorsGate.Domain.Entities.Characters.Character", "Character")
                         .WithMany("UserCampaignCharacters")
@@ -1391,7 +1459,7 @@ namespace KotorsGate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KotorsGate.Domain.Entities.User.UserCampaign", "UserCampaign")
+                    b.HasOne("KotorsGate.Domain.Entities.Users.UserCampaign", "UserCampaign")
                         .WithMany("UserCampaignCharacters")
                         .HasForeignKey("UserCampaignId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1402,7 +1470,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("UserCampaign");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCharacter", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCharacter", b =>
                 {
                     b.HasOne("KotorsGate.Domain.Entities.Characters.Character", "Character")
                         .WithMany("UserCharacters")
@@ -1410,7 +1478,7 @@ namespace KotorsGate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KotorsGate.Domain.Entities.User.User", "User")
+                    b.HasOne("KotorsGate.Domain.Entities.Users.User", "User")
                         .WithMany("UserCharacters")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1554,14 +1622,21 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("CampaignPlanets");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.User", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.Permission", b =>
+                {
+                    b.Navigation("UserPermissions");
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.User", b =>
                 {
                     b.Navigation("UserCampaigns");
 
                     b.Navigation("UserCharacters");
+
+                    b.Navigation("UserPermissions");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.User.UserCampaign", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCampaign", b =>
                 {
                     b.Navigation("Parties");
 
