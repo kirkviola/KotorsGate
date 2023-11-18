@@ -1,6 +1,5 @@
 ﻿using KotorsGate.Domain.Entities.Dialogue;
-using KotorsGate.Domain.Entities.User;
-using System.Security.Cryptography.X509Certificates;
+using KotorsGate.Domain.Entities.Users;
 
 namespace KotorsGate.Domain.Entities.Characters
 {

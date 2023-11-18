@@ -1,7 +1,7 @@
 ﻿using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.Domain.Entities.Characters;
 
-namespace KotorsGate.Domain.Entities.User
+namespace KotorsGate.Domain.Entities.Users
 {
     public class UserCampaign
     {

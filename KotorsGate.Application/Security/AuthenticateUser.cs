@@ -3,11 +3,6 @@ using KotorsGate.Application.Interfaces;
 using KotorsGate.Application.Security.Entities;
 using KotorsGate.Application.Security.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KotorsGate.Application.Security
 {

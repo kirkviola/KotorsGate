@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using KotorsGate.Domain.Entities.Permissions;
 
-namespace KotorsGate.Domain.Entities.User
+namespace KotorsGate.Domain.Entities.Users
 {
     public class User
     {
@@ -10,6 +10,7 @@ namespace KotorsGate.Domain.Entities.User
 
         public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
         public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
+        public virtual IEnumerable<UserPermission> UserPermissions { get; set; }
         public User() { }
     }
 }

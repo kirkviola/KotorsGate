@@ -9,8 +9,9 @@ using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
-using KotorsGate.Domain.Entities.User;
+using KotorsGate.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
+using KotorsGate.Domain.Entities.Permissions;
 
 namespace KotorsGate.Infrastructure
 {
@@ -55,6 +56,8 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<UserCampaign> UserCampaigns { get; set; }
         public virtual DbSet<UserCampaignCharacter> UserCampaignCharacters { get; set; }
         public virtual DbSet<UserCharacter> UserCharacters { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<UserPermission> UserPermissions { get; set; }
 
         public KotorsGateDbContext(DbContextOptions<KotorsGateDbContext> options) : base(options) { }
 
@@ -476,6 +479,27 @@ namespace KotorsGate.Infrastructure
                     .WithMany(b => b.BattlefieldSquares)
                     .HasForeignKey(bs => bs.BattlefieldId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Permission>(p => {
+                p.ToTable("Permissions");
+                p.HasKey(p => p.Id);
+                p.Property(p => p.Name).IsRequired().HasMaxLength(64);
+                p.HasIndex(p => p.Name).IsUnique();
+                p.Property(p => p.Description).IsRequired().HasMaxLength(256);
+            });
+
+            builder.Entity<UserPermission>(up => {
+                up.ToTable("UserPermissions");
+                up.HasKey(p => p.Id);
+                up.HasOne(up => up.User)
+                    .WithMany(u => u.UserPermissions)
+                    .HasForeignKey(up => up.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                up.HasOne(up => up.Permission)
+                    .WithMany(p => p.UserPermissions)
+                    .HasForeignKey(up => up.PermissionId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
