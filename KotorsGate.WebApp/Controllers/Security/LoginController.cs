@@ -22,14 +22,14 @@ namespace KotorsGate.WebApp.Controllers.Security
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] Login login) {
             if (await _authenticateUser.IsUserAsync(login)) {
-                var tokenString = GenerateJSONWebToken(login);
+                var tokenString = GenerateJSONWebToken();
                 return Ok(new { token = tokenString });
             } else {
                 return Unauthorized();
             }
         }
 
-        private string GenerateJSONWebToken(Login login) {
+        private string GenerateJSONWebToken() {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
