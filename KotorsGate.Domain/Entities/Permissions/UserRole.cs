@@ -2,18 +2,18 @@
 
 namespace KotorsGate.Domain.Entities.Permissions
 {
-    public class UserPermission
+    public class UserRole
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int PermissionId { get; set; }
+        public int RoleId { get; set; }
 
         public User User { get; set; }
-        public Permission Permission { get; set; }
+        public Role Role { get; set; }
 
-        public UserPermission() {
+        public UserRole() {
             this.User = new User();
-            this.Permission = new Permission();
+            this.Role = new Role();
         }
     }
 }

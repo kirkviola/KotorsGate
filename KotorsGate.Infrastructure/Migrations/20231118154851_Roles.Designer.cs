@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KotorsGate.Infrastructure.Migrations
 {
     [DbContext(typeof(KotorsGateDbContext))]
-    [Migration("20231118152342_Permissions added")]
-    partial class Permissionsadded
+    [Migration("20231118154851_Roles")]
+    partial class Roles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -935,7 +935,33 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("Permissions", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.UserPermission", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.RolePermission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -946,16 +972,39 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Property<int>("PermissionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PermissionId");
 
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolePermissions", (string)null);
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserPermissions", (string)null);
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("KotorsGate.Domain.Entities.Users.User", b =>
@@ -1416,21 +1465,40 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.UserPermission", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.RolePermission", b =>
                 {
                     b.HasOne("KotorsGate.Domain.Entities.Permissions.Permission", "Permission")
-                        .WithMany("UserPermissions")
+                        .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("KotorsGate.Domain.Entities.Users.User", "User")
-                        .WithMany("UserPermissions")
-                        .HasForeignKey("UserId")
+                    b.HasOne("KotorsGate.Domain.Entities.Permissions.Role", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.UserRole", b =>
+                {
+                    b.HasOne("KotorsGate.Domain.Entities.Permissions.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KotorsGate.Domain.Entities.Users.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });
@@ -1627,7 +1695,14 @@ namespace KotorsGate.Infrastructure.Migrations
 
             modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.Permission", b =>
                 {
-                    b.Navigation("UserPermissions");
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Permissions.Role", b =>
+                {
+                    b.Navigation("RolePermissions");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("KotorsGate.Domain.Entities.Users.User", b =>
@@ -1636,7 +1711,7 @@ namespace KotorsGate.Infrastructure.Migrations
 
                     b.Navigation("UserCharacters");
 
-                    b.Navigation("UserPermissions");
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("KotorsGate.Domain.Entities.Users.UserCampaign", b =>

@@ -5,7 +5,7 @@
 namespace KotorsGate.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Permissionsadded : Migration
+    public partial class Roles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -157,6 +157,20 @@ namespace KotorsGate.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Quests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -487,6 +501,32 @@ namespace KotorsGate.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RolePermissions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    PermissionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RolePermissions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RolePermissions_Permissions_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permissions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RolePermissions_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CharacterSkills",
                 columns: table => new
                 {
@@ -566,25 +606,25 @@ namespace KotorsGate.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserPermissions",
+                name: "UserRoles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    PermissionId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPermissions", x => x.Id);
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserPermissions_Permissions_PermissionId",
-                        column: x => x.PermissionId,
-                        principalTable: "Permissions",
+                        name: "FK_UserRoles_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserPermissions_Users_UserId",
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -1086,6 +1126,22 @@ namespace KotorsGate.Infrastructure.Migrations
                 column: "DialogueLineId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RolePermissions_PermissionId",
+                table: "RolePermissions",
+                column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RolePermissions_RoleId",
+                table: "RolePermissions",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_Name",
+                table: "Roles",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Skills_Name",
                 table: "Skills",
                 column: "Name",
@@ -1122,13 +1178,13 @@ namespace KotorsGate.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPermissions_PermissionId",
-                table: "UserPermissions",
-                column: "PermissionId");
+                name: "IX_UserRoles_RoleId",
+                table: "UserRoles",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPermissions_UserId",
-                table: "UserPermissions",
+                name: "IX_UserRoles_UserId",
+                table: "UserRoles",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1190,13 +1246,16 @@ namespace KotorsGate.Infrastructure.Migrations
                 name: "Responses");
 
             migrationBuilder.DropTable(
+                name: "RolePermissions");
+
+            migrationBuilder.DropTable(
                 name: "UserCampaignCharacters");
 
             migrationBuilder.DropTable(
                 name: "UserCharacters");
 
             migrationBuilder.DropTable(
-                name: "UserPermissions");
+                name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "Battlefields");
@@ -1232,10 +1291,13 @@ namespace KotorsGate.Infrastructure.Migrations
                 name: "DialogueLines");
 
             migrationBuilder.DropTable(
+                name: "Permissions");
+
+            migrationBuilder.DropTable(
                 name: "Characters");
 
             migrationBuilder.DropTable(
-                name: "Permissions");
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Locations");

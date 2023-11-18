@@ -56,6 +56,8 @@ namespace KotorsGate.Application.Interfaces
         DbSet<UserCampaignCharacter> UserCampaignCharacters { get; }
         DbSet<UserCharacter> UserCharacters { get; }
         DbSet<Permission> Permissions { get; }
-        DbSet<UserPermission> UserPermissions { get; }
+        DbSet<UserRole> UserRoles { get; }
+        DbSet<Role> Roles { get; }
+        DbSet<RolePermission> RolePermissions { get; }
     }
 }

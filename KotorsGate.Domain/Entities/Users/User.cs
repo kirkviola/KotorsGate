@@ -10,7 +10,7 @@ namespace KotorsGate.Domain.Entities.Users
 
         public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
         public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
-        public virtual IEnumerable<UserPermission> UserPermissions { get; set; }
+        public virtual IEnumerable<UserRole> UserRoles { get; set; }
         public User() { }
     }
 }
