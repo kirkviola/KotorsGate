@@ -8,7 +8,8 @@ using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
-using KotorsGate.Domain.Entities.User;
+using KotorsGate.Domain.Entities.Permissions;
+using KotorsGate.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace KotorsGate.Application.Interfaces
@@ -54,5 +55,9 @@ namespace KotorsGate.Application.Interfaces
         DbSet<UserCampaign> UserCampaigns { get; }
         DbSet<UserCampaignCharacter> UserCampaignCharacters { get; }
         DbSet<UserCharacter> UserCharacters { get; }
+        DbSet<Permission> Permissions { get; }
+        DbSet<UserRole> UserRoles { get; }
+        DbSet<Role> Roles { get; }
+        DbSet<RolePermission> RolePermissions { get; }
     }
 }

@@ -32,6 +32,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KotorsGate.WebUi", "KotorsG
 		SlnRelativePath = "KotorsGate.WebUi\"
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{29CE89FF-8638-4666-9695-470F04E57FDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestingData", "TestingData", "{AA725512-A7F2-4D18-84E7-F27CAB3DF52E}"
+	ProjectSection(SolutionItems) = preProject
+		AddRevanTest.sql = AddRevanTest.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +68,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA725512-A7F2-4D18-84E7-F27CAB3DF52E} = {29CE89FF-8638-4666-9695-470F04E57FDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BDF1DF6-CE76-4003-B239-67FF29AE821A}

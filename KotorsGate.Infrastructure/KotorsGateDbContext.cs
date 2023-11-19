@@ -9,13 +9,13 @@ using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Items;
 using KotorsGate.Domain.Entities.Location;
-using KotorsGate.Domain.Entities.User;
+using KotorsGate.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using KotorsGate.Domain.Entities.Permissions;
 
 namespace KotorsGate.Infrastructure
 {
-    public class KotorsGateDbContext : IdentityDbContext<User>, IKotorsGateDbContext
+    public class KotorsGateDbContext : DbContext, IKotorsGateDbContext
     {
         public virtual DbSet<Ability> Abilities { get; set; }
         public virtual DbSet<Feat> Feats { get; set; }
@@ -52,15 +52,28 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
         public virtual DbSet<Planet> Planets { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCampaign> UserCampaigns { get; set; }
         public virtual DbSet<UserCampaignCharacter> UserCampaignCharacters { get; set; }
         public virtual DbSet<UserCharacter> UserCharacters { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
         public KotorsGateDbContext(DbContextOptions<KotorsGateDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>(user => {
+                user.ToTable("Users");
+                user.HasKey(user => user.Id);
+                user.Property(user => user.Username).IsRequired().HasMaxLength(128);
+                user.HasIndex(user => user.Username).IsUnique();
+                user.Property(user => user.Password).IsRequired().HasMaxLength(256);
+            });
 
             builder.Entity<Character>(character => {
                 character.ToTable("Characters");
@@ -468,6 +481,48 @@ namespace KotorsGate.Infrastructure
                     .WithMany(b => b.BattlefieldSquares)
                     .HasForeignKey(bs => bs.BattlefieldId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Role>(r => {
+                r.ToTable("Roles");
+                r.HasKey(r => r.Id);
+                r.Property(r => r.Name).HasMaxLength(64).IsRequired();
+                r.HasIndex(r => r.Name).IsUnique();
+                r.Property(r => r.Description).HasMaxLength(256).IsRequired();
+            });
+
+            builder.Entity<Permission>(p => {
+                p.ToTable("Permissions");
+                p.HasKey(p => p.Id);
+                p.Property(p => p.Name).IsRequired().HasMaxLength(64);
+                p.HasIndex(p => p.Name).IsUnique();
+                p.Property(p => p.Description).IsRequired().HasMaxLength(256);
+            });
+
+            builder.Entity<RolePermission>(rp => {
+                rp.ToTable("RolePermissions");
+                rp.HasKey(rp => rp.Id);
+                rp.HasOne(rp => rp.Role)
+                    .WithMany(r => r.RolePermissions)
+                    .HasForeignKey(rp => rp.RoleId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                rp.HasOne(rp => rp.Permission)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(rp => rp.PermissionId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<UserRole>(up => {
+                up.ToTable("UserRoles");
+                up.HasKey(p => p.Id);
+                up.HasOne(ur => ur.User)
+                    .WithMany(u => u.UserRoles)
+                    .HasForeignKey(up => up.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                up.HasOne(ur => ur.Role)
+                    .WithMany(p => p.UserRoles)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
