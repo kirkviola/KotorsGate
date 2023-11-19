@@ -59,5 +59,7 @@ namespace KotorsGate.Application.Interfaces
         DbSet<UserRole> UserRoles { get; }
         DbSet<Role> Roles { get; }
         DbSet<RolePermission> RolePermissions { get; }
+
+        Task<int> SaveChangesAsync();
     }
 }

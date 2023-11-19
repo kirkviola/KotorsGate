@@ -12,5 +12,10 @@ namespace KotorsGate.Domain.Entities.Users
         public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
         public virtual IEnumerable<UserRole> UserRoles { get; set; }
         public User() { }
+
+        public User(string username, string password) {
+            Username = username;
+            Password = password;
+        }
     }
 }

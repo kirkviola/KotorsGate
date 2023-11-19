@@ -15,12 +15,12 @@ namespace KotorsGate.Application.Security
         }
 
         public async Task<bool> IsUserAsync(Login login) {
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Username == login.username);
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Username == login.Username);
 
             if (user == null) {
-                throw new NoUserWithUsernameException(login.username);
+                throw new NoUserWithUsernameException(login.Username);
             } else {
-                return user.Password == login.password;
+                return user.Password == login.Password;
             }
         }
     }
