@@ -61,6 +61,10 @@ namespace KotorsGate.Infrastructure
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
+        public async Task<int> SaveChangesAsync() {
+            return await base.SaveChangesAsync();
+        }
+
         public KotorsGateDbContext(DbContextOptions<KotorsGateDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -1,5 +1,7 @@
 ﻿using KotorsGate.Application.Security;
 using KotorsGate.Application.Security.Interfaces;
+using KotorsGate.Application.Users;
+using KotorsGate.Application.Users.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -30,6 +32,8 @@ namespace KotorsGate.WebApp
 
             // Use case registry
             services.AddScoped<IAuthenticateUser, AuthenticateUser>();
+            services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
+            services.AddScoped<IRegisterNewUser, RegisterNewUser>();
 
             return services;
         }
