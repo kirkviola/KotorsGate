@@ -8,58 +8,103 @@ using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Items;
-using KotorsGate.Domain.Entities.Location;
+using KotorsGate.Domain.Entities.Locations;
 using KotorsGate.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using KotorsGate.Domain.Entities.Permissions;
 
 namespace KotorsGate.Infrastructure
 {
-    public class KotorsGateDbContext : DbContext, IKotorsGateDbContext
-    {
+    public class KotorsGateDbContext : DbContext, IKotorsGateDbContext {
         public virtual DbSet<Ability> Abilities { get; set; }
+
         public virtual DbSet<Feat> Feats { get; set; }
+
         public virtual DbSet<FeatProgression> FeaturesProgressions { get; set; }
+
         public virtual DbSet<ClassFeat> ClassFeats { get; set; }
+
         public virtual DbSet<Power> Powers { get; set; }
+
         public virtual DbSet<ClassPower> ClassPowers { get; set; }
+
         public virtual DbSet<PowerProgression> PowerProgressions { get; set; }
+
         public virtual DbSet<Skill> Skills { get; set; }
+
         public virtual DbSet<Class> Classes { get; set; }
+
         public virtual DbSet<Campaign> Campaigns { get; set; }
+
         public virtual DbSet<CampaignQuest> CampaignQuests { get; set; }
+
         public virtual DbSet<CampaignQuestObjective> CampaignQuestObjectives { get; set; }
+
         public virtual DbSet<Quest> Quests { get; set; }
+
         public virtual DbSet<QuestObjective> QuestsObjectives { get; set; }
+
         public virtual DbSet<Character> Characters { get; set; }
+
         public virtual DbSet<CharacterAbility> CharacterAbilities { get; set; }
+
         public virtual DbSet<CharacterFeat> CharacterFeats { get; set; }
+
         public virtual DbSet<CharacterItem> CharacterItems { get; set; }
+
         public virtual DbSet<CharacterParty> CharacterParties { get; set; }
+
         public virtual DbSet<CharacterPower> CharacterPowers { get; set; }
+
         public virtual DbSet<CharacterSkill> CharacterSkills { get; set; }
+
         public virtual DbSet<Party> Parties { get; set; }
+
         public virtual DbSet<CharacterDialogue> CharacterDialogues { get; set; }
+
         public virtual DbSet<DialogueLine> DialogueLines { get; set; }
+
         public virtual DbSet<QuestDialogue> QuestDialogues { get; set; }
+
         public virtual DbSet<Response> Responses { get; set; }
+
         public virtual DbSet<Item> Items { get; set; }
+
         public virtual DbSet<ItemAttribute> ItemAttributes { get; set; }
+
         public virtual DbSet<ItemClassification> ItemClassifications { get; set; }
+
         public virtual DbSet<Battlefield> Battlefields { get; set; }
+
         public virtual DbSet<BattlefieldSquare> BattlefieldSquares { get; set; }
+
         public virtual DbSet<CampaignPlanet> CampaignPlanets { get; set; }
+
         public virtual DbSet<Location> Locations { get; set; }
+
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
+
         public virtual DbSet<Planet> Planets { get; set; }
+
         public virtual DbSet<User> Users { get; set; }
+
         public virtual DbSet<UserCampaign> UserCampaigns { get; set; }
+
         public virtual DbSet<UserCampaignCharacter> UserCampaignCharacters { get; set; }
+
         public virtual DbSet<UserCharacter> UserCharacters { get; set; }
+
         public virtual DbSet<Permission> Permissions { get; set; }
+
         public virtual DbSet<UserRole> UserRoles { get; set; }
+
         public virtual DbSet<Role> Roles { get; set; }
+
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
+
+        public DbSet<EnvironmentObject> EnvironmentObjects { get; set; }
+
+        public DbSet<LocationEnvironment> LocationEnvironments { get; set; }
 
         public async Task<int> SaveChangesAsync() {
             return await base.SaveChangesAsync();
@@ -527,6 +572,23 @@ namespace KotorsGate.Infrastructure
                     .WithMany(p => p.UserRoles)
                     .HasForeignKey(ur => ur.RoleId)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<EnvironmentObject>(eo => {
+                eo.ToTable("EnvironmentObjects");
+                eo.HasKey(p => p.Id);
+                eo.Property(eo => eo.Name).IsRequired().HasMaxLength(64);
+                eo.Property(eo => eo.SkillName).IsRequired().HasMaxLength(64);
+                eo.Property(eo => eo.SkillValue).IsRequired().HasDefaultValue(0);
+            });
+
+            builder.Entity<LocationEnvironment>(le => {
+                le.ToTable("LocationEnvironments");
+                le.HasKey(p => p.Id);
+                le.HasOne(le => le.Location)
+                    .WithMany(l => l.LocationEnvironments)
+                    .HasForeignKey(le => le.LocationId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

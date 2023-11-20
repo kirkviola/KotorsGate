@@ -1,4 +1,4 @@
-﻿using KotorsGate.Domain.Entities.Location;
+﻿using KotorsGate.Domain.Entities.Locations;
 using KotorsGate.Domain.Entities.Users;
 
 namespace KotorsGate.Domain.Entities.Campaigns

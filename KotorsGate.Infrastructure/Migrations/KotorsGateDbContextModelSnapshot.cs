@@ -680,6 +680,34 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("Responses", (string)null);
                 });
 
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Items.EnvironmentObject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("SkillName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<int>("SkillValue")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnvironmentObjects", (string)null);
+                });
+
             modelBuilder.Entity("KotorsGate.Domain.Entities.Items.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -769,7 +797,25 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("ItemClassifications", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Battlefield", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Items.LocationEnvironment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("LocationEnvironments", (string)null);
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Battlefield", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -787,7 +833,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("Battlefields", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.BattlefieldSquare", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.BattlefieldSquare", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -813,7 +859,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("BattlefieldSquares", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.CampaignPlanet", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.CampaignPlanet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -836,7 +882,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("CampaignPlanets", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Location", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Location", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -859,7 +905,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("Locations", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.LocationMap", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.LocationMap", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -880,7 +926,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.ToTable("LocationMaps", (string)null);
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Planet", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Planet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1399,9 +1445,20 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Battlefield", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Items.LocationEnvironment", b =>
                 {
-                    b.HasOne("KotorsGate.Domain.Entities.Location.Location", "Location")
+                    b.HasOne("KotorsGate.Domain.Entities.Locations.Location", "Location")
+                        .WithMany("LocationEnvironments")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Battlefield", b =>
+                {
+                    b.HasOne("KotorsGate.Domain.Entities.Locations.Location", "Location")
                         .WithMany("Battlefields")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1410,9 +1467,9 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.BattlefieldSquare", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.BattlefieldSquare", b =>
                 {
-                    b.HasOne("KotorsGate.Domain.Entities.Location.Battlefield", "Battlefield")
+                    b.HasOne("KotorsGate.Domain.Entities.Locations.Battlefield", "Battlefield")
                         .WithMany("BattlefieldSquares")
                         .HasForeignKey("BattlefieldId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1421,7 +1478,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Battlefield");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.CampaignPlanet", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.CampaignPlanet", b =>
                 {
                     b.HasOne("KotorsGate.Domain.Entities.Campaigns.Campaign", "Campaign")
                         .WithMany("CampaignPlanets")
@@ -1429,7 +1486,7 @@ namespace KotorsGate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("KotorsGate.Domain.Entities.Location.Planet", "Planet")
+                    b.HasOne("KotorsGate.Domain.Entities.Locations.Planet", "Planet")
                         .WithMany("CampaignPlanets")
                         .HasForeignKey("PlanetId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1440,9 +1497,9 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Planet");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Location", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Location", b =>
                 {
-                    b.HasOne("KotorsGate.Domain.Entities.Location.CampaignPlanet", "CampaignPlanet")
+                    b.HasOne("KotorsGate.Domain.Entities.Locations.CampaignPlanet", "CampaignPlanet")
                         .WithMany("Locations")
                         .HasForeignKey("CampaignPlanetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1451,9 +1508,9 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("CampaignPlanet");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.LocationMap", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.LocationMap", b =>
                 {
-                    b.HasOne("KotorsGate.Domain.Entities.Location.Location", "Location")
+                    b.HasOne("KotorsGate.Domain.Entities.Locations.Location", "Location")
                         .WithMany("LocationMaps")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1668,24 +1725,26 @@ namespace KotorsGate.Infrastructure.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Battlefield", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Battlefield", b =>
                 {
                     b.Navigation("BattlefieldSquares");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.CampaignPlanet", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.CampaignPlanet", b =>
                 {
                     b.Navigation("Locations");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Location", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Location", b =>
                 {
                     b.Navigation("Battlefields");
+
+                    b.Navigation("LocationEnvironments");
 
                     b.Navigation("LocationMaps");
                 });
 
-            modelBuilder.Entity("KotorsGate.Domain.Entities.Location.Planet", b =>
+            modelBuilder.Entity("KotorsGate.Domain.Entities.Locations.Planet", b =>
                 {
                     b.Navigation("CampaignPlanets");
                 });

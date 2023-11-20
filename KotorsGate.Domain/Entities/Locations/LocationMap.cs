@@ -1,4 +1,4 @@
-﻿namespace KotorsGate.Domain.Entities.Location
+﻿namespace KotorsGate.Domain.Entities.Locations
 {
     public class LocationMap
     {

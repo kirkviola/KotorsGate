@@ -5,7 +5,7 @@
 namespace KotorsGate.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Roles : Migration
+    public partial class EnvironmentTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,6 +69,21 @@ namespace KotorsGate.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Classes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EnvironmentObjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    SkillValue = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    SkillName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EnvironmentObjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -811,6 +826,25 @@ namespace KotorsGate.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LocationEnvironments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocationEnvironments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LocationEnvironments_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LocationMaps",
                 columns: table => new
                 {
@@ -1073,6 +1107,11 @@ namespace KotorsGate.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_LocationEnvironments_LocationId",
+                table: "LocationEnvironments",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LocationMaps_LocationId",
                 table: "LocationMaps",
                 column: "LocationId");
@@ -1231,10 +1270,16 @@ namespace KotorsGate.Infrastructure.Migrations
                 name: "ClassPowers");
 
             migrationBuilder.DropTable(
+                name: "EnvironmentObjects");
+
+            migrationBuilder.DropTable(
                 name: "FeatProgressions");
 
             migrationBuilder.DropTable(
                 name: "ItemAttributes");
+
+            migrationBuilder.DropTable(
+                name: "LocationEnvironments");
 
             migrationBuilder.DropTable(
                 name: "LocationMaps");

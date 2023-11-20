@@ -7,7 +7,7 @@ using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.Domain.Entities.Characters;
 using KotorsGate.Domain.Entities.Dialogue;
 using KotorsGate.Domain.Entities.Items;
-using KotorsGate.Domain.Entities.Location;
+using KotorsGate.Domain.Entities.Locations;
 using KotorsGate.Domain.Entities.Permissions;
 using KotorsGate.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +59,8 @@ namespace KotorsGate.Application.Interfaces
         DbSet<UserRole> UserRoles { get; }
         DbSet<Role> Roles { get; }
         DbSet<RolePermission> RolePermissions { get; }
+        DbSet<EnvironmentObject> EnvironmentObjects { get; }
+        DbSet<LocationEnvironment> LocationEnvironments { get; }
 
         Task<int> SaveChangesAsync();
     }
