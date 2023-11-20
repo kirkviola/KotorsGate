@@ -1,6 +1,6 @@
 ﻿using KotorsGate.Domain.Entities.Campaigns;
 
-namespace KotorsGate.Domain.Entities.Location
+namespace KotorsGate.Domain.Entities.Locations
 {
     public class CampaignPlanet
     {

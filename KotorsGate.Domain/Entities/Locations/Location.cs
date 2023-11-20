@@ -1,4 +1,6 @@
-﻿namespace KotorsGate.Domain.Entities.Location
+﻿using KotorsGate.Domain.Entities.Items;
+
+namespace KotorsGate.Domain.Entities.Locations
 {
     public class Location
     {
@@ -9,11 +11,13 @@
         public CampaignPlanet CampaignPlanet { get; set; }
         public virtual IEnumerable<Battlefield> Battlefields { get; set; }
         public virtual IEnumerable<LocationMap> LocationMaps { get; set; }
+        public virtual IEnumerable<LocationEnvironment> LocationEnvironments { get; set; }
 
         public Location() {
             this.CampaignPlanet = new CampaignPlanet();
             this.Battlefields = new List<Battlefield>();
             this.LocationMaps = new List<LocationMap>();
+            this.LocationEnvironments = new List<LocationEnvironment>();
         }
     }
 }
