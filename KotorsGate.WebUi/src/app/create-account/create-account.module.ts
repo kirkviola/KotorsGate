@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
+import { CreateAccountCardComponent } from './create-account-card/create-account-card.component';
 import { RouterModule } from '@angular/router';
+
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    CreateAccountCardComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: '', component: HomeComponent },
+      { path: '', component: CreateAccountCardComponent },
     ])
   ]
 })
-export class HomeModule { }
+export class CreateAccountModule { }

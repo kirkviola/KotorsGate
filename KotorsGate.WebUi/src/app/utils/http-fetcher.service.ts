@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SessionStorageService } from '../security/session-storage.service';
+import { AuthenticationService } from '../security/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,45 +10,57 @@ import { Observable } from 'rxjs';
 export class HttpFetcherService {
 
   #http = inject(HttpClient);
+  #sessionService = inject(SessionStorageService);
+  private readonly basePath = '/echo/api';
 
   constructor() { }
 
-  get<T>(path: string, params?: QueryParams[], headers?: Header[]): Observable<T> {
-    return this.#http.get<T>(`/echo/api/${path}`, {params: this.#buildParams(params), headers: this.#addHeaders(headers)}) as Observable<T>;
+  get<T>(path: string, params?: QueryParams, headers?: Headers): Observable<T> {
+    return this.#http.get<T>(`${this.basePath}/${path}`, {params: this.#buildParams(params), headers: this.#addHeaders(headers)}) as Observable<T>;
   }
 
-  post<T>(path: string, body: any, params?: QueryParams[], headers?: Header[]): Observable<T> {
-    return this.#http.post<T>(`/echo/api/${path}`, {body: body, params: this.#buildParams(params), headers: this.#addHeaders(headers)}) as Observable<T>;
+  post<T>(path: string, body: any, params?: QueryParams, headers?: Headers): Observable<T> {
+    return this.#http.post<T>(`${this.basePath}/${path}`, {body: body, params: this.#buildParams(params), headers: this.#addHeaders(headers)}) as Observable<T>;
   }
 
 
-  #buildParams(params?: QueryParams[]): HttpParams | undefined {
+  #buildParams(params?: QueryParams): HttpParams | undefined {
     if (params != null) {
-      let queryParams = new HttpParams();
-      params.map(param => queryParams.append(param.key, param.value));
+      const queryParams = new HttpParams();
+      for (const param in params) {
+        queryParams.append(param, params[param])
+      }
       return queryParams;
     }
 
     return undefined;
   }
 
-  #addHeaders(headers?: Header[]): HttpHeaders | undefined {
+  #addHeaders(headers?: Headers): HttpHeaders | undefined {
+    const httpHeaders = new HttpHeaders();
+    const token = this.#sessionService.get(AuthenticationService.bearerTokenKey);
+
+    if (token != null) {
+      httpHeaders.append('Authorization', `Bearer ${token}`)
+    }
+
     if (headers != null) {
-      let httpHeaders = new HttpHeaders();
-      headers.map(header => httpHeaders.append(header.name, header.value));
+      for (const header in headers) {
+        httpHeaders.append(header, headers[header]);
+      }
       return httpHeaders;
     }
 
-    return undefined;
+    return httpHeaders;
   }
 }
 
 export interface QueryParams {
-  key: string;
-  value: string | boolean | number;
+  [key: string]: QueryParamValue
 }
 
-export interface Header {
-  name: string;
-  value: string;
+export type QueryParamValue = string | number | boolean;
+
+export interface Headers {
+  [key: string]: string;
 }

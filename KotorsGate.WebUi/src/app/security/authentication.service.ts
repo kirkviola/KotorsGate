@@ -1,18 +1,20 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpFetcherService } from '../utils/http-fetcher.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
+
+  static readonly bearerTokenKey = 'bearer_token';
 
 
-  #http = inject(HttpClient)
+  #http = inject(HttpFetcherService)
   constructor() { }
 
   login(login: Login): Observable<string> {
-    return this.#http.post('echo/api/login', login) as Observable<string>;
+    return this.#http.post('login', login) as Observable<string>;
   }
 
 }
