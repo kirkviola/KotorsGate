@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService, Login } from 'src/app/security/authentication.service';
 import { SessionStorageService } from 'src/app/security/session-storage.service';
@@ -12,6 +13,8 @@ export class LoginComponent implements OnInit {
   #authService = inject(AuthenticationService);
   #sessionService = inject(SessionStorageService);
   #router = inject(Router);
+
+  loginControl = new FormControl<Login>({username: '', password: ''});
 
   errorMessage: string = '';
 

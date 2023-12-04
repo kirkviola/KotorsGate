@@ -5,9 +5,13 @@
   height: 84px;
 }
 
+.wrapping {
+  padding: 15px;
+}
+
 .tabs {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: repeat(auto-fit);
   align-items: center;
   gap: 1em;
 }
