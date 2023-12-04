@@ -4,3 +4,10 @@
   background-color: colors.$neutral;
   height: 84px;
 }
+
+.tabs {
+  display: grid;
+  grid-template-columns: auto;
+  align-items: center;
+  gap: 1em;
+}

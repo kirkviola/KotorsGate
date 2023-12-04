@@ -1,1 +1,5 @@
-<header class="primary-header"></header>
+<nav class="primary-header">
+  <div class="tabs" *ngFor="let route of routes">
+    <top-bar-item [config]="route"></top-bar-item>
+  </div>
+</nav>

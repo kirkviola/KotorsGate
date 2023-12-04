@@ -1,0 +1,10 @@
+@use '/src/assets/styles/colors.scss' as colors;
+
+.item {
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.item:hover {
+  background-color: colors.$neutral-dark;
+}
