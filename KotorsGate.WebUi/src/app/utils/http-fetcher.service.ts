@@ -20,7 +20,7 @@ export class HttpFetcherService {
   }
 
   post<T>(path: string, body: any, params?: QueryParams, headers?: Headers): Observable<T> {
-    return this.#http.post<T>(`${this.basePath}/${path}`, {body: body, params: this.#buildParams(params), headers: this.#addHeaders(headers)}) as Observable<T>;
+    return this.#http.post<T>(`${this.basePath}/${path}`, body, {params: this.#buildParams(params), headers: this.#addHeaders(headers)}) as Observable<T>;
   }
 
 

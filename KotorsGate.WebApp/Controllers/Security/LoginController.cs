@@ -21,11 +21,16 @@ namespace KotorsGate.WebApp.Controllers.Security
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] Login login) {
-            if (await _authenticateUser.IsUserAsync(login)) {
-                var tokenString = GenerateJSONWebToken();
-                return Ok(new { token = tokenString });
-            } else {
-                return Unauthorized();
+            try {
+                if (await _authenticateUser.IsUserAsync(login)) {
+                    var tokenString = GenerateJSONWebToken();
+                    return Ok(new { token = tokenString });
+                } else {
+                    return Unauthorized();
+                }
+
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
             }
         }
 
