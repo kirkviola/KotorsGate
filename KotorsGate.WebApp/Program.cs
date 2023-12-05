@@ -17,6 +17,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    // Do CORS for now
+    app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 }
 
 app.UseHttpsRedirection();

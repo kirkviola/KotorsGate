@@ -14,7 +14,7 @@ export class AuthenticationService {
   constructor() { }
 
   login(login: Login): Observable<string> {
-    return this.#http.post('login', login) as Observable<string>;
+    return this.#http.post('Login', login) as Observable<string>;
   }
 
 }

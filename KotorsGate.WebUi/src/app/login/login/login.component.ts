@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   #sessionService = inject(SessionStorageService);
   #router = inject(Router);
 
-  loginControl = new FormControl<Login>({username: '', password: ''});
+  loginInfo: Login = {username: '', password: ''};
 
   errorMessage: string = '';
 
@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login(login: Login): void {
-    this.#authService.login(login)
+  login(): void {
+    this.#authService.login(this.loginInfo)
       .subscribe({
         next: authentication => {
           this.#sessionService.set(AuthenticationService.bearerTokenKey, authentication);

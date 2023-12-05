@@ -11,7 +11,7 @@ export class HttpFetcherService {
 
   #http = inject(HttpClient);
   #sessionService = inject(SessionStorageService);
-  private readonly basePath = '/echo/api';
+  private readonly basePath = 'https://localhost:7276/api';
 
   constructor() { }
 

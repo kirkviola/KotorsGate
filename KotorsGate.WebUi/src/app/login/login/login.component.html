@@ -6,15 +6,19 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Enter your username</mat-label>
-          <input matInput placeholder="Username" type="text">
+          <input [(ngModel)]="loginInfo.username" matInput placeholder="Username" type="text">
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Enter your password</mat-label>
-          <input matInput placeholder="Password" type="password">
+          <input [(ngModel)]="loginInfo.password" matInput placeholder="Password" type="password">
         </mat-form-field>
+      </p>
+
+      <p>
+        <button mat-raised-button color="primary">Login</button>
       </p>
 
       <div>
