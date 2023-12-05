@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopBarComponent } from './shared/top-bar/top-bar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TopBarComponent } from './shared/top-bar/top-bar.component';
     HomeModule,
     BrowserAnimationsModule,
     TopBarComponent,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

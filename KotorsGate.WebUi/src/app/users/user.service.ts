@@ -1,18 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpFetcherService } from '../utils/http-fetcher.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  
-  #http = inject(HttpClient);
+
+  #http = inject(HttpFetcherService);
 
   constructor() { }
 
   registerNewUser(user: User): Observable<User> {
-    return this.#http.post('echo/api/register', user) as Observable<User>;
+    return this.#http.post('register', user) as Observable<User>;
   }
 }
 
