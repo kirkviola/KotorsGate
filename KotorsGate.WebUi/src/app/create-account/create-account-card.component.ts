@@ -32,6 +32,8 @@ export class CreateAccountCardComponent {
   resultMessage: string = '';
 
   validateAndSubmit(): void {
+    this.passwordErrorDisplay = false;
+
     if (this.userCreation.passwordInit !== this.userCreation.passwordVerified) {
       this.passwordErrorDisplay = true;
       return;
@@ -47,7 +49,7 @@ export class CreateAccountCardComponent {
         error: err => {
           this.resultMessage = `Problems creating new user: ${err}`;
         }
-      })
+      });
   }
 
 }

@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Domain.Entities.Permissions;
+using System.Text.Json.Serialization;
 
 namespace KotorsGate.Domain.Entities.Users
 {
@@ -8,14 +9,21 @@ namespace KotorsGate.Domain.Entities.Users
         public string Username {  get; set; }
         public string Password { get; set; }
 
-        public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
-        public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
-        public virtual IEnumerable<UserRole> UserRoles { get; set; }
+        [JsonIgnore]
+        public virtual IEnumerable<UserCharacter>? UserCharacters { get; set; }
+        [JsonIgnore]
+        public virtual IEnumerable<UserCampaign>? UserCampaigns { get; set; }
+        [JsonIgnore]
+        public virtual IEnumerable<UserRole>? UserRoles { get; set; }
         public User() { }
 
         public User(string username, string password) {
             Username = username;
             Password = password;
+
+            this.UserCampaigns = new List<UserCampaign>();
+            this.UserRoles = new List<UserRole>();
+            this.UserCharacters = new List<UserCharacter>();
         }
     }
 }

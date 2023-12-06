@@ -14,6 +14,11 @@ namespace KotorsGate.WebApp
         {
             services.AddHttpContextAccessor();
 
+            services.AddMvc(options => {
+                // Resolve issue of having "async" in function names
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
+
             // Jwt Auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -28,12 +33,11 @@ namespace KotorsGate.WebApp
                     };
                 });
 
-            services.AddMvc();
-
             // Use case registry
             services.AddScoped<IAuthenticateUser, AuthenticateUser>();
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();
+            services.AddScoped<IFindOneUserById, FindOneUserById>();
 
             return services;
         }
