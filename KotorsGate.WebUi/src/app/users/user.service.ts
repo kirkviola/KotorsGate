@@ -21,3 +21,9 @@ export interface User {
   username: string;
   password: string;
 }
+
+export interface UserCreation {
+  username: string;
+  passwordInit: string;
+  passwordVerified: string;
+}
