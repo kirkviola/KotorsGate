@@ -12,7 +12,7 @@ export class UserService {
   constructor() { }
 
   registerNewUser(user: User): Observable<User> {
-    return this.#http.post('register', user) as Observable<User>;
+    return this.#http.post('users/register', user) as Observable<User>;
   }
 }
 
@@ -20,4 +20,10 @@ export interface User {
   id: number;
   username: string;
   password: string;
+}
+
+export interface UserCreation {
+  username: string;
+  passwordInit: string;
+  passwordVerified: string;
 }

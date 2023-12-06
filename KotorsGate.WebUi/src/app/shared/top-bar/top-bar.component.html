@@ -1,7 +1,9 @@
 <nav class="primary-header">
   <div class="wrapping">
     <div class="tabs" *ngFor="let route of routes">
+    @for (route of routes; track $index) {
       <top-bar-item [config]="route"></top-bar-item>
+    }
     </div>
   </div>
 </nav>

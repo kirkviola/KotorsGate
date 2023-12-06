@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title class="title">Login to Kotor's Gate</mat-card-title>
 
-    <mat-card-content>
+    <mat-card-content class="contents">
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Enter your username</mat-label>
@@ -21,9 +21,11 @@
         <button (click)="login()" mat-raised-button color="primary">Login</button>
       </p>
 
-      <div>
-
-      </div>
     </mat-card-content>
+    <mat-card-actions>
+      <span>Don't have an account? Make one&nbsp;</span>
+      <span> </span>
+      <a [routerLink]="['/', 'register']">here</a>
+    </mat-card-actions>
   </mat-card>
 </div>

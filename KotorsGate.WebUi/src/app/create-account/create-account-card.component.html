@@ -1,0 +1,36 @@
+<div class="wrapping">
+  <mat-card>
+    <mat-card-title class="title">Create an Account</mat-card-title>
+
+    <mat-card-content>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a username</mat-label>
+          <input [(ngModel)]="userCreation.username" matInput placeholder="username">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a password</mat-label>
+          <input [(ngModel)]="userCreation.passwordInit" matInput placeholder="password" type="password">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Re-enter your password</mat-label>
+          <input [(ngModel)]="userCreation.passwordVerified" matInput placeholder="re-enter password" type="password">
+          @if (passwordErrorDisplay) {
+            <mat-hint class="error">Passwords do not match</mat-hint>
+          }
+        </mat-form-field>
+      </p>
+
+      <button (click)="validateAndSubmit()" mat-raised-button color="primary">Submit</button>
+      <mat-card-actions>
+        <mat-label>{{resultMessage}}</mat-label>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</div>
