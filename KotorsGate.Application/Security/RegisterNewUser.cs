@@ -2,7 +2,9 @@
 using KotorsGate.Application.Interfaces;
 using KotorsGate.Application.Security.Entities;
 using KotorsGate.Application.Security.Interfaces;
+using KotorsGate.Application.Security.Roles;
 using KotorsGate.Application.Users.Interfaces;
+using KotorsGate.Domain.Entities.Permissions;
 using KotorsGate.Domain.Entities.Users;
 
 namespace KotorsGate.Application.Security
@@ -27,6 +29,9 @@ namespace KotorsGate.Application.Security
             }
 
             _context.Users.Add(user);
+
+            // Default to give new users the player role and therefore permissions
+            _context.UserRoles.Add(new UserRole(user.Id, RoleDefinition.Player.Role));
             await _context.SaveChangesAsync();
 
             return user;
