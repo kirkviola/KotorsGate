@@ -1,4 +1,5 @@
-﻿using KotorsGate.Application.Security.Entities;
+﻿using KotorsGate.Application.Exceptions;
+using KotorsGate.Application.Security.Entities;
 using KotorsGate.Application.Security.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,15 +23,17 @@ namespace KotorsGate.WebApp.Controllers.Security
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] Login login) {
             try {
-                if (await _authenticateUser.IsUserAsync(login)) {
-                    var tokenString = GenerateJSONWebToken();
-                    return Ok(new { token = tokenString });
-                } else {
-                    return Unauthorized();
-                }
+
+                var user = await _authenticateUser.IsValidUserAsync(login);
+                var tokenString = GenerateJSONWebToken();
+                return Ok(new { token = tokenString });
 
             } catch (Exception ex) {
-                return BadRequest(ex.Message);
+                if (ex.GetType() == typeof(InvalidLoginException)) { 
+                    return Unauthorized(ex.Message);
+                } else {
+                    return BadRequest(ex.Message);
+                }
             }
         }
 

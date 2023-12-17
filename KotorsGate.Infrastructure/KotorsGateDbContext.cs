@@ -534,7 +534,7 @@ namespace KotorsGate.Infrastructure
 
             builder.Entity<Role>(r => {
                 r.ToTable("Roles");
-                r.HasKey(r => r.Id);
+                r.HasKey(r => r.Name);
                 r.Property(r => r.Name).HasMaxLength(64).IsRequired();
                 r.HasIndex(r => r.Name).IsUnique();
                 r.Property(r => r.Description).HasMaxLength(256).IsRequired();
@@ -542,9 +542,8 @@ namespace KotorsGate.Infrastructure
 
             builder.Entity<Permission>(p => {
                 p.ToTable("Permissions");
-                p.HasKey(p => p.Id);
-                p.Property(p => p.Name).IsRequired().HasMaxLength(64);
-                p.HasIndex(p => p.Name).IsUnique();
+                p.HasKey(p => p.Name);
+                p.Property(p => p.Name).HasMaxLength(64);
                 p.Property(p => p.Description).IsRequired().HasMaxLength(256);
             });
 
