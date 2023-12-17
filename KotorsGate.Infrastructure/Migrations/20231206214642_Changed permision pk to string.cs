@@ -5,7 +5,7 @@
 namespace KotorsGate.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class EnvironmentTables : Migration
+    public partial class Changedpermisionpktostring : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,14 +118,12 @@ namespace KotorsGate.Infrastructure.Migrations
                 name: "Permissions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permissions", x => x.Id);
+                    table.PrimaryKey("PK_Permissions", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -522,7 +520,7 @@ namespace KotorsGate.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    PermissionId = table.Column<int>(type: "int", nullable: false)
+                    PermissionId = table.Column<string>(type: "nvarchar(64)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -531,7 +529,7 @@ namespace KotorsGate.Infrastructure.Migrations
                         name: "FK_RolePermissions_Permissions_PermissionId",
                         column: x => x.PermissionId,
                         principalTable: "Permissions",
-                        principalColumn: "Id",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RolePermissions_Roles_RoleId",
@@ -1125,12 +1123,6 @@ namespace KotorsGate.Infrastructure.Migrations
                 name: "IX_Parties_UserCampaignId",
                 table: "Parties",
                 column: "UserCampaignId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Permissions_Name",
-                table: "Permissions",
-                column: "Name",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Planets_Name",

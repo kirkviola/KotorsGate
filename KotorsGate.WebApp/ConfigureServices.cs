@@ -4,7 +4,10 @@ using KotorsGate.Application.Users;
 using KotorsGate.Application.Users.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using KotorsGate.WebApp.Services;
 using System.Text;
+using KotorsGate.Application.Interfaces;
+using KotorsGate.WebApp.Services.AuthRequirements;
 
 namespace KotorsGate.WebApp
 {
@@ -33,8 +36,19 @@ namespace KotorsGate.WebApp
                     };
                 });
 
+            // Add policies
+            services.AddAuthorization(options => {
+                // Policies will go here which will bind against permission checks
+                // Use the sealed class instead of just string matching
+                options.AddPolicy(SecurityRule.CampaignCreator.Policy, policy => {
+                    policy.AddRequirements(new CampaignCreatorRequirement());
+                });
+            });
+
             // Use case registry
             services.AddScoped<IAuthenticateUser, AuthenticateUser>();
+            services.AddScoped<IGetUserPermissions, GetUserPermissions>();
+            services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();
             services.AddScoped<IFindOneUserById, FindOneUserById>();
