@@ -15,5 +15,10 @@ namespace KotorsGate.Domain.Entities.Permissions
             this.User = new User();
             this.Role = new Role();
         }
+
+        public UserRole(int userId, string roleId) {
+            this.UserId = userId;
+            this.RoleId = roleId;
+        }
     }
 }

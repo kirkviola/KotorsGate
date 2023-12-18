@@ -11,7 +11,7 @@ namespace KotorsGate.WebApp.Services
             _getUserPermissions = getUserPermissions;
         }
 
-        public int? UserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int? UserId { get; set; }
 
 
         public async Task<bool> HasPermissionAsync(string permission) {
@@ -25,7 +25,7 @@ namespace KotorsGate.WebApp.Services
         }
 
         public void SetCurrentUser(int id) {
-            throw new NotImplementedException();
+            this.UserId = id;
         }
     }
 }
