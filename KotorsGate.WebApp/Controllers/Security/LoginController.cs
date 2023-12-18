@@ -26,7 +26,7 @@ namespace KotorsGate.WebApp.Controllers.Security
 
                 var user = await _authenticateUser.IsValidUserAsync(login);
                 var tokenString = GenerateJSONWebToken();
-                return Ok(new { token = tokenString });
+                return Ok(new { token = tokenString, user = user });
 
             } catch (Exception ex) {
                 if (ex is InvalidLoginException) { 

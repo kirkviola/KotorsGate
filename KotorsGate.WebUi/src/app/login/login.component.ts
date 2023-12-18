@@ -6,8 +6,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { AuthenticationService, Login } from 'src/app/security/authentication.service';
 import { SessionStorageService } from 'src/app/security/session-storage.service';
+import { UserService } from '../users/user.service';
+import { CurrentUserService } from '../utils/current-user.service';
 
 @Component({
   selector: 'login',
@@ -27,6 +30,8 @@ import { SessionStorageService } from 'src/app/security/session-storage.service'
 export class LoginComponent implements OnInit {
   #authService = inject(AuthenticationService);
   #sessionService = inject(SessionStorageService);
+  #userService = inject(UserService);
+  #currentuserService = inject(CurrentUserService);
   #router = inject(Router);
 
   loginInfo: Login = {username: '', password: ''};
@@ -44,9 +49,14 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.#authService.login(this.loginInfo)
+      .pipe(switchMap(authentication => {
+        this.#sessionService.set(AuthenticationService.bearerTokenKey, authentication.token);
+
+        return this.#userService.getCurrentUser(authentication.user.id)
+      }))
       .subscribe({
-        next: authentication => {
-          this.#sessionService.set(AuthenticationService.bearerTokenKey, authentication);
+        next: user => {
+          this.#currentuserService.setCurrentUser(user);
           this.#router.navigate(['/home']);
         },
         error: err => {

@@ -1,6 +1,7 @@
 import { UserService } from './../users/user.service';
 import { Injectable, inject } from '@angular/core';
 import { UserAuth } from '../users/user.service';
+import { Permission } from '../shared/app-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,15 @@ export class CurrentUserService {
   #userService = inject(UserService)
   constructor() { }
 
-  setCurrentUser(id: number): void {
-    this.#userService.getCurrentUser(id)
-      .subscribe({
-        next: user => this.currentUser = user,
-        error: err => console.error(err)
-      });
+  setCurrentUser(user: UserAuth): void {
+    this.currentUser = user;
+  }
+
+  hasPermission(permission: Permission): boolean {
+    if (this.currentUser != null) {
+      return this.currentUser?.permissions.some(perm => perm === permission);
+    }
+
+    return false;
   }
 }
