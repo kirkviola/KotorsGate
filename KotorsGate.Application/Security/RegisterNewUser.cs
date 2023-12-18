@@ -1,6 +1,5 @@
 ﻿using KotorsGate.Application.Exceptions;
 using KotorsGate.Application.Interfaces;
-using KotorsGate.Application.Security.Entities;
 using KotorsGate.Application.Security.Interfaces;
 using KotorsGate.Application.Security.Roles;
 using KotorsGate.Application.Users.Interfaces;

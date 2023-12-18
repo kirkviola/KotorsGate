@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpFetcherService } from '../utils/http-fetcher.service';
+import { HttpFetcherService, QueryParams } from '../utils/http-fetcher.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,16 @@ export class UserService {
 
   #http = inject(HttpFetcherService);
 
+  private readonly basePath = 'users';
+
   constructor() { }
 
   registerNewUser(user: User): Observable<User> {
-    return this.#http.post('users/register', user) as Observable<User>;
+    return this.#http.post(`${this.basePath}/register`, user) as Observable<User>;
+  }
+
+  getCurrentUser(id: number): Observable<UserAuth> {
+    return this.#http.get(`${this.basePath}/authentication`, {id: id} satisfies QueryParams) as Observable<UserAuth>;
   }
 }
 
@@ -26,4 +32,10 @@ export interface UserCreation {
   username: string;
   passwordInit: string;
   passwordVerified: string;
+}
+
+export interface UserAuth {
+  id: number;
+  username: string;
+  permissions: string[];
 }

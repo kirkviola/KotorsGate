@@ -29,7 +29,7 @@ namespace KotorsGate.WebApp.Controllers.Security
                 return Ok(new { token = tokenString });
 
             } catch (Exception ex) {
-                if (ex.GetType() == typeof(InvalidLoginException)) { 
+                if (ex is InvalidLoginException) { 
                     return Unauthorized(ex.Message);
                 } else {
                     return BadRequest(ex.Message);

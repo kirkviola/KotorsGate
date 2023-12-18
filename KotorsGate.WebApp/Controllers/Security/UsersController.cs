@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Application.Security.Interfaces;
+using KotorsGate.Application.Security.Models;
 using KotorsGate.Application.Users.Interfaces;
 using KotorsGate.Domain.Entities.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -10,11 +11,14 @@ namespace KotorsGate.WebApp.Controllers.Security
     {
         private IRegisterNewUser _registerNewUser;
         private IFindOneUserById _findOneUserById;
+        private IGetCurrentUser _getCurrentUser;
 
         public UsersController(IRegisterNewUser registerNewUser,
-                               IFindOneUserById findOneUserById) {
+                               IFindOneUserById findOneUserById,
+                               IGetCurrentUser getCurrentUser) {
             _registerNewUser = registerNewUser;
             _findOneUserById = findOneUserById;
+            _getCurrentUser = getCurrentUser;
         }
 
         [AllowAnonymous]
@@ -42,6 +46,19 @@ namespace KotorsGate.WebApp.Controllers.Security
             }
 
             return Ok(user);
+        }
+
+        [Authorize]
+        [HttpGet("authentication")]
+        public async Task<ActionResult<UserAuth>> GetUserAuth([FromQuery] int id) {
+            try {
+
+                return await _getCurrentUser.GetAsync(id);
+
+            } catch (Exception ex) {
+                
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

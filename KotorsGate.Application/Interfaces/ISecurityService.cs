@@ -1,6 +1,4 @@
-﻿using KotorsGate.Domain.Entities.Permissions;
-
-namespace KotorsGate.Application.Interfaces
+﻿namespace KotorsGate.Application.Interfaces
 {
     public interface ISecurityService
     {
