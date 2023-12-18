@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpFetcherService, QueryParams } from '../utils/http-fetcher.service';
+import { Permission } from '../shared/app-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,5 @@ export interface UserCreation {
 export interface UserAuth {
   id: number;
   username: string;
-  permissions: string[];
+  permissions: Permission[];
 }

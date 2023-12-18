@@ -27,5 +27,5 @@ export interface Login {
 
 export interface LoginReponse {
   token: string;
-  user: User
+  user: User;
 }
