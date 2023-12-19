@@ -1,6 +1,5 @@
 ﻿using KotorsGate.Application.Interfaces;
 using KotorsGate.Application.Security.Interfaces;
-using KotorsGate.Domain.Entities.Permissions;
 
 namespace KotorsGate.WebApp.Services
 {

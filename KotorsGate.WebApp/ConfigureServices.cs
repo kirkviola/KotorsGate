@@ -48,6 +48,7 @@ namespace KotorsGate.WebApp
             // Use case registry
             services.AddScoped<IAuthenticateUser, AuthenticateUser>();
             services.AddScoped<IGetUserPermissions, GetUserPermissions>();
+            services.AddScoped<IGetCurrentUser, GetCurrentUser>();
             services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();

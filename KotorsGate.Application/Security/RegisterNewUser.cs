@@ -1,6 +1,5 @@
 ﻿using KotorsGate.Application.Exceptions;
 using KotorsGate.Application.Interfaces;
-using KotorsGate.Application.Security.Entities;
 using KotorsGate.Application.Security.Interfaces;
 using KotorsGate.Application.Security.Roles;
 using KotorsGate.Application.Users.Interfaces;
@@ -30,8 +29,11 @@ namespace KotorsGate.Application.Security
 
             _context.Users.Add(user);
 
+            await _context.SaveChangesAsync();
+
+            var newUser = await _findOneUserByUsername.GetAsync(user.Username);
             // Default to give new users the player role and therefore permissions
-            _context.UserRoles.Add(new UserRole(user.Id, RoleDefinition.Player.Role));
+            _context.UserRoles.Add(new UserRole(newUser!.Id, RoleDefinition.Player.Role)); // Assert because we just created it
             await _context.SaveChangesAsync();
 
             return user;
