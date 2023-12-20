@@ -43,6 +43,9 @@ namespace KotorsGate.WebApp
                 options.AddPolicy(SecurityRule.CampaignCreator.Policy, policy => {
                     policy.AddRequirements(new CampaignCreatorRequirement());
                 });
+                options.AddPolicy(SecurityRule.PlanetCreate.Policy, policy => {
+                    policy.AddRequirements(new PlanetCreateRequirement());
+                });
             });
 
             // Use case registry

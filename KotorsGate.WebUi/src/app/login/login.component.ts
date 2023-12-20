@@ -39,17 +39,20 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
 
   ngOnInit(): void {
-    // Clear out token before attempting to login, if necessary
-    const token = this.#sessionService.get(AuthenticationService.bearerTokenKey);
 
-    if (token != null) {
-      this.#sessionService.remove(AuthenticationService.bearerTokenKey);
-    }
   }
 
   login(): void {
     this.#authService.login(this.loginInfo)
       .pipe(switchMap(authentication => {
+
+      // Clear out token before attempting to login, if necessary
+      const token = this.#sessionService.get(AuthenticationService.bearerTokenKey);
+
+      if (token != null) {
+        this.#sessionService.remove(AuthenticationService.bearerTokenKey);
+      }
+
         this.#sessionService.set(AuthenticationService.bearerTokenKey, authentication.token);
 
         return this.#userService.getCurrentUser(authentication.user.id)

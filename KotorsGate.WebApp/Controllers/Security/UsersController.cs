@@ -9,9 +9,9 @@ namespace KotorsGate.WebApp.Controllers.Security
 {
     public class UsersController : ApiControllerBase
     {
-        private IRegisterNewUser _registerNewUser;
-        private IFindOneUserById _findOneUserById;
-        private IGetCurrentUser _getCurrentUser;
+        private readonly IRegisterNewUser _registerNewUser;
+        private readonly IFindOneUserById _findOneUserById;
+        private readonly IGetCurrentUser _getCurrentUser;
 
         public UsersController(IRegisterNewUser registerNewUser,
                                IFindOneUserById findOneUserById,
@@ -49,8 +49,8 @@ namespace KotorsGate.WebApp.Controllers.Security
         }
 
         [Authorize]
-        [HttpGet("authentication")]
-        public async Task<ActionResult<UserAuth>> GetUserAuth([FromQuery] int id) {
+        [HttpGet("authentication/{id}")]
+        public async Task<ActionResult<UserAuth>> GetUserAuth(int id) {
             try {
 
                 return await _getCurrentUser.GetAsync(id);

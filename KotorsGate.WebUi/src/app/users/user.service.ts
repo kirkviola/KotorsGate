@@ -2,6 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpFetcherService, QueryParams } from '../utils/http-fetcher.service';
 import { Permission } from '../shared/app-constants';
+import { SessionStorageService } from '../security/session-storage.service';
+import { AuthenticationService } from '../security/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,7 @@ import { Permission } from '../shared/app-constants';
 export class UserService {
 
   #http = inject(HttpFetcherService);
+  #sessionService = inject(SessionStorageService);
 
   private readonly basePath = 'users';
 
@@ -19,7 +22,7 @@ export class UserService {
   }
 
   getCurrentUser(id: number): Observable<UserAuth> {
-    return this.#http.get(`${this.basePath}/authentication`, {id: id} satisfies QueryParams) as Observable<UserAuth>;
+    return this.#http.get(`${this.basePath}/authentication/${id}`) as Observable<UserAuth>;
   }
 }
 
