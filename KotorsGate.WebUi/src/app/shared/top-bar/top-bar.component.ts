@@ -39,7 +39,6 @@ export class TopBarComponent implements OnInit {
             this.routes.push({name: 'Create Campaign', route: 'campaign-create'} satisfies LinkConfig);
           }
         }
-        let lol = 0;
       }
     })
   }
