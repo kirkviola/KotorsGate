@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AdminTabsComponent } from './admin-tabs/admin-tabs.component';
-import { PlanetCreateComponent } from './planet-create/planet-create.component';
-import { TopBarItemComponent } from '../shared/top-bar/top-bar-item/top-bar-item.component';
+import { AdminTabsComponent } from './admin-home/admin-tabs/admin-tabs.component';
+import { PlanetCreateComponent } from './planet-home/planet-create/planet-create.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { PlanetHomeComponent } from './planet-home/planet-home.component';
 
 
 
@@ -11,11 +14,22 @@ import { TopBarItemComponent } from '../shared/top-bar/top-bar-item/top-bar-item
   declarations: [
     AdminHomeComponent,
     AdminTabsComponent,
-    PlanetCreateComponent
+    PlanetCreateComponent,
+    PlanetHomeComponent
   ],
   imports: [
     CommonModule,
-    TopBarItemComponent,
+    MatTabsModule,
+    MatCardModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: AdminHomeComponent,
+      }, {
+        path: 'planets',
+        component: PlanetCreateComponent
+      }
+    ])
   ]
 })
 export class AdminModule { }

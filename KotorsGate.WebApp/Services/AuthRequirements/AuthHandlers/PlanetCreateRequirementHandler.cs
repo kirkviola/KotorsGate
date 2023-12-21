@@ -12,7 +12,7 @@ namespace KotorsGate.WebApp.Services.AuthRequirements.AuthHandlers
         }
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PlanetCreateRequirement requirement) {
-            if (await _securityService.HasPermissionAsync(SecurityRule.PlanetCreate.Policy)) {
+            if (await _securityService.HasPermissionAsync(SecurityRule.PlanetCreate)) {
                 context.Succeed(requirement);
             } else {
                 context.Fail();

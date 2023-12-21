@@ -12,7 +12,7 @@ namespace KotorsGate.WebApp.Services.AuthRequirements.AuthHandlers
         }
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, CampaignCreatorRequirement requirement) {
-            if (await _securityService.HasPermissionAsync(SecurityRule.CampaignCreator.Policy)) {
+            if (await _securityService.HasPermissionAsync(SecurityRule.CampaignCreator)) {
                 context.Succeed(requirement);
             } else {
                 context.Fail();

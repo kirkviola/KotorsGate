@@ -1,0 +1,11 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="0ms">
+  @for (tab of tabs; track $index) {
+    <mat-tab [label]="tab.label">
+      @switch (tab.key) {
+        @case ('planets') {
+          <planet-home></planet-home>
+        }
+      }
+    </mat-tab>
+  }
+</mat-tab-group>
