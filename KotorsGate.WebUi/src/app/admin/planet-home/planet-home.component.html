@@ -1,1 +1,13 @@
-<p>planet-home works!</p>
+<div class="wrapping">
+  <mat-card>
+    <mat-card-title class="title">Planet Admin Form</mat-card-title>
+
+    <mat-card-content>
+      <form class="form-size">
+        <planet-dropdown [planets]="planets" (selectedPlanet)="updatePlanet($event)"></planet-dropdown>
+
+        <planet-create [planet]="selectedPlanet" (savedPlanet)="saveSuccess($event)" (errorMessage)="saveFailure()"></planet-create>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

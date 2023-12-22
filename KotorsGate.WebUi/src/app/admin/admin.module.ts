@@ -7,6 +7,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { PlanetHomeComponent } from './planet-home/planet-home.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PlanetDropdownComponent } from './planet-home/planet-dropdown/planet-dropdown.component';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -15,19 +22,23 @@ import { PlanetHomeComponent } from './planet-home/planet-home.component';
     AdminHomeComponent,
     AdminTabsComponent,
     PlanetCreateComponent,
-    PlanetHomeComponent
+    PlanetHomeComponent,
+    PlanetDropdownComponent,
   ],
   imports: [
     CommonModule,
     MatTabsModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: '',
         component: AdminHomeComponent,
-      }, {
-        path: 'planets',
-        component: PlanetCreateComponent
       }
     ])
   ]
