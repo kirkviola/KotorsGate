@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Application.Exceptions;
+using KotorsGate.Application.Interfaces;
 using KotorsGate.Application.Security.Entities;
 using KotorsGate.Application.Security.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,12 +12,14 @@ namespace KotorsGate.WebApp.Controllers.Security
 {
     public class LoginController : ApiControllerBase
     {
-        private IConfiguration _config;
-        private IAuthenticateUser _authenticateUser;
+        private readonly IConfiguration _config;
+        private readonly IAuthenticateUser _authenticateUser;
+        private readonly ISecurityService _securityService;
 
-        public LoginController(IConfiguration config, IAuthenticateUser authenticateUser) {
+        public LoginController(IConfiguration config, IAuthenticateUser authenticateUser, ISecurityService securityService) {
             _config = config;
             _authenticateUser = authenticateUser;
+            _securityService = securityService;
         }
 
         [AllowAnonymous]
@@ -25,6 +28,7 @@ namespace KotorsGate.WebApp.Controllers.Security
             try {
 
                 var user = await _authenticateUser.IsValidUserAsync(login);
+                _securityService.SetCurrentUser(user.Id);
                 var tokenString = GenerateJSONWebToken();
                 return Ok(new { token = tokenString, user = user });
 
