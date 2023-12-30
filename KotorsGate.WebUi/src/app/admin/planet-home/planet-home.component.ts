@@ -38,6 +38,8 @@ export class PlanetHomeComponent implements OnInit {
     this.ngOnInit();
 
     this.selectedPlanet = planet;
+
+    this.openSnackBar();
   }
 
   saveFailure(): void {

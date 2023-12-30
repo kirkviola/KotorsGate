@@ -58,11 +58,11 @@ namespace KotorsGate.WebApp
             services.AddScoped<IAuthenticateUser, AuthenticateUser>();
             services.AddScoped<IGetUserPermissions, GetUserPermissions>();
             services.AddScoped<IGetCurrentUser, GetCurrentUser>();
-            services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();
             services.AddScoped<IFindOneUserById, FindOneUserById>();
-            services.AddScoped<IAuthorizationHandler, PlanetCreateRequirementHandler>();
+            services.AddSingleton<ISecurityService, SecurityService>();
+            services.AddSingleton<IAuthorizationHandler, PlanetCreateRequirementHandler>();
 
             // Admin and structural
             services.AddScoped<IGetAllPlanets, GetAllPlanets>();
