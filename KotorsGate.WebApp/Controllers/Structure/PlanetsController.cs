@@ -42,9 +42,14 @@ namespace KotorsGate.WebApp.Controllers.Structure
                 return BadRequest();
             }
 
-            await _createPlanet.CreateAsync(planet);
+            try {
+                await _createPlanet.CreateAsync(planet);
 
-            return CreatedAtAction("GetOneById", new { id = planet.Id }, planet);
+                return CreatedAtAction("GetOneById", new { id = planet.Id }, planet);
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

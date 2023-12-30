@@ -8,8 +8,10 @@ using KotorsGate.WebApp.Services;
 using System.Text;
 using KotorsGate.Application.Interfaces;
 using KotorsGate.WebApp.Services.AuthRequirements;
+using KotorsGate.WebApp.Services.AuthRequirements.AuthHandlers;
 using KotorsGate.Application.Planets.Interfaces;
 using KotorsGate.Application.Planets;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KotorsGate.WebApp
 {
@@ -60,10 +62,12 @@ namespace KotorsGate.WebApp
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();
             services.AddScoped<IFindOneUserById, FindOneUserById>();
+            services.AddScoped<IAuthorizationHandler, PlanetCreateRequirementHandler>();
 
             // Admin and structural
             services.AddScoped<IGetAllPlanets, GetAllPlanets>();
             services.AddScoped<IGetOnePlanetById, GetOnePlanetById>();
+            services.AddScoped<IGetOnePlanetByName, GetOnePlanetByName>();
             services.AddScoped<ICreatePlanet, CreatePlanet>();
 
             return services;
