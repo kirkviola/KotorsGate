@@ -1,0 +1,17 @@
+<p>
+  <mat-form-field [style.width.vw]="30">
+    <mat-label>Please choose a planet name</mat-label>
+    <input [(ngModel)]="planet.name" matInput placeholder="Planet name" type="text">
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field [style.width.vw]="30">
+    <mat-label>Description</mat-label>
+    <textarea [(ngModel)]="planet.description" matInput placeholder="A long time ago, in a galaxy far, far away..."></textarea>
+  </mat-form-field>
+</p>
+
+<mat-card-actions>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
+</mat-card-actions>

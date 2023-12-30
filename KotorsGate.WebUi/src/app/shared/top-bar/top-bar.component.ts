@@ -20,15 +20,26 @@ export class TopBarComponent implements OnInit {
 
   routes: LinkConfig[] = [];
 
+
   ngOnInit(): void {
-    // TODO: As more navigation options become available with gated access, push them to the array here
     const login = { name: 'Login', route: '/login' } satisfies LinkConfig;
 
-    this.routes.push(login);
 
-    if (this.#currentUserService.hasPermission(Permission.campaignCreator)) {
-      this.routes.push({name: 'Create Campaign', route: 'campaign-create'} satisfies LinkConfig);
-    }
+    this.#currentUserService.currentUserSubject.subscribe({
+      next: user => {
+        this.routes = [];
+        this.routes.push(login);
+        // TODO: As more navigation options become available with gated access, push them to the array here
+        if (user != null) {
+          if (user.permissions.find(permission => permission === Permission.adminTab)) {
+            this.routes.push({name: 'Admin', route: 'admin'} satisfies LinkConfig);
+          }
 
+          if (user.permissions.find(permission => permission === Permission.campaignCreator)) {
+            this.routes.push({name: 'Create Campaign', route: 'campaign-create'} satisfies LinkConfig);
+          }
+        }
+      }
+    })
   }
 }

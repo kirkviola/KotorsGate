@@ -1,5 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CurrentUserService } from './utils/current-user.service';
+import { Permission } from './shared/app-constants';
+
+function checkPermission(permission: Permission): () => boolean {
+  return () => {
+    const service = inject(CurrentUserService);
+
+    return service.hasPermission(permission);
+  }
+}
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,6 +22,10 @@ const routes: Routes = [
   }, {
     path: 'register',
     loadComponent: () => import('./create-account/create-account-card.component').then(c => c.CreateAccountCardComponent),
+  }, {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [checkPermission(Permission.adminTab)]
   }
 ];
 

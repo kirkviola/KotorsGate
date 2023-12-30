@@ -1,0 +1,9 @@
+<mat-form-field>
+  <mat-label>Planets</mat-label>
+
+  <mat-select>
+    @for (planet of planets; track $index) {
+      <mat-option [value]="planet" (click)="updateSelectedPlanet(planet)">{{planet.name}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

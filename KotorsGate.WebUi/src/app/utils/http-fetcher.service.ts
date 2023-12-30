@@ -37,16 +37,16 @@ export class HttpFetcherService {
   }
 
   #addHeaders(headers?: Headers): HttpHeaders | undefined {
-    const httpHeaders = new HttpHeaders();
+    let httpHeaders = new HttpHeaders();
     const token = this.#sessionService.get(AuthenticationService.bearerTokenKey);
 
     if (token != null) {
-      httpHeaders.append('Authorization', `Bearer ${token}`)
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`)
     }
 
     if (headers != null) {
       for (const header in headers) {
-        httpHeaders.append(header, headers[header]);
+        httpHeaders = httpHeaders.append(header, headers[header]);
       }
       return httpHeaders;
     }
