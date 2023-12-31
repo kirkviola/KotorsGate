@@ -6,11 +6,11 @@
 }
 
 .wrapping {
-  padding: 15px;
+  padding: 10px;
 }
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 50px);
+  grid-template-columns: repeat(auto-fit, 72px);
   gap: 1em;
 }

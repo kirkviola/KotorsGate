@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'top-bar-item',
   standalone: true,
   imports: [
     CommonModule,
     RouterLink,
+    MatButtonModule,
   ],
   templateUrl: './top-bar-item.component.html',
   styleUrl: './top-bar-item.component.scss'

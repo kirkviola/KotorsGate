@@ -6,3 +6,6 @@ insert into RolePermissions (RoleId, PermissionId)
 
 insert into RolePermissions (RoleId, PermissionId)
   values ('Admin', 'ADMIN_TAB');
+
+insert into RolePermissions (RoleId, PermissionId)
+  values ('Admin', 'CAMPAIGN_CREATOR');
