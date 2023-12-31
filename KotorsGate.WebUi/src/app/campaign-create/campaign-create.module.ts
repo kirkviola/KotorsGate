@@ -1,12 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CampaignHomeComponent } from './campaign-home/campaign-home.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CampaignHomeComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: CampaignHomeComponent,
+      }
+    ])
   ]
 })
 export class CampaignCreateModule { }

@@ -7,6 +7,7 @@ import { HomeModule } from './home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopBarComponent } from './shared/top-bar/top-bar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     TopBarComponent,
     HttpClientModule,
     MatSidenavModule,
+    SideNavComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,25 +1,27 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LinkConfig, NavItemComponent } from '../nav-item/nav-item.component';
-import { CurrentUserService } from 'src/app/utils/current-user.service';
-import { Permission } from '../app-constants';
+import { LinkConfig } from '../shared/nav-item/nav-item.component';
+import { CurrentUserService } from '../utils/current-user.service';
+import { Permission } from '../shared/app-constants';
+import { RouterModule } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
-  selector: 'top-bar',
+  selector: 'side-nav',
   standalone: true,
   imports: [
     CommonModule,
-    NavItemComponent,
+    RouterModule,
+    MatListModule,
   ],
-  templateUrl: './top-bar.component.html',
-  styleUrl: './top-bar.component.scss'
+  templateUrl: './side-nav.component.html',
+  styleUrl: './side-nav.component.scss'
 })
-export class TopBarComponent implements OnInit {
+export class SideNavComponent implements OnInit {
 
   #currentUserService = inject(CurrentUserService);
 
   routes: LinkConfig[] = [];
-
 
   ngOnInit(): void {
     const login = { name: 'Login', route: '/login' } satisfies LinkConfig;
@@ -42,4 +44,5 @@ export class TopBarComponent implements OnInit {
       }
     })
   }
+
 }

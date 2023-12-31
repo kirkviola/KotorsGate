@@ -1,9 +1,9 @@
 <top-bar></top-bar>
-<mat-drawer-container>
-  <mat-drawer>
-    <!-- Fill with side nav options -->
-  </mat-drawer>
-  <mat-drawer-content>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="true" class="side">
+    <side-nav></side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content class="content-wrapper">
     <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>

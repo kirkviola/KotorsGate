@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [checkPermission(Permission.adminTab)]
+  }, {
+    path: 'campaign-create',
+    loadChildren: () => import('./campaign-create/campaign-create.module').then(m => m.CampaignCreateModule),
+    canActivate: [checkPermission(Permission.campaignCreator)]
   }
 ];
 

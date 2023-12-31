@@ -1,16 +1,6 @@
 @use '../../../assets/styles/colors.scss';
 
 .primary-header {
-  background-color: colors.$neutral;
-  height: 72px;
-}
-
-.wrapping {
-  padding: 10px;
-}
-
-.tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 72px);
-  gap: 1em;
+  background-color: colors.$angular-blue;
+  height: 64px;
 }

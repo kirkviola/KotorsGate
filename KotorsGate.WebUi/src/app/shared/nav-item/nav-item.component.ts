@@ -10,10 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
     RouterLink,
     MatButtonModule,
   ],
-  templateUrl: './top-bar-item.component.html',
-  styleUrl: './top-bar-item.component.scss'
+  templateUrl: './nav-item.component.html',
+  styleUrl: './nav-item.component.scss'
 })
-export class TopBarItemComponent {
+export class NavItemComponent {
 
   @Input()
   config!: LinkConfig;
