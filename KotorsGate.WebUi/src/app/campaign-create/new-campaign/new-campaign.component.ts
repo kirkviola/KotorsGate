@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Campaign, CampaignService } from '../campaign.service';
+import { Campaign, CampaignService, CampaignWithPlanets } from '../campaign.service';
 import { Planet, PlanetService } from 'src/app/admin/planet-home/planet.service';
 
 @Component({
@@ -16,10 +16,9 @@ export class NewCampaignComponent implements OnInit {
 
   errorMessage: string | undefined;
 
-  campaign: Campaign = {id: 0, name: '', description: ''};
-  planets: Planet[] = [];
+  campaign: CampaignWithPlanets = {campaign: {id: 0, name: '', description: '', campaignPlanets: []}, planets: []};
 
-  selectedPlanets: Planet[] = [];
+  planets: Planet[] = [];
 
   ngOnInit(): void {
     this.#planetService.getAllPlanets()
@@ -32,8 +31,13 @@ export class NewCampaignComponent implements OnInit {
 
     this.#campaignService.createNewCampaign(this.campaign)
       .subscribe({
-        next: campaign => {
+        next: () => {
           this.isSaving = false;
+        },
+        error: err => {
+          this.isSaving = false;
+          this.errorMessage = 'Failed to save campaign';
+          console.error(err);
         }
       })
 

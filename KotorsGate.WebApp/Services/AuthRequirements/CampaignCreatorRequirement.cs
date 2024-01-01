@@ -4,5 +4,6 @@ namespace KotorsGate.WebApp.Services.AuthRequirements
 {
     public class CampaignCreatorRequirement : IAuthorizationRequirement
     {
+        public CampaignCreatorRequirement() { }
     }
 }

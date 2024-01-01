@@ -37,6 +37,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       {
         path: 'existing',
         component: ExistingCampaignComponent,
+      },
+      {
+        path: 'new',
+        component: NewCampaignComponent,
       }
     ])
   ]

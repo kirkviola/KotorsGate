@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Domain.Entities.Campaigns;
+using System.Text.Json.Serialization;
 
 namespace KotorsGate.Domain.Entities.Locations
 {
@@ -8,14 +9,25 @@ namespace KotorsGate.Domain.Entities.Locations
         public int PlanetId { get; set; }
         public int CampaignId { get; set; }
 
+        [JsonIgnore]
         public Campaign Campaign { get; set; }
+        [JsonIgnore]
         public Planet Planet { get; set; }
-
+        [JsonIgnore]
         public virtual IEnumerable<Location> Locations { get; set; }
 
         public CampaignPlanet() { 
             this.Campaign = new Campaign();
             this.Planet = new Planet();
+        }
+
+        public CampaignPlanet(int planetId, int campaignId) {
+            this.PlanetId = planetId;
+            this.CampaignId = campaignId;
+
+            this.Campaign = new Campaign();
+            this.Planet = new Planet();
+            this.Locations = new List<Location>();
         }
     }
 }

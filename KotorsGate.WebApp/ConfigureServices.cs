@@ -63,8 +63,11 @@ namespace KotorsGate.WebApp
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();
             services.AddScoped<IFindOneUserById, FindOneUserById>();
+
+            // Authorization handlers
             services.AddSingleton<ISecurityService, SecurityService>();
             services.AddSingleton<IAuthorizationHandler, PlanetCreateRequirementHandler>();
+            services.AddSingleton<IAuthorizationHandler, CampaignCreatorRequirementHandler>();
 
             // Admin and structural
             services.AddScoped<IGetAllPlanets, GetAllPlanets>();
@@ -74,6 +77,8 @@ namespace KotorsGate.WebApp
             services.AddScoped<IGetAllCampaigns, GetAllCampaigns>();
             services.AddScoped<IGetOneCampaignById, GetOneCampaignById>();
             services.AddScoped<IGetOneCampaignByName, GetOneCampaignByName>();
+            services.AddScoped<ICreateNewCampaign, CreateNewCampaign>();
+            services.AddScoped<ICreateCampaignWithPlanets, CreateCampaignWithPlanets>();
 
             return services;
         }

@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Application.Campaigns.Interfaces;
+using KotorsGate.Application.Campaigns.Models;
 using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -10,12 +11,12 @@ namespace KotorsGate.WebApp.Controllers.Structure
     {
         private readonly IGetAllCampaigns _getAllCampaigns;
         private readonly IGetOneCampaignById _getOneCampaignById;
-        private readonly ICreateNewCampaign _createNewCampaign;
+        private readonly ICreateCampaignWithPlanets _createCampaignWithPlanets;
 
-        public CampaignsController(IGetAllCampaigns getAllCampaigns, IGetOneCampaignById getOneCampaignById, ICreateNewCampaign createNewCampaign) {
+        public CampaignsController(IGetAllCampaigns getAllCampaigns, IGetOneCampaignById getOneCampaignById, ICreateCampaignWithPlanets createCampaignWithPlanets) {
             _getAllCampaigns = getAllCampaigns;
             _getOneCampaignById = getOneCampaignById;
-            _createNewCampaign = createNewCampaign;
+            _createCampaignWithPlanets = createCampaignWithPlanets;
         }
 
         [Authorize]
@@ -37,16 +38,16 @@ namespace KotorsGate.WebApp.Controllers.Structure
 
         [Authorize(Policy = SecurityRule.CampaignCreator)]
         [HttpPost]
-        public async Task<IActionResult> CreateCampaign(Campaign campaign) {
+        public async Task<IActionResult> CreateCampaign(CampaignWithPlanets campaign) {
             
             if (campaign == null) {
                 return BadRequest();
             }
 
             try {
-                await _createNewCampaign.CreateAsync(campaign);
+                await _createCampaignWithPlanets.CreateAsync(campaign);
 
-                return CreatedAtAction("GetOneById", new { id = campaign.Id }, campaign);
+                return CreatedAtAction("GetOneById", new { id = campaign.Campaign.Id }, campaign.Campaign);
             } catch (Exception ex) {
                 return BadRequest(ex);
             }
