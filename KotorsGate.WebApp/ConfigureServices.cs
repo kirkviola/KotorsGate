@@ -12,6 +12,8 @@ using KotorsGate.WebApp.Services.AuthRequirements.AuthHandlers;
 using KotorsGate.Application.Planets.Interfaces;
 using KotorsGate.Application.Planets;
 using Microsoft.AspNetCore.Authorization;
+using KotorsGate.Application.Campaigns.Interfaces;
+using KotorsGate.Application.Campaigns;
 
 namespace KotorsGate.WebApp
 {
@@ -69,6 +71,9 @@ namespace KotorsGate.WebApp
             services.AddScoped<IGetOnePlanetById, GetOnePlanetById>();
             services.AddScoped<IGetOnePlanetByName, GetOnePlanetByName>();
             services.AddScoped<ICreatePlanet, CreatePlanet>();
+            services.AddScoped<IGetAllCampaigns, GetAllCampaigns>();
+            services.AddScoped<IGetOneCampaignById, GetOneCampaignById>();
+            services.AddScoped<IGetOneCampaignByName, GetOneCampaignByName>();
 
             return services;
         }

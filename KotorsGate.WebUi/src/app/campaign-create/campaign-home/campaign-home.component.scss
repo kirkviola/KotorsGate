@@ -1,0 +1,24 @@
+@use '/src/assets/styles/structures.scss' as structures;
+
+.wrapper {
+  margin: structures.$wrapper-card-medium;
+}
+
+.card {
+  min-height: 150px;
+}
+
+.button-box {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.button-space {
+  padding: 5px 24px;
+}
+
+.text-alignment {
+  display: flex;
+  justify-content: center;
+}

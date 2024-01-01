@@ -1,1 +1,18 @@
-<p>campaign-home works!</p>
+<div class="wrapper">
+  <mat-card class="card">
+    <mat-card-title class="text-alignment">Campaign Creation</mat-card-title>
+
+    <mat-card-subtitle class="text-alignment">Would you like to...</mat-card-subtitle>
+
+    <mat-card-content>
+      <div class="button-box">
+        <span class="button-space">
+          <a mat-flat-button color="primary" [routerLink]="['existing']">Modify</a>
+        </span>
+        <span class="button-space">
+          <a mat-flat-button color="primary" [routerLink]="['new']">Create</a>
+        </span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
