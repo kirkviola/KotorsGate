@@ -23,7 +23,7 @@ namespace KotorsGate.Application.Campaigns
                 throw new CampaignWithNameExistsException(campaign.Name);
             }
 
-            await _context.Campaigns.AddAsync(campaign);
+            _context.Campaigns.Add(campaign);
 
             await _context.SaveChangesAsync();
         }

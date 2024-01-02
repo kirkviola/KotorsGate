@@ -23,7 +23,7 @@ namespace KotorsGate.Application.Planets
                 throw new PlanetAlreadyExistsException(planet.Name);
             }
 
-            await _context.Planets.AddAsync(planet);
+            _context.Planets.Add(planet);
 
             await _context.SaveChangesAsync();
         }

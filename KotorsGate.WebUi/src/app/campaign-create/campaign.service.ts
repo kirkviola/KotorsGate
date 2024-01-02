@@ -21,8 +21,8 @@ export class CampaignService {
     return this.#http.get(`${this.basePath}/${id}`) as Observable<Campaign>;
   }
 
-  createNewCampaign(campaign: CampaignWithPlanets): Observable<CampaignWithPlanets> {
-    return this.#http.post(this.basePath, campaign) as Observable<CampaignWithPlanets>;
+  createNewCampaign(campaign: Campaign): Observable<Campaign> {
+    return this.#http.post(this.basePath, campaign) as Observable<Campaign>;
   }
 }
 
@@ -39,11 +39,6 @@ export interface CampaignPlanet {
   campaignId: number;
   planetId: number;
 
-  planet: Planet;
-  campaign: Campaign;
-}
-
-export interface CampaignWithPlanets {
-  campaign: Campaign;
-  planets: Planet[];
+  planet?: Planet;
+  campaign?: Campaign;
 }

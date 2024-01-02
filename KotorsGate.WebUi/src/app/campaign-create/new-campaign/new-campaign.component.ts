@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Campaign, CampaignService, CampaignWithPlanets } from '../campaign.service';
+import { Campaign, CampaignPlanet, CampaignService } from '../campaign.service';
 import { Planet, PlanetService } from 'src/app/admin/planet-home/planet.service';
 
 @Component({
@@ -16,9 +16,11 @@ export class NewCampaignComponent implements OnInit {
 
   errorMessage: string | undefined;
 
-  campaign: CampaignWithPlanets = {campaign: {id: 0, name: '', description: '', campaignPlanets: []}, planets: []};
+  campaign: Campaign = {id: 0, name: '', description: '', campaignPlanets: []};
 
   planets: Planet[] = [];
+
+  selectedPlanets: Planet[] = [];
 
   ngOnInit(): void {
     this.#planetService.getAllPlanets()
@@ -28,6 +30,10 @@ export class NewCampaignComponent implements OnInit {
   save(): void {
 
     this.isSaving = true;
+
+    this.campaign.campaignPlanets = this.selectedPlanets.map(it => {
+      return { id: 0, planetId: it.id, campaignId: this.campaign.id } satisfies CampaignPlanet
+    })
 
     this.#campaignService.createNewCampaign(this.campaign)
       .subscribe({

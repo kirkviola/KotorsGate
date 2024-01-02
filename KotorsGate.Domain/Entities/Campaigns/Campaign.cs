@@ -11,15 +11,11 @@ namespace KotorsGate.Domain.Entities.Campaigns
         public string Description { get; set; } = string.Empty;
 
         [JsonIgnore]
-        public virtual IEnumerable<UserCampaign> UserCampaigns { get; set; }
+        public virtual IEnumerable<UserCampaign>? UserCampaigns { get; set; }
         [JsonIgnore]
-        public virtual IEnumerable<CampaignQuest> CampaignQuests { get; set; }
-        public virtual IEnumerable<CampaignPlanet> CampaignPlanets { get; set; }
+        public virtual IEnumerable<CampaignQuest>? CampaignQuests { get; set; }
+        public virtual List<CampaignPlanet>? CampaignPlanets { get; set; }
 
-        public Campaign() {
-            this.UserCampaigns = new List<UserCampaign>();
-            this.CampaignQuests = new List<CampaignQuest>();
-            this.CampaignPlanets = new List<CampaignPlanet>();
-        }
+        public Campaign() {}
     }
 }
