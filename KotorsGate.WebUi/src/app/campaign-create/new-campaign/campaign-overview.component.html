@@ -1,4 +1,4 @@
-
+<back-button></back-button>
 <div class="wrapper">
   @if (isSaving) {
     <mat-spinner></mat-spinner>
@@ -32,6 +32,9 @@
 
       <mat-card-actions>
         <button (click)="save()" mat-raised-button color="primary">Save &#38; Next</button>
+        @if (errorMessage != null) {
+          <span class="error-message">{{errorMessage}}</span>
+        }
       </mat-card-actions>
     </mat-card>
   }
