@@ -1,31 +1,35 @@
 <div class="wrapping">
-  <mat-card>
-    <mat-card-title class="title">Login to Kotor's Gate</mat-card-title>
+  @if (showSpinner) {
+    <mat-spinner></mat-spinner>
+  } @else {
+    <mat-card>
+      <mat-card-title class="title">Login to Kotor's Gate</mat-card-title>
 
-    <mat-card-content class="contents">
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Enter your username</mat-label>
-          <input [(ngModel)]="loginInfo.username" matInput placeholder="Username" type="text">
-        </mat-form-field>
-      </p>
+      <mat-card-content class="contents">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your username</mat-label>
+            <input [(ngModel)]="loginInfo.username" matInput placeholder="Username" type="text">
+          </mat-form-field>
+        </p>
 
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Enter your password</mat-label>
-          <input [(ngModel)]="loginInfo.password" matInput placeholder="Password" type="password">
-        </mat-form-field>
-      </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your password</mat-label>
+            <input [(ngModel)]="loginInfo.password" matInput placeholder="Password" type="password">
+          </mat-form-field>
+        </p>
 
-      <p>
-        <button (click)="login()" mat-raised-button color="primary">Login</button>
-      </p>
+        <p>
+          <button (click)="login()" mat-raised-button color="primary">Login</button>
+        </p>
 
-    </mat-card-content>
-    <mat-card-actions>
-      <span>Don't have an account? Make one&nbsp;</span>
-      <span> </span>
-      <a [routerLink]="['/', 'register']">here</a>
-    </mat-card-actions>
-  </mat-card>
+      </mat-card-content>
+      <mat-card-actions>
+        <span>Don't have an account? Make one&nbsp;</span>
+        <span> </span>
+        <a [routerLink]="['/', 'register']">here</a>
+      </mat-card-actions>
+    </mat-card>
+  }
 </div>

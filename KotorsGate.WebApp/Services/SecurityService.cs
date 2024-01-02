@@ -7,7 +7,7 @@ namespace KotorsGate.WebApp.Services
     {
   
         private readonly IServiceScopeFactory _scopeFactory;
-        public SecurityService( IServiceScopeFactory scopeFactory) {
+        public SecurityService(IServiceScopeFactory scopeFactory) {
             _scopeFactory = scopeFactory;
         }
 

@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Domain.Entities.Items;
+using System.Text.Json.Serialization;
 
 namespace KotorsGate.Domain.Entities.Locations
 {
@@ -8,6 +9,7 @@ namespace KotorsGate.Domain.Entities.Locations
         public string Name { get; set; } = string.Empty;
         public int CampaignPlanetId { get; set; }
 
+        [JsonIgnore]
         public CampaignPlanet CampaignPlanet { get; set; }
         public virtual IEnumerable<Battlefield> Battlefields { get; set; }
         public virtual IEnumerable<LocationMap> LocationMaps { get; set; }

@@ -1,0 +1,9 @@
+@use '/src/assets/styles/structures.scss' as structures;
+
+.wrapper {
+  padding: structures.$wrapper-card-medium;
+}
+
+.title {
+  padding: 5px 15px;
+}

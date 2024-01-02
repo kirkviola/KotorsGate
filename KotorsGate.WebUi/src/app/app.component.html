@@ -1,2 +1,9 @@
 <top-bar></top-bar>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="true" class="side">
+    <side-nav></side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content class="content-wrapper">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

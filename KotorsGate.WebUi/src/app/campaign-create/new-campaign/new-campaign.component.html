@@ -1,0 +1,39 @@
+
+<div class="wrapper">
+  @if (isSaving) {
+    <mat-spinner></mat-spinner>
+  } @else {
+    <mat-card>
+      <mat-card-title class="title">New Campaign</mat-card-title>
+
+      <mat-card-content>
+        <mat-form-field [style.width.vw]="30">
+          <mat-label>Campaign Name</mat-label>
+          <input [(ngModel)]="campaign.name" matInput placeholder="name" type="text">
+        </mat-form-field>
+
+        <mat-form-field [style.width.vw]="30">
+          <mat-label>Campaign Description</mat-label>
+          <textarea [(ngModel)]="campaign.description" matInput></textarea>
+        </mat-form-field>
+
+
+        <div>
+          <mat-form-field>
+            <mat-label>Select Planets</mat-label>
+            <mat-select [(ngModel)]="selectedPlanets" multiple>
+              @for (planet of planets; track planet) {
+                <mat-option [value]="planet">{{planet.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button (click)="save()" mat-raised-button color="primary">Save &#38; Next</button>
+      </mat-card-actions>
+    </mat-card>
+  }
+
+</div>

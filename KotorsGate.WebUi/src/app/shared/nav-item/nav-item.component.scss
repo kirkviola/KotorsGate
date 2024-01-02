@@ -1,9 +1,11 @@
 @use '/src/assets/styles/colors.scss' as colors;
+@use '/src/assets/styles/fonts.scss' as fonts;
 
 .item {
   padding: 15px;
   display: inline-block;
   align-items: center;
+  font-size: fonts.$medium-large;
 }
 
 .item:hover {

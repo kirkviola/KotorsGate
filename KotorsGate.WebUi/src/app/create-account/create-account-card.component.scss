@@ -1,7 +1,8 @@
 @use '/src/assets/styles/colors.scss' as colors;
+@use '/src/assets/styles/structures.scss' as structures;
 
 .wrapping {
-  margin: 2% 30%;
+  margin: structures.$wrapper-card-narrow;
 }
 
 .title {

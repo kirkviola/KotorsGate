@@ -12,6 +12,8 @@ using KotorsGate.WebApp.Services.AuthRequirements.AuthHandlers;
 using KotorsGate.Application.Planets.Interfaces;
 using KotorsGate.Application.Planets;
 using Microsoft.AspNetCore.Authorization;
+using KotorsGate.Application.Campaigns.Interfaces;
+using KotorsGate.Application.Campaigns;
 
 namespace KotorsGate.WebApp
 {
@@ -61,14 +63,21 @@ namespace KotorsGate.WebApp
             services.AddScoped<IFindOneUserByUsername, FindOneUserByUsername>();
             services.AddScoped<IRegisterNewUser, RegisterNewUser>();
             services.AddScoped<IFindOneUserById, FindOneUserById>();
+
+            // Authorization handlers
             services.AddSingleton<ISecurityService, SecurityService>();
             services.AddSingleton<IAuthorizationHandler, PlanetCreateRequirementHandler>();
+            services.AddSingleton<IAuthorizationHandler, CampaignCreatorRequirementHandler>();
 
             // Admin and structural
             services.AddScoped<IGetAllPlanets, GetAllPlanets>();
             services.AddScoped<IGetOnePlanetById, GetOnePlanetById>();
             services.AddScoped<IGetOnePlanetByName, GetOnePlanetByName>();
             services.AddScoped<ICreatePlanet, CreatePlanet>();
+            services.AddScoped<IGetAllCampaigns, GetAllCampaigns>();
+            services.AddScoped<IGetOneCampaignById, GetOneCampaignById>();
+            services.AddScoped<IGetOneCampaignByName, GetOneCampaignByName>();
+            services.AddScoped<ICreateNewCampaign, CreateNewCampaign>();
 
             return services;
         }

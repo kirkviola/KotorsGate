@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-title class="title">Campaigns</mat-card-title>
+
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Existing Campaigns</mat-label>
+
+        <mat-select>
+          @for (campaign of campaigns; track $index) {
+            <mat-option [value]="campaign" [(ngModel)]="selectedCampaign">{{campaign.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      @if (selectedCampaign != null) {
+        <a mat-button-flat color="primary" [routerLink]="['/', 'campaign-create', 'edit']" [queryParams]="{id: selectedCampaign.id}">Edit</a>
+      }
+    </mat-card-actions>
+  </mat-card>
+</div>
