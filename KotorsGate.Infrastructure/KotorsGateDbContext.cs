@@ -125,6 +125,9 @@ namespace KotorsGate.Infrastructure
                 user.HasMany(user => user.Roles)
                     .WithMany(role => role.Users)
                     .UsingEntity<UserRole>();
+                user.HasMany(user => user.Characters)
+                    .WithMany(character => character.Users)
+                    .UsingEntity<UserCharacter>();
             });
 
             builder.Entity<Character>(character => {
@@ -137,19 +140,6 @@ namespace KotorsGate.Infrastructure
                 character.Property(character => character.TotalForcePoints).HasMaxLength(5000).IsRequired(false).HasDefaultValue(null);
                 character.Property(character => character.CurrentForcePoints).HasMaxLength(5000).IsRequired(false).HasDefaultValue(null);
                 character.Property(character => character.Alignment).IsRequired(true).HasDefaultValue(0);
-            });
-
-            builder.Entity<UserCharacter>(userCharacter => {
-                userCharacter.ToTable("UserCharacters");
-                userCharacter.HasKey(userCharacter => userCharacter.Id);
-                userCharacter.HasOne(userCharacter => userCharacter.User)
-                    .WithMany(user => user.UserCharacters)
-                    .HasForeignKey(userCharacter => userCharacter.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-                userCharacter.HasOne(userCharacter => userCharacter.Character)
-                    .WithMany(character => character.UserCharacters)
-                    .HasForeignKey(userCharacter => userCharacter.CharacterId)
-                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Ability>(ability => {

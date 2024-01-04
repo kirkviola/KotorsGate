@@ -11,6 +11,10 @@ namespace KotorsGate.Domain.Entities.Users
         public User User { get; set; }
         public Character Character { get; set; }
 
-        public UserCharacter() { }
+        public UserCharacter() {
+            this.User = new User();
+            this.Character = new Character();
+        
+        }
     }
 }

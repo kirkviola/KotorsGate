@@ -14,7 +14,7 @@ namespace KotorsGate.Domain.Entities.Characters
         public int? CurrentForcePoints { get; set; }
         public int Alignment { get; set; }
 
-        public virtual IEnumerable<UserCharacter> UserCharacters { get; set; }
+        public virtual IEnumerable<User> Users { get; set; }
         public virtual IEnumerable<CharacterParty> CharacterParties { get; set; }
         public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
         public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
@@ -25,7 +25,7 @@ namespace KotorsGate.Domain.Entities.Characters
         public virtual IEnumerable<CharacterSkill> CharacterSkills { get; set; }
 
         public Character() {
-            this.UserCharacters = new List<UserCharacter>();
+            this.Users = new List<User>();
             this.CharacterParties = new List<CharacterParty>();
             this.CharacterFeats = new List<CharacterFeat>();
             this.CharacterPowers = new List<CharacterPower>();

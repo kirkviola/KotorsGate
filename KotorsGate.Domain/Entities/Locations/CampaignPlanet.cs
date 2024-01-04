@@ -13,13 +13,17 @@ namespace KotorsGate.Domain.Entities.Locations
         public Campaign? Campaign { get; set; }
         public Planet? Planet { get; set; }
         [JsonIgnore]
-        public virtual IEnumerable<Location>? Locations { get; set; }
+        public virtual IEnumerable<Location> Locations { get; set; }
 
-        public CampaignPlanet() { }
+        public CampaignPlanet() {
+            this.Locations = new List<Location>();
+        }
 
         public CampaignPlanet(int planetId, int campaignId) {
             this.PlanetId = planetId;
             this.CampaignId = campaignId;
+
+            this.Locations = new List<Location>();
         }
     }
 }
