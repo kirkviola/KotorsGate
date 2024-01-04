@@ -17,12 +17,12 @@ export class CampaignService {
     return this.#http.get(this.basePath) as Observable<Campaign[]>;
   }
 
-  getOneCampaignById(id: number): Observable<Campaign> {
-    return this.#http.get(`${this.basePath}/${id}`) as Observable<Campaign>;
+  getOneCampaignById(id: number): Observable<CampaignBasic> {
+    return this.#http.get(`${this.basePath}/${id}`) as Observable<CampaignBasic>;
   }
 
-  createNewCampaign(campaign: Campaign): Observable<Campaign> {
-    return this.#http.post(this.basePath, campaign) as Observable<Campaign>;
+  createNewCampaign(campaign: CampaignBasic): Observable<CampaignBasic> {
+    return this.#http.post(this.basePath, campaign) as Observable<CampaignBasic>;
   }
 }
 
@@ -30,15 +30,9 @@ export interface Campaign {
   id: number;
   name: string;
   description: string;
-
-  campaignPlanets: CampaignPlanet[];
 }
 
-export interface CampaignPlanet {
-  id: number;
-  campaignId: number;
-  planetId: number;
-
-  planet?: Planet;
-  campaign?: Campaign;
+export interface CampaignBasic {
+  campaign: Campaign,
+  planets: Planet[]
 }

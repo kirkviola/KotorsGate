@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { Campaign, CampaignPlanet, CampaignService } from '../campaign.service';
+import { Campaign, CampaignBasic, CampaignService } from '../campaign.service';
 import { Planet, PlanetService } from 'src/app/admin/planet-home/planet.service';
 import { Router } from '@angular/router';
 
@@ -19,7 +19,7 @@ export class CampaignOverviewComponent implements OnInit {
   errorMessage: string | undefined;
 
   @Input()
-  campaign: Campaign = {id: 0, name: '', description: '', campaignPlanets: []};
+  campaign: Campaign = {id: 0, name: '', description: ''};
 
   planets: Planet[] = [];
 
@@ -36,16 +36,13 @@ export class CampaignOverviewComponent implements OnInit {
 
     this.errorMessage = undefined;
 
-    this.campaign.campaignPlanets = this.selectedPlanets.map(it => {
-      return { id: 0, planetId: it.id, campaignId: this.campaign.id } satisfies CampaignPlanet
-    })
-
-    this.#campaignService.createNewCampaign(this.campaign)
+    const newCampaign = { campaign: this.campaign, planets: this.selectedPlanets } satisfies CampaignBasic;
+    this.#campaignService.createNewCampaign(newCampaign)
       .subscribe({
-        next: campaign => {
-          this.campaign = campaign;
+        next: response => {
+          this.campaign = response.campaign;
           this.isSaving = false;
-          this.#router.navigate(['/', 'campaign-create', 'locations'], {queryParams: { id: campaign.id }});
+          this.#router.navigate(['/', 'campaign-create', 'locations'], {queryParams: { id: response.campaign.id }});
         },
         error: err => {
           this.isSaving = false;

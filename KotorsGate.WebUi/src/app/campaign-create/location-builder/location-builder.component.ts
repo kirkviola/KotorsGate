@@ -39,9 +39,9 @@ export class LocationBuilderComponent implements OnInit {
         }
       }))
       .subscribe({
-        next: campaign => {
-          this.campaign = campaign;
-          this.#mapPlanets(campaign);
+        next: data => {
+          this.campaign = data.campaign;
+          this.planets = data.planets;
           this.isLoading = false;
         },
         error: err => {
@@ -50,14 +50,6 @@ export class LocationBuilderComponent implements OnInit {
         }
       })
 
-  }
-
-  #mapPlanets(campaign: Campaign): void {
-    campaign.campaignPlanets.forEach(it => {
-      if (it.planet != null) {
-        this.planets.push(it.planet);
-      }
-    })
   }
 
 }

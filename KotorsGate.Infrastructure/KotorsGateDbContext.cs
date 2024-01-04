@@ -122,6 +122,9 @@ namespace KotorsGate.Infrastructure
                 user.Property(user => user.Username).IsRequired().HasMaxLength(128);
                 user.HasIndex(user => user.Username).IsUnique();
                 user.Property(user => user.Password).IsRequired().HasMaxLength(256);
+                user.HasMany(user => user.Roles)
+                    .WithMany(role => role.Users)
+                    .UsingEntity<UserRole>();
             });
 
             builder.Entity<Character>(character => {
@@ -177,19 +180,12 @@ namespace KotorsGate.Infrastructure
                 campaign.Property(campaign => campaign.Name).HasMaxLength(64).IsRequired();
                 campaign.HasIndex(campaign => campaign.Name).IsUnique();
                 campaign.Property(campaign => campaign.Description).HasMaxLength(2048).IsRequired();
-            });
-
-            builder.Entity<UserCampaign>(userCampaign => {
-                userCampaign.ToTable("UserCampaigns");
-                userCampaign.HasKey(campaign => campaign.Id);
-                userCampaign.HasOne(userCampaign => userCampaign.User)
-                    .WithMany(user => user.UserCampaigns)
-                    .HasForeignKey(userCampaign => userCampaign.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-                userCampaign.HasOne(userCampaign => userCampaign.Campaign)
-                    .WithMany(campaign => campaign.UserCampaigns)
-                    .HasForeignKey(userCampaign => userCampaign.CampaignId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                campaign.HasMany(c => c.Quests)
+                    .WithMany(q => q.Campaigns)
+                    .UsingEntity<CampaignQuest>();
+                campaign.HasMany(c => c.Users)
+                    .WithMany(u => u.Campaigns)
+                    .UsingEntity<UserCampaign>();
             });
 
             builder.Entity<UserCampaignCharacter>(uCampChar => {
@@ -323,18 +319,6 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.NoAction);
             });
 
-            builder.Entity<CampaignQuest>(cQuest => {
-                cQuest.ToTable("CampaignQuests");
-                cQuest.HasKey(cQuest => cQuest.Id);
-                cQuest.HasOne(cQuest => cQuest.Campaign)
-                    .WithMany(campaign => campaign.CampaignQuests)
-                    .HasForeignKey(cQuest => cQuest.CampaignId)
-                    .OnDelete(DeleteBehavior.NoAction);
-                cQuest.HasOne(cQuest => cQuest.Quest)
-                    .WithMany(quest => quest.CampaignQuests)
-                    .HasForeignKey(cQuest => cQuest.QuestId)
-                    .OnDelete(DeleteBehavior.NoAction);
-            });
 
             builder.Entity<CampaignQuestObjective>(cObjective => {
                 cObjective.ToTable("CampaignQuestObjectives");
@@ -478,19 +462,9 @@ namespace KotorsGate.Infrastructure
                 p.Property(p => p.Name).HasMaxLength(64).IsRequired();
                 p.HasIndex(p => p.Name).IsUnique();
                 p.Property(p => p.Description).HasMaxLength(2048).IsRequired();
-            });
-
-            builder.Entity<CampaignPlanet>(campP => {
-                campP.ToTable("CampaignPlanets");
-                campP.HasKey(campP => campP.Id);
-                campP.HasOne(campP => campP.Campaign)
-                    .WithMany(c => c.CampaignPlanets)
-                    .HasForeignKey(campP => campP.CampaignId)
-                    .OnDelete(DeleteBehavior.Restrict);
-                campP.HasOne(campP => campP.Planet)
-                    .WithMany(p => p.CampaignPlanets)
-                    .HasForeignKey(campP => campP.PlanetId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                p.HasMany(p => p.Campaigns)
+                    .WithMany(c => c.Planets)
+                    .UsingEntity<CampaignPlanet>();
             });
 
             builder.Entity<Location>(l => {
@@ -545,32 +519,9 @@ namespace KotorsGate.Infrastructure
                 p.HasKey(p => p.Name);
                 p.Property(p => p.Name).HasMaxLength(64);
                 p.Property(p => p.Description).IsRequired().HasMaxLength(256);
-            });
-
-            builder.Entity<RolePermission>(rp => {
-                rp.ToTable("RolePermissions");
-                rp.HasKey(rp => rp.Id);
-                rp.HasOne(rp => rp.Role)
-                    .WithMany(r => r.RolePermissions)
-                    .HasForeignKey(rp => rp.RoleId)
-                    .OnDelete(DeleteBehavior.Restrict);
-                rp.HasOne(rp => rp.Permission)
-                    .WithMany(p => p.RolePermissions)
-                    .HasForeignKey(rp => rp.PermissionId)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            builder.Entity<UserRole>(up => {
-                up.ToTable("UserRoles");
-                up.HasKey(p => p.Id);
-                up.HasOne(ur => ur.User)
-                    .WithMany(u => u.UserRoles)
-                    .HasForeignKey(up => up.UserId)
-                    .OnDelete(DeleteBehavior.Restrict);
-                up.HasOne(ur => ur.Role)
-                    .WithMany(p => p.UserRoles)
-                    .HasForeignKey(ur => ur.RoleId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                p.HasMany(p => p.Roles)
+                    .WithMany(r => r.Permissions)
+                    .UsingEntity<RolePermission>();
             });
 
             builder.Entity<EnvironmentObject>(eo => {

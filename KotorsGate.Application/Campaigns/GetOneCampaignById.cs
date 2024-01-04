@@ -1,7 +1,7 @@
 ﻿using KotorsGate.Application.Campaigns.Interfaces;
+using KotorsGate.Application.Campaigns.Models;
 using KotorsGate.Application.Exceptions;
 using KotorsGate.Application.Interfaces;
-using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.Domain.Entities.Locations;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,12 +16,20 @@ namespace KotorsGate.Application.Campaigns
             _context = context;
         }
 
-        public async Task<Campaign?> GetAsync(int id) {
-            return await _context.Campaigns.Where(x => x.Id == id)
-                                            .Include(x => x.CampaignPlanets ?? new List<CampaignPlanet>())
-                                            .ThenInclude(x => x.Planet)
+        public async Task<CampaignBasic?> GetAsync(int id) {
+            var raw = await _context.Campaigns.Where(x => x.Id == id)
+                                            .Include(x => x.Planets)
                                             .FirstOrDefaultAsync()
                 ?? throw new CampaignNotFoundException(id);
+
+            if (raw == null) {
+                return null;
+            } else {
+                return new CampaignBasic(
+                    raw,
+                    raw.Planets.ToList()
+                    ); 
+            }
         }
     }
 }

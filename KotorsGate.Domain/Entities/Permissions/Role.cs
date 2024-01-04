@@ -1,16 +1,18 @@
-﻿namespace KotorsGate.Domain.Entities.Permissions
+﻿using KotorsGate.Domain.Entities.Users;
+
+namespace KotorsGate.Domain.Entities.Permissions
 {
     public class Role
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public virtual IEnumerable<UserRole> UserRoles { get; set; }
-        public virtual IEnumerable<RolePermission> RolePermissions { get; set; }
+        public virtual IEnumerable<User> Users { get; set; }
+        public virtual IEnumerable<Permission> Permissions { get; set; }
 
         public Role() {
-            this.UserRoles = new List<UserRole>();
-            this.RolePermissions = new List<RolePermission>();
+            this.Users = new List<User>();
+            this.Permissions = new List<Permission>();
         }
     }
 }
