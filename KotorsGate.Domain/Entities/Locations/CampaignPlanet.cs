@@ -11,7 +11,6 @@ namespace KotorsGate.Domain.Entities.Locations
 
         [JsonIgnore]
         public Campaign? Campaign { get; set; }
-        [JsonIgnore]
         public Planet? Planet { get; set; }
         [JsonIgnore]
         public virtual IEnumerable<Location>? Locations { get; set; }

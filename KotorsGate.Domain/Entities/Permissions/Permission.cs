@@ -5,10 +5,10 @@
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public virtual IEnumerable<RolePermission> RolePermissions { get; set; }
+        public virtual IEnumerable<Role> Roles { get; set; }
 
         public Permission() { 
-            this.RolePermissions = new List<RolePermission>();
+            this.Roles = new List<Role>();
         }
     }
 }

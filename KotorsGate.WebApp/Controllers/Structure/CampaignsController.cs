@@ -1,4 +1,5 @@
 ﻿using KotorsGate.Application.Campaigns.Interfaces;
+using KotorsGate.Application.Campaigns.Models;
 using KotorsGate.Domain.Entities.Campaigns;
 using KotorsGate.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +27,7 @@ namespace KotorsGate.WebApp.Controllers.Structure
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Campaign>> GetOneById(int id) {
+        public async Task<ActionResult<CampaignBasic?>> GetOneById(int id) {
 
             try {
                return Ok(await _getOneCampaignById.GetAsync(id));
