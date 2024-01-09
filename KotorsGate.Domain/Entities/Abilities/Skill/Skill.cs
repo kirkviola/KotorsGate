@@ -8,7 +8,7 @@ namespace KotorsGate.Domain.Entities.Abilities.Skill
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public virtual IEnumerable<CharacterSkill> CharacterSkills { get; set; }
+        public virtual ICollection<CharacterSkill> CharacterSkills { get; set; }
 
         public Skill() {
             this.CharacterSkills = new List<CharacterSkill>();

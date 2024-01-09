@@ -11,9 +11,9 @@ namespace KotorsGate.Domain.Entities.Locations
 
         [JsonIgnore]
         public CampaignPlanet CampaignPlanet { get; set; }
-        public virtual IEnumerable<Battlefield> Battlefields { get; set; }
-        public virtual IEnumerable<LocationMap> LocationMaps { get; set; }
-        public virtual IEnumerable<LocationEnvironment> LocationEnvironments { get; set; }
+        public virtual ICollection<Battlefield> Battlefields { get; set; }
+        public virtual ICollection<LocationMap> LocationMaps { get; set; }
+        public virtual ICollection<LocationEnvironment> LocationEnvironments { get; set; }
 
         public Location() {
             this.CampaignPlanet = new CampaignPlanet();

@@ -9,7 +9,7 @@ namespace KotorsGate.Domain.Entities.Dialogue
 
         public Quest Quest { get; set; }
 
-        public virtual IEnumerable<DialogueLine> DialogueLines { get; set; }
+        public virtual ICollection<DialogueLine> DialogueLines { get; set; }
 
         public QuestDialogue() {
             this.Quest = new Quest();

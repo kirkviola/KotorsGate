@@ -9,7 +9,7 @@
         public Quest Quest { get; set; }
         public Campaign Campaign { get; set; }
 
-        public IEnumerable<CampaignQuestObjective> CampaignQuestObjectives { get; set; }
+        public ICollection<CampaignQuestObjective> CampaignQuestObjectives { get; set; }
 
         public CampaignQuest()
         { 

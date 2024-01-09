@@ -10,8 +10,8 @@ namespace KotorsGate.Domain.Entities.Items
         public bool IsConsumable { get; set; }
         public int ItemTypeId { get; set; }
 
-        public virtual IEnumerable<ItemAttribute> ItemAttributes { get; set; }
-        public virtual IEnumerable<CharacterItem>? CharacterItems { get; set; }
+        public virtual ICollection<ItemAttribute> ItemAttributes { get; set; }
+        public virtual ICollection<CharacterItem>? CharacterItems { get; set; }
 
         public ItemClassification ItemClassification { get; set; }
 

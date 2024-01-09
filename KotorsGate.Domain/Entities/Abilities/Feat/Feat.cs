@@ -9,9 +9,9 @@ namespace KotorsGate.Domain.Entities.Abilities.Feat
         public string ToolTip { get; set; } = string.Empty;
         public int RequiredLevel { get; set; }
 
-        public virtual IEnumerable<ClassFeat> ClassFeats { get; set; }
-        public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
-        public virtual IEnumerable<FeatProgression> FeatProgressions { get; set; }
+        public virtual ICollection<ClassFeat> ClassFeats { get; set; }
+        public virtual ICollection<CharacterFeat> CharacterFeats { get; set; }
+        public virtual ICollection<FeatProgression> FeatProgressions { get; set; }
 
         public Feat() { }
     }

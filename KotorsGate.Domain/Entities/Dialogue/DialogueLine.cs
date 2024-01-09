@@ -7,7 +7,7 @@
         public int DialogueId { get; set; } 
 
         public QuestDialogue QuestDialogue { get; set; }
-        public virtual IEnumerable<Response>? Responses { get; set; }
+        public virtual ICollection<Response>? Responses { get; set; }
 
 
         public DialogueLine() { 

@@ -2,7 +2,6 @@
 using KotorsGate.Application.Campaigns.Models;
 using KotorsGate.Application.Exceptions;
 using KotorsGate.Application.Interfaces;
-using KotorsGate.Domain.Entities.Locations;
 using Microsoft.EntityFrameworkCore;
 
 namespace KotorsGate.Application.Campaigns

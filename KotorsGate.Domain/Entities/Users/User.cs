@@ -12,11 +12,11 @@ namespace KotorsGate.Domain.Entities.Users
         public string Password { get; set; } = string.Empty;
 
         [JsonIgnore]
-        public virtual IEnumerable<Character> Characters { get; set; }
+        public virtual ICollection<Character> Characters { get; set; }
         [JsonIgnore]
-        public virtual IEnumerable<Campaign> Campaigns { get; set; }
+        public virtual ICollection<Campaign> Campaigns { get; set; }
         [JsonIgnore]
-        public virtual IEnumerable<Role> Roles { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
         public User() {
             this.Campaigns = new List<Campaign>();
             this.Roles = new List<Role>();

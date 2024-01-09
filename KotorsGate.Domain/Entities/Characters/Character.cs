@@ -14,15 +14,15 @@ namespace KotorsGate.Domain.Entities.Characters
         public int? CurrentForcePoints { get; set; }
         public int Alignment { get; set; }
 
-        public virtual IEnumerable<User> Users { get; set; }
-        public virtual IEnumerable<CharacterParty> CharacterParties { get; set; }
-        public virtual IEnumerable<CharacterFeat> CharacterFeats { get; set; }
-        public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
-        public virtual IEnumerable<UserCampaignCharacter> UserCampaignCharacters { get; set; }
-        public virtual IEnumerable<CharacterDialogue> CharacterDialogues { get; set; }
-        public virtual IEnumerable<CharacterAbility> CharacterAbilities { get; set; }
-        public virtual IEnumerable<CharacterItem>? CharacterItems { get; set; }
-        public virtual IEnumerable<CharacterSkill> CharacterSkills { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<CharacterParty> CharacterParties { get; set; }
+        public virtual ICollection<CharacterFeat> CharacterFeats { get; set; }
+        public virtual ICollection<CharacterPower> CharacterPowers { get; set; }
+        public virtual ICollection<UserCampaignCharacter> UserCampaignCharacters { get; set; }
+        public virtual ICollection<CharacterDialogue> CharacterDialogues { get; set; }
+        public virtual ICollection<CharacterAbility> CharacterAbilities { get; set; }
+        public virtual ICollection<CharacterItem>? CharacterItems { get; set; }
+        public virtual ICollection<CharacterSkill> CharacterSkills { get; set; }
 
         public Character() {
             this.Users = new List<User>();

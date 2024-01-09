@@ -10,7 +10,7 @@
 
         public Quest Quest { get; set; }
 
-        public virtual IEnumerable<CampaignQuestObjective> CampaignQuestObjectives { get; set; }
+        public virtual ICollection<CampaignQuestObjective> CampaignQuestObjectives { get; set; }
 
         public QuestObjective()
         {

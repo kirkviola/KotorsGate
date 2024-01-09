@@ -11,9 +11,9 @@ namespace KotorsGate.Domain.Entities.Abilities.Power
         public string Alignment { get; set; }
         public int BaseCost { get; set; }
 
-        public virtual IEnumerable<ClassPower> ClassPowers { get; set; }
-        public virtual IEnumerable<CharacterPower> CharacterPowers { get; set; }
-        public virtual IEnumerable<PowerProgression> PowerProgressions { get; set; }
+        public virtual ICollection<ClassPower> ClassPowers { get; set; }
+        public virtual ICollection<CharacterPower> CharacterPowers { get; set; }
+        public virtual ICollection<PowerProgression> PowerProgressions { get; set; }
 
         public Power() {
         

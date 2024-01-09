@@ -7,8 +7,8 @@ namespace KotorsGate.Domain.Entities.Permissions
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public virtual IEnumerable<User> Users { get; set; }
-        public virtual IEnumerable<Permission> Permissions { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Permission> Permissions { get; set; }
 
         public Role() {
             this.Users = new List<User>();

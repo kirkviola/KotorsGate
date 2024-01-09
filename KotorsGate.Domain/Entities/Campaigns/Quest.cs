@@ -9,9 +9,9 @@ namespace KotorsGate.Domain.Entities.Campaigns
         public string Description { get; set; } = string.Empty;
         public bool IsMainQuest { get; set; } = false;
 
-        public virtual IEnumerable<QuestObjective> QuestObjectives { get; set; }
-        public virtual IEnumerable<Campaign> Campaigns { get; set; }
-        public virtual IEnumerable<QuestDialogue> QuestDialogues { get; set; }
+        public virtual ICollection<QuestObjective> QuestObjectives { get; set; }
+        public virtual ICollection<Campaign> Campaigns { get; set; }
+        public virtual ICollection<QuestDialogue> QuestDialogues { get; set; }
 
         public Quest() {
             this.Campaigns = new List<Campaign>();

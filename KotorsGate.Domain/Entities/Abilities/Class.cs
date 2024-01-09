@@ -9,8 +9,8 @@ namespace KotorsGate.Domain.Entities.Abilities
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public virtual IEnumerable<ClassFeat> ClassFeats { get; set; }
-        public virtual IEnumerable<ClassPower> ClassPowers { get; set; }
+        public virtual ICollection<ClassFeat> ClassFeats { get; set; }
+        public virtual ICollection<ClassPower> ClassPowers { get; set; }
         public Class() { }
     }
 }

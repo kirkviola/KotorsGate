@@ -7,7 +7,7 @@
 
         public Location Location { get; set; }
 
-        public virtual IEnumerable<BattlefieldSquare> BattlefieldSquares { get; set; }
+        public virtual ICollection<BattlefieldSquare> BattlefieldSquares { get; set; }
 
         public Battlefield() {
             this.Location = new Location();

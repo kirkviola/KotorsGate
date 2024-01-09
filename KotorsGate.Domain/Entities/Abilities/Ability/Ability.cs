@@ -8,7 +8,7 @@ namespace KotorsGate.Domain.Entities.Abilities.Ability
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public virtual IEnumerable<CharacterAbility> CharacterAbilities { get; set; }
+        public virtual ICollection<CharacterAbility> CharacterAbilities { get; set; }
 
         public Ability() {
             this.CharacterAbilities = new List<CharacterAbility>();

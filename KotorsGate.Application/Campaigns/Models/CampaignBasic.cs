@@ -6,9 +6,9 @@ namespace KotorsGate.Application.Campaigns.Models
     public class CampaignBasic 
     {
         public Campaign Campaign {  get; set; }
-        public IEnumerable<Planet> Planets { get; set; }
+        public ICollection<Planet> Planets { get; set; }
 
-        public CampaignBasic(Campaign campaign, IEnumerable<Planet> planets) {
+        public CampaignBasic(Campaign campaign, ICollection<Planet> planets) {
             Campaign = campaign;
             Planets = planets;
         }

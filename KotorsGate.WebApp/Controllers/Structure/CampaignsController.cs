@@ -38,16 +38,16 @@ namespace KotorsGate.WebApp.Controllers.Structure
 
         [Authorize(Policy = SecurityRule.CampaignCreator)]
         [HttpPost]
-        public async Task<IActionResult> CreateCampaign(Campaign campaign) {
+        public async Task<IActionResult> CreateCampaign(CampaignBasic campaign) {
             
             if (campaign == null) {
                 return BadRequest();
             }
 
             try {
-                await _createNewCampaign.CreateAsync(campaign);
+                var created = await _createNewCampaign.CreateAsync(campaign);
 
-                return CreatedAtAction("GetOneById", new { id = campaign.Id }, campaign);
+                return CreatedAtAction("GetOneById", new { id = created.Id }, campaign);
             } catch (Exception ex) {
                 return BadRequest(ex);
             }

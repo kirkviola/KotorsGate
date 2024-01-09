@@ -8,7 +8,7 @@ namespace KotorsGate.Domain.Entities.Characters
         public int UserCampaignId { get; set; }
 
         public UserCampaign UserCampaign { get; set; }
-        public IEnumerable<CharacterParty> CharacterParties { get; set; }
+        public ICollection<CharacterParty> CharacterParties { get; set; }
 
         public Party() 
         {

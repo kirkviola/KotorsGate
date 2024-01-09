@@ -10,10 +10,11 @@ namespace KotorsGate.Domain.Entities.Locations
         public int CampaignId { get; set; }
 
         [JsonIgnore]
-        public Campaign? Campaign { get; set; }
-        public Planet? Planet { get; set; }
+        public Campaign Campaign { get; set; }
         [JsonIgnore]
-        public virtual IEnumerable<Location> Locations { get; set; }
+        public Planet Planet { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Location> Locations { get; set; }
 
         public CampaignPlanet() {
             this.Locations = new List<Location>();
