@@ -33,6 +33,8 @@ namespace KotorsGate.Application.Campaigns
                                              Description = campaign.Campaign.Description,
                                              Planets = planets };
 
+            _context.Campaigns.Add(newCampaign);
+
             await _context.SaveChangesAsync();
 
             return newCampaign;

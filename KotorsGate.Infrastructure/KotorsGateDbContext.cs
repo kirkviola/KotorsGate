@@ -74,15 +74,13 @@ namespace KotorsGate.Infrastructure
 
         public virtual DbSet<ItemClassification> ItemClassifications { get; set; }
 
-        public virtual DbSet<Battlefield> Battlefields { get; set; }
-
-        public virtual DbSet<BattlefieldSquare> BattlefieldSquares { get; set; }
-
         public virtual DbSet<CampaignPlanet> CampaignPlanets { get; set; }
 
         public virtual DbSet<Location> Locations { get; set; }
 
         public virtual DbSet<LocationMap> LocationsMaps { get; set; }
+
+        public virtual DbSet<LocationSquare> LocationsSquares { get; set; }
 
         public virtual DbSet<Planet> Planets { get; set; }
 
@@ -467,32 +465,23 @@ namespace KotorsGate.Infrastructure
                     .OnDelete(DeleteBehavior.Cascade);              
             });
 
+            builder.Entity<LocationSquare>(ls => {
+                ls.ToTable("LocationSquares");
+                ls.HasKey(l => l.Id);
+                ls.Property(ls => ls.XCoordinate).HasMaxLength(64).IsRequired();
+                ls.Property(ls => ls.YCoordinate).HasMaxLength(64).IsRequired();
+                ls.HasOne(ls => ls.Location)
+                    .WithMany(l => l.LocationSquares)
+                    .HasForeignKey(ls => ls.LocationId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<LocationMap>(map => {
                 map.ToTable("LocationMaps");
                 map.HasKey(l => l.Id);
                 map.HasOne(map => map.Location)
                     .WithMany(l => l.LocationMaps)
                     .HasForeignKey(map => map.LocationId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            builder.Entity<Battlefield>(b => {
-                b.ToTable("Battlefields");
-                b.HasKey(l => l.Id);
-                b.HasOne(b => b.Location)
-                    .WithMany(l => l.Battlefields)
-                    .HasForeignKey(b => b.LocationId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            builder.Entity<BattlefieldSquare>(bs => {
-                bs.ToTable("BattlefieldSquares");
-                bs.HasKey(bs => bs.Id);
-                bs.Property(bs => bs.XCoordinate).HasMaxLength(64).IsRequired();
-                bs.Property(bs => bs.YCoordinate).HasMaxLength(64).IsRequired();
-                bs.HasOne(bs => bs.Battlefield)
-                    .WithMany(b => b.BattlefieldSquares)
-                    .HasForeignKey(bs => bs.BattlefieldId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 

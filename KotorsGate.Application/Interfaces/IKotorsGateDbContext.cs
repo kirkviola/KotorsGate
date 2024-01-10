@@ -45,11 +45,10 @@ namespace KotorsGate.Application.Interfaces
         DbSet<Item> Items { get; }
         DbSet<ItemAttribute> ItemAttributes { get; }
         DbSet<ItemClassification> ItemClassifications { get; }
-        DbSet<Battlefield> Battlefields { get; }
-        DbSet<BattlefieldSquare> BattlefieldSquares { get; }
         DbSet<CampaignPlanet> CampaignPlanets { get; }
         DbSet<Location> Locations { get; }
         DbSet<LocationMap> LocationsMaps { get; }
+        DbSet<LocationSquare> LocationsSquares { get; }
         DbSet<Planet> Planets { get; }
         DbSet<User> Users { get; }
         DbSet<UserCampaign> UserCampaigns { get; }

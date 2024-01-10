@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BackButtonComponent } from '../shared/back-button/back-button.component';
 import { LocationBuilderComponent } from './location-builder/location-builder.component';
 import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
+import { LocationItemComponent } from './location-builder/location-item/location-item.component';
 
 
 
@@ -24,6 +25,7 @@ import { CampaignEditComponent } from './campaign-edit/campaign-edit.component';
     CampaignOverviewComponent,
     LocationBuilderComponent,
     CampaignEditComponent,
+    LocationItemComponent,
   ],
   imports: [
     CommonModule,

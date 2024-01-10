@@ -11,13 +11,13 @@ namespace KotorsGate.Domain.Entities.Locations
 
         [JsonIgnore]
         public CampaignPlanet CampaignPlanet { get; set; }
-        public virtual ICollection<Battlefield> Battlefields { get; set; }
+        public virtual ICollection<LocationSquare> LocationSquares { get; set; }
         public virtual ICollection<LocationMap> LocationMaps { get; set; }
         public virtual ICollection<LocationEnvironment> LocationEnvironments { get; set; }
 
         public Location() {
             this.CampaignPlanet = new CampaignPlanet();
-            this.Battlefields = new List<Battlefield>();
+            this.LocationSquares = new List<LocationSquare>();
             this.LocationMaps = new List<LocationMap>();
             this.LocationEnvironments = new List<LocationEnvironment>();
         }

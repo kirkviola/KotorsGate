@@ -78,6 +78,7 @@ namespace KotorsGate.WebApp
             services.AddScoped<IGetOneCampaignById, GetOneCampaignById>();
             services.AddScoped<IGetOneCampaignByName, GetOneCampaignByName>();
             services.AddScoped<ICreateNewCampaign, CreateNewCampaign>();
+            services.AddScoped<IGetCampaignPlanetsByCampaignId, GetCampaignPlanetsByCampaignId>();
 
             return services;
         }

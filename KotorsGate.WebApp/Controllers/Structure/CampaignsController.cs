@@ -12,11 +12,16 @@ namespace KotorsGate.WebApp.Controllers.Structure
         private readonly IGetAllCampaigns _getAllCampaigns;
         private readonly IGetOneCampaignById _getOneCampaignById;
         private readonly ICreateNewCampaign _createNewCampaign;
+        private readonly IGetCampaignPlanetsByCampaignId _getCampaignPlanetsByCampaignId;
 
-        public CampaignsController(IGetAllCampaigns getAllCampaigns, IGetOneCampaignById getOneCampaignById, ICreateNewCampaign createNewCampaign) {
+        public CampaignsController(IGetAllCampaigns getAllCampaigns, 
+                                   IGetOneCampaignById getOneCampaignById, 
+                                   ICreateNewCampaign createNewCampaign, 
+                                   IGetCampaignPlanetsByCampaignId getCampaignPlanetsByCampaignId) {
             _getAllCampaigns = getAllCampaigns;
             _getOneCampaignById = getOneCampaignById;
             _createNewCampaign = createNewCampaign;
+            _getCampaignPlanetsByCampaignId = getCampaignPlanetsByCampaignId;
         }
 
         [Authorize]
@@ -47,11 +52,18 @@ namespace KotorsGate.WebApp.Controllers.Structure
             try {
                 var created = await _createNewCampaign.CreateAsync(campaign);
 
-                return CreatedAtAction("GetOneById", new { id = created.Id }, campaign);
+                return CreatedAtAction("GetOneById", new { id = created.Id }, created);
             } catch (Exception ex) {
                 return BadRequest(ex);
             }
 
+        }
+
+        [Authorize(Policy = SecurityRule.CampaignCreator)]
+        [HttpGet("campaign-planets/{campaignId}")]
+        public async Task<ActionResult<IEnumerable<CampaignPlanetWithName>>> GetCampaignPlanets(int campaignId) {
+
+            return Ok(await _getCampaignPlanetsByCampaignId.GetAllAsync(campaignId));
         }
     }
 }

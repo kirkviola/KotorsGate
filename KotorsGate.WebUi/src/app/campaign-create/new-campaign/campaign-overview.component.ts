@@ -40,9 +40,9 @@ export class CampaignOverviewComponent implements OnInit {
     this.#campaignService.createNewCampaign(newCampaign)
       .subscribe({
         next: response => {
-          this.campaign = response.campaign;
+          this.campaign = response;
           this.isSaving = false;
-          this.#router.navigate(['/', 'campaign-create', 'locations'], {queryParams: { id: response.campaign.id }});
+          this.#router.navigate(['/', 'campaign-create', 'locations'], {queryParams: { id: response.id }});
         },
         error: err => {
           this.isSaving = false;

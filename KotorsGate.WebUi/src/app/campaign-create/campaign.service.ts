@@ -21,8 +21,12 @@ export class CampaignService {
     return this.#http.get(`${this.basePath}/${id}`) as Observable<CampaignBasic>;
   }
 
-  createNewCampaign(campaign: CampaignBasic): Observable<CampaignBasic> {
-    return this.#http.post(this.basePath, campaign) as Observable<CampaignBasic>;
+  createNewCampaign(campaign: CampaignBasic): Observable<Campaign> {
+    return this.#http.post(this.basePath, campaign) as Observable<Campaign>;
+  }
+
+  getCampaignPlanetsByCampaignId(campaignId: number): Observable<CampaignPlanetWithName[]> {
+    return this.#http.get(`${this.basePath}/campaign-planets/${campaignId}`) as Observable<CampaignPlanetWithName[]>;
   }
 }
 
@@ -35,4 +39,9 @@ export interface Campaign {
 export interface CampaignBasic {
   campaign: Campaign,
   planets: Planet[]
+}
+
+export interface CampaignPlanetWithName {
+  planetName: string;
+  campaignPlanetId: number;
 }

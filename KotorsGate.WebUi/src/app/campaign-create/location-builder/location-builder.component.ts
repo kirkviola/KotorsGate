@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { Campaign, CampaignService } from '../campaign.service';
+import { CampaignService } from '../campaign.service';
+import { Location } from '../location-builder/location.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, throwError } from 'rxjs';
-import { Planet } from 'src/app/admin/planet-home/planet.service';
 
 @Component({
   selector: 'location-builder',
@@ -15,10 +15,10 @@ export class LocationBuilderComponent implements OnInit {
   #route = inject(ActivatedRoute);
 
   @Input()
-  campaign!: Campaign | null;
+  campaignId!: number | null;
   errorMessage!: string | null;
 
-  planets: Planet[] = [];
+  locationEntries: LocationFormEntry[] = [];
 
   isLoading: boolean = false;
 
@@ -30,7 +30,7 @@ export class LocationBuilderComponent implements OnInit {
         const id = params.get('id');
 
         if (id != null) {
-          return this.#campaignService.getOneCampaignById(+id);
+          return this.#campaignService.getCampaignPlanetsByCampaignId(+id);
         } else {
           return throwError(() => {
             const err = new Error('No campaign found');
@@ -40,8 +40,13 @@ export class LocationBuilderComponent implements OnInit {
       }))
       .subscribe({
         next: data => {
-          this.campaign = data.campaign;
-          this.planets = data.planets;
+          this.locationEntries = data.map(it => {
+            return {
+              planetName: it.planetName,
+              campaignPlanetId: it.campaignPlanetId,
+              locations: []
+            } satisfies LocationFormEntry;
+          })
           this.isLoading = false;
         },
         error: err => {
@@ -52,4 +57,10 @@ export class LocationBuilderComponent implements OnInit {
 
   }
 
+}
+
+export interface LocationFormEntry {
+  planetName: string;
+  campaignPlanetId: number;
+  locations: Location[];
 }

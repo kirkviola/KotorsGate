@@ -1,17 +1,16 @@
 ﻿namespace KotorsGate.Domain.Entities.Locations
 {
-    public class Battlefield
+    public class LocationSquare
     {
         public int Id { get; set; }
         public int LocationId { get; set; }
+        public int XCoordinate { get; set; }
+        public int YCoordinate { get; set; }
 
         public Location Location { get; set; }
 
-        public virtual ICollection<BattlefieldSquare> BattlefieldSquares { get; set; }
-
-        public Battlefield() {
+        public LocationSquare() {
             this.Location = new Location();
-            this.BattlefieldSquares = new List<BattlefieldSquare>();
         }
     }
 }
