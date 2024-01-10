@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Location } from '../location.service';
 
 @Component({
   selector: 'location-item',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class LocationItemComponent {
 
+  @Input()
+  location: Location | undefined;
+
+  mapConfig: MapConfig = { totalHorizontal: 1, totalVertical: 1 };
+
+}
+
+interface MapConfig {
+  totalHorizontal: number;
+  totalVertical: number;
 }

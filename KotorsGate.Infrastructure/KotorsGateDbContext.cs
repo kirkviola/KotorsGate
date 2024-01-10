@@ -468,8 +468,11 @@ namespace KotorsGate.Infrastructure
             builder.Entity<LocationSquare>(ls => {
                 ls.ToTable("LocationSquares");
                 ls.HasKey(l => l.Id);
-                ls.Property(ls => ls.XCoordinate).HasMaxLength(64).IsRequired();
-                ls.Property(ls => ls.YCoordinate).HasMaxLength(64).IsRequired();
+                ls.Property(ls => ls.XCoordinate)
+                    .HasMaxLength(200).IsRequired().HasDefaultValue(1);
+                ls.Property(ls => ls.YCoordinate)
+                    .HasMaxLength(200).IsRequired().HasDefaultValue(1);
+                ls.Property(ls => ls.IsTraversable).HasDefaultValue(false);
                 ls.HasOne(ls => ls.Location)
                     .WithMany(l => l.LocationSquares)
                     .HasForeignKey(ls => ls.LocationId)

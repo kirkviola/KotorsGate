@@ -21,4 +21,5 @@ export interface Location {
 export interface LocationSquare {
   XCoordinate: number;
   YCoordinate: number;
+  isTraversable: boolean;
 }

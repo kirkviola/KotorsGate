@@ -1,1 +1,18 @@
-<p>location-item works!</p>
+<div>
+  @if (location != null) {
+    <mat-form-field>
+      <mat-label>Location Name</mat-label>
+      <input [(ngModel)]="location.name" matInput placeholder="Name" type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Horizontal Total Squares</mat-label>
+      <input [(ngModel)]="mapConfig.totalHorizontal" matInput type="number">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Vertical Total Squares</mat-label>
+      <input [(ngModel)]="mapConfig.totalVertical" matInput type="number">
+    </mat-form-field>
+  }
+</div>
